@@ -2,7 +2,7 @@
 
 const BaseController = require("./BaseController")
 class UserFollowController extends BaseController {
-  //获取某个用户的关注列表
+  //获取某个用户的关注列表;
   async getFollow(){
     const {ctx} = this
     const {userId} = ctx.request.query

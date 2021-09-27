@@ -1,0 +1,211 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/forum/index/index",
+			"style": {
+				"enablePullDownRefresh": true,
+				"app-plus":{
+					"pullToRefresh":{
+						"color":"#d81e06"
+					}
+				}
+				// "mp-alipay":{
+				// 	"allowsBounceVertical":"YES"
+				// }
+				
+			}
+		},
+		{
+			"path": "pages/music/index/index",
+			"style": {
+			}
+		},
+		{
+            "path" : "pages/forum/publicPost/publicPost",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false,
+				"app-plus":{
+					"softinputMode":"adjustResize"
+				}
+            }
+        }
+        ,{
+            "path" : "pages/forum/postDetail/postDetail",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false,
+				"app-plus":{
+					"softinputMode":"adjustResize"
+				}
+            }
+            
+        }
+        ,{
+            "path" : "pages/forum/Comment/Comment",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        },
+		{
+		    "path" : "pages/center/index/index",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		}
+        ,{
+            "path" : "pages/center/Login/Login",
+            "style" :                                                                                    
+            {
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/center/Register/Register",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/music/Detail/Detail",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false,
+                "app-plus":{
+                	"softinputMode":"adjustResize"
+                }
+            }
+            
+        }
+        ,{
+            "path" : "pages/music/Recommend/Recommend",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/music/Singer/Singer",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/music/RankingList/RankingList",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/music/SingerDetail/SingerDetail",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/music/MusicPlay/MusicPlay",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/music/MusicPlayFull/MusicPlayFull",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/forum/ReplayComment/ReplayComment",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+    ],
+	"easycom": {
+		"^u-(.*)": "uview-ui/components/u-$1/u-$1.vue"
+	},
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8",
+		"app-plus":{
+			"titleNView":false
+		}
+	},
+	"tabBar": {
+		"color": "#707070",
+		"selectedColor": "#d81e06",
+		"borderStyle": "black",
+		"backgroundColor": "#ffffff",
+		"fontSize":"24upx",
+		"list": [{
+			"pagePath": "pages/forum/index/index",
+			"iconPath":"static/forum.png",
+			"selectedIconPath":"static/forumS.png",
+			"text": "社区"
+		}, 
+		{
+			"pagePath": "pages/music/index/index",
+			"iconPath":"static/music.png",
+			"selectedIconPath":"static/musicS.png",
+			"text": "音乐"
+		},
+		{
+			"pagePath": "pages/video/index/index",
+			"iconPath":"static/video.png",
+			"selectedIconPath":"static/videoS.png",
+			"text": "视频"
+		},
+		{
+			"pagePath": "pages/center/index/index",
+			"iconPath":"static/center.png",
+			"selectedIconPath":"static/centerS.png",
+			"text": "中心"
+		}
+		]
+	},
+	"condition" : { //模式配置，仅开发期间生效
+		"current": 0, //当前激活的模式(list 的索引项)
+		"list": [
+			{
+				"name": "", //模式名称
+				"path": "", //启动页面，必选
+				"query": "" //启动参数，在页面的onLoad函数里面得到
+			}
+		]
+	}
+}

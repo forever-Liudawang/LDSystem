@@ -1,0 +1,96 @@
+'use strict';
+const BaseController = require("./BaseController")
+const sendToWormhole = require('stream-wormhole');
+//故名思意 异步二进制 写入流
+// const awaitWriteStream = require('await-stream-ready').write;
+const path = require("path")
+const fs = require("fs")
+class PostController extends BaseController {
+  async uploadFile(){
+    const { ctx,logger,config} = this;
+    const stream = await ctx.getFileStream()
+    const filename = new Date().getTime() + path.extname(stream.filename).toLocaleLowerCase();
+    const target = path.join(this.config.baseDir, 'app/public', filename);
+    const writeStream = fs.createWriteStream(target);
+    const baseURl = config.$baseURL
+    try {
+        stream.pipe(writeStream)
+        ctx.body = this.success(baseURl + '/static/' + filename);
+    } catch (err) {
+        //如果出现错误，关闭管道
+        await sendToWormhole(stream);
+        throw err;
+    }
+  }
+
+  async insert(){
+    const { ctx,logger} = this;
+    const post = ctx.request.body;
+    const res = await ctx.service.post.insert(post)
+    ctx.body = this.success(res)
+  }
+
+  /**
+   * 获取帖子 并判断用户是否点亮
+   */
+  async getList(){
+    const { ctx,logger} = this;
+    const {userId,cateId} = ctx.request.query
+    let resList = []
+    let postList = await ctx.model.Post.find({cateId})
+    resList = postList
+    let likePostArr = []
+    if(userId){
+      const userPost = await ctx.model.UserPost.find({userId})
+      likePostArr = userPost && userPost[0] && userPost[0].postIdlikeArr;
+    }
+    resList = postList.map(item=>{
+      let lighted = false
+      if(likePostArr.indexOf(item._id)>-1){
+        lighted = true
+      }
+      return {
+        data:item,
+        lighted
+      }
+    })
+    ctx.body = this.success(resList)
+  }
+  //获取某一条帖子数据
+  async getPostById(){
+    const {ctx} = this
+    const {postId,userId} = ctx.request.query;
+    const res = await ctx.model.Post.find({_id:postId})
+    let likePostArr = []
+    let resp = {
+      data:res[0],
+      lighted:false
+    };
+    if(userId){
+      const userPost = await ctx.model.UserPost.find({userId})
+      likePostArr = userPost && userPost[0] && userPost[0].postIdlikeArr;
+    }
+    if(likePostArr.indexOf(res[0]._id)>-1){
+      resp.lighted = true
+    }
+    ctx.body = this.success(resp);
+  }
+  async light(){
+    const {ctx} = this;
+    const {postId,userId} = ctx.request.body
+    await ctx.model.Post.updateOne({_id:postId},{$inc:{light:1}})
+    await ctx.model.UserPost.updateOne({userId},{$push:{"postIdlikeArr":postId}})
+    await ctx.model.PostUser.updateOne({postId},{$push:{"userIdlikeArr":userId}})
+    ctx.body = this.success()
+  }
+  async unLight(){
+    const {ctx} = this;
+    const {postId,userId} = ctx.request.body
+    await ctx.model.Post.updateOne({_id:postId},{$inc:{light:-1}})
+    await ctx.model.UserPost.updateOne({userId},{$pull:{"postIdlikeArr":postId}})
+    await ctx.model.PostUser.updateOne({postId},{$pull:{"userIdlikeArr":userId}})
+    ctx.body = this.success()
+  }
+}
+
+module.exports = PostController;

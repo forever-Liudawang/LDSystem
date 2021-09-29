@@ -59,7 +59,6 @@
 			},
 			handleLight(){},
 			handleReplay(){
-				console.log(122)
 				this.$emit("onReplay",this.model)
 			},
 			handleComment(){

@@ -11,7 +11,7 @@ const cateList = [
 					{value:"3",label:"篮球"},
 					{value:"4",label:"情感"},
 					{value:"5",label:"生活"},
-					]
+				]
 const songUrl = (id)=>{
 	return `https://music.163.com/song/media/outer/url?id=${id}.mp3`
 }

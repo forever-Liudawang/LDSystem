@@ -75,6 +75,14 @@ class PostController extends BaseController {
     }
     ctx.body = this.success(resp);
   }
+
+  //获取我的帖子
+  async getMyPost(){
+    const {ctx} = this
+    const {userId} = ctx.request.query
+    const res = await ctx.model.Post.find({userId})
+    ctx.body = this.success(res)
+  }
   async light(){
     const {ctx} = this;
     const {postId,userId} = ctx.request.body

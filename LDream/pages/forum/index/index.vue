@@ -87,7 +87,6 @@
 			},
 			stopMove(){},
 			handleRefresh(){
-				console.log("refresh")
 				setTimeout(()=>{
 					this.triggered = false
 				},2000)

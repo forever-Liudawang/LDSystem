@@ -17,6 +17,7 @@ module.exports = app => {
   router.post('/post/light', controller.post.light);
   router.post('/post/unLight', controller.post.unLight);
   router.get('/post/getPostById', controller.post.getPostById);
+  router.get('/post/getMyPost', controller.post.getMyPost);
 
   
   router.get("/music/getBannerList",controller.music.getBannerList)

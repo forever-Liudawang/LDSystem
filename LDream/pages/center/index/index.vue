@@ -39,7 +39,7 @@
 			<view class=" bg-white card">
 				<text class="title">帖子服务</text>
 				<view class="d-flex justify-around mt-2 p-2">
-					<view class="d-flex flex-column align-center" v-if="isLogined" >
+					<view class="d-flex flex-column align-center" v-if="isLogined" @click="handleToMyPost">
 						<u-image src="/static/myPost.png"  width="48upx" height="48upx"  shape="circle"></u-image>
 						<text class="mt-2">我的发帖</text>
 					</view>
@@ -126,6 +126,12 @@
 			},
 			handleLogout(){
 				this.logout();
+			},
+			handleToMyPost(){
+				uni.navigateTo({
+					url:"/pages/center/MyPost/MyPost",
+					animationType: 'slide-in-bottom',
+				})
 			}
 		}
 	}

@@ -118,9 +118,9 @@
 			stop(){
 			},
 			handleTo(){
-				this.setCurrentPost(this.posts)
+				// this.setCurrentPost(this.posts)
 				uni.navigateTo({
-					url:"/pages/forum/postDetail/postDetail"
+					url:"/pages/forum/postDetail/postDetail?postId=" + this.posts.data._id
 				})
 			},
 			async handleLight(){

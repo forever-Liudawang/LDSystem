@@ -43,7 +43,7 @@
 						<u-image src="/static/myPost.png"  width="48upx" height="48upx"  shape="circle"></u-image>
 						<text class="mt-2">我的发帖</text>
 					</view>
-					<view class="d-flex flex-column align-center">
+					<view class="d-flex flex-column align-center" @click="handleToMyRecommend">
 						<u-image src="/static/recommentRecord.png"  width="48upx" height="48upx"  shape="circle"></u-image>
 						<text class="mt-2">我的推荐</text>
 					</view>
@@ -130,6 +130,12 @@
 			handleToMyPost(){
 				uni.navigateTo({
 					url:"/pages/center/MyPost/MyPost",
+					animationType: 'slide-in-bottom',
+				})
+			},
+			handleToMyRecommend(){
+				uni.navigateTo({
+					url:"/pages/center/MyRecommend/MyRecommend",
 					animationType: 'slide-in-bottom',
 				})
 			}

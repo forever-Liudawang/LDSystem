@@ -151,16 +151,31 @@
 				isReplay:false,
 				commentTitle:"发布评论",
 				replyModel:null,
-				total:0
+				total:0,
+				postId:null,
+				curPost:{data:{},lighted:false}
 			}
 		},
 		computed:{
-			...mapState(["curPost"]),
+			// ...mapState(["curPost"]),
 			
 		},
+		watch:{
+			curPost(){
+				console.log("changeing")
+				this.hadFollowing()
+			}
+		},
 		mounted(){
-			this.hadFollowing()
-			this.handleGetComments()
+			// this.hadFollowing()
+		},
+		onLoad(options){
+			console.log(options)
+			const {postId} = options
+			this.postId = postId
+			console.log(postId,"postId====")
+			this.getPostData(postId)
+			this.handleGetComments(postId)
 		},
 		methods: {
 			...mapMutations(["setCurrentPost"]),
@@ -322,9 +337,9 @@
 					}
 				})
 			},
-			async handleGetComments(){
+			async handleGetComments(pId){
 				const data = {
-					postId:  this.curPost.data._id,
+					postId:  pId?pId:this.curPost.data._id,
 					pageIndex: this.pageIndex,
 					sortType:this.sortType.value
 				}
@@ -369,10 +384,12 @@
 					})
 				}
 			},
-			async getPostData(){
-				const resp = await this.$http({url:"/post/getPostById",data:{postId:this.curPost.data._id,userId:this.$user._id},method:"get"})
+			async getPostData(pId){ 
+				const resp = await this.$http({url:"/post/getPostById",data:{postId:(pId?pId:this.postId),userId:this.$user._id},method:"get"})
 				confirm(resp,(data)=>{
-					this.setCurrentPost(data)
+					console.log(data,"data")
+					this.curPost = data;
+					// this.setCurrentPost(data)
 				})
 			}
 		}

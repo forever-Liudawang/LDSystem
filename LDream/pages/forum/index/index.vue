@@ -81,6 +81,7 @@
 				}
 				const resp = await this.$http({url:"/post/getPost",method:"get",data})
 				confirm(resp,(data)=>{
+					console.log(data,"data==>>")
 					this.posts = data || []
 					cb && cb();
 				})

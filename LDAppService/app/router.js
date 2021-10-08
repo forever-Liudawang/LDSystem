@@ -18,7 +18,7 @@ module.exports = app => {
   router.post('/post/unLight', controller.post.unLight);
   router.get('/post/getPostById', controller.post.getPostById);
   router.get('/post/getMyPost', controller.post.getMyPost);
-
+  router.get("/post/getRecommend",controller.post.getRecommend)
   
   router.get("/music/getBannerList",controller.music.getBannerList)
   router.get("/music/getRecommendList",controller.music.getRecommendList)

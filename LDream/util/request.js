@@ -19,11 +19,12 @@ const request = (options)=>{
 				},
 				fail:(err)=>{
 					console.log(err)
-					if(err == "request:fail timeout"){
+					if(err.errMsg == "request:fail timeout"){
 						uni.hideLoading()
 						uni.showToast({
 							title:"请求超时",
-							duration:2000
+							duration:2000,
+							icon:'none'
 						})
 					}else{
 						uni.hideLoading()

@@ -83,6 +83,7 @@ class PostController extends BaseController {
     const res = await ctx.model.Post.find({userId})
     ctx.body = this.success(res)
   }
+  //点亮
   async light(){
     const {ctx} = this;
     const {postId,userId} = ctx.request.body
@@ -98,6 +99,18 @@ class PostController extends BaseController {
     await ctx.model.UserPost.updateOne({userId},{$pull:{"postIdlikeArr":postId}})
     await ctx.model.PostUser.updateOne({postId},{$pull:{"userIdlikeArr":userId}})
     ctx.body = this.success()
+  }
+  //获取用户推荐的帖子
+  async getRecommend(){
+    const  {ctx} = this
+    const {userId} = ctx.request.query
+    this.logger.info(userId,"userId")
+    const resp = await ctx.model.UserPost.find({userId})
+    //根据数组查询帖子
+    if(resp && resp[0].postIdlikeArr){
+
+    }
+    ctx.body = this.success(resp)
   }
 }
 

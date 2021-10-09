@@ -10,6 +10,11 @@ module.exports = app => {
   router.get('/user/getUser', controller.user.getUser);
   router.get('/user/userNameIsRepeat', controller.user.userNameIsRepeat);
   router.post('/user/login', controller.user.login);
+  router.post('/user/updateAvatar', controller.user.updateAvatar);
+  router.post('/user/updateUserName', controller.user.updateUserName);
+  router.post('/user/updateSign', controller.user.updateSign);
+  
+  router.get('/user/getUserById', controller.user.getUserById);
   
   router.post('/post/uploadFile', controller.post.uploadFile);
   router.post('/post/insert', controller.post.insert);

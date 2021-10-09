@@ -8,7 +8,7 @@
 						<u-image src="/static/logout.png"  width="52upx" height="52upx"  shape="circle"></u-image>
 					</view>
 					<u-image :src="userInfo.avatar"  width="180upx" height="180upx"  shape="circle"></u-image>
-					<view class="p-2 edit d-flex justify-center align-center">
+					<view class="p-2 edit d-flex justify-center align-center" @click="handleEditInfo">
 						<u-icon name="edit-pen" color="#fffbf4" size="40" ></u-icon>
 					</view>
 				</view>
@@ -47,9 +47,9 @@
 						<u-image src="/static/recommentRecord.png"  width="48upx" height="48upx"  shape="circle"></u-image>
 						<text class="mt-2">我的推荐</text>
 					</view>
-					<view class="d-flex flex-column align-center">
+					<view class="d-flex flex-column align-center" @click="handleToMyFollow">
 						<u-image src="/static/history.png"  width="48upx" height="48upx"  shape="circle"></u-image>
-						<text class="mt-2">我的浏览</text>
+						<text class="mt-2">我的关注</text>
 					</view>
 				</view>
 			</view>
@@ -136,6 +136,18 @@
 			handleToMyRecommend(){
 				uni.navigateTo({
 					url:"/pages/center/MyRecommend/MyRecommend",
+					animationType: 'slide-in-bottom',
+				})
+			},
+			handleToMyFollow(){
+				uni.navigateTo({
+					url:"/pages/center/MyFollow/MyFollow",
+					animationType: 'slide-in-bottom',
+				})
+			},
+			handleEditInfo(){
+				uni.navigateTo({
+					url:"/pages/center/EditorInfo/EditorInfo",
 					animationType: 'slide-in-bottom',
 				})
 			}

@@ -171,6 +171,33 @@
             }
             
         }
+        ,{
+            "path" : "pages/center/MyFollow/MyFollow",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/center/FollowPage/FollowPage",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/center/EditorInfo/EditorInfo",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"easycom": {
 		"^u-(.*)": "uview-ui/components/u-$1/u-$1.vue"

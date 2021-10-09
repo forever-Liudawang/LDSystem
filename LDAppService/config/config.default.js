@@ -32,8 +32,8 @@ module.exports = appInfo => {
   };
   config.mongoose = {
     client: {
-      url: 'mongodb://localhost:27017/LDream',
-      // url: 'mongodb://localhost:27017/LDSystem',
+      // url: 'mongodb://localhost:27017/LDream',
+      url: 'mongodb://localhost:27017/LDSystem',
       options: {
         useNewUrlParser: true,
       },

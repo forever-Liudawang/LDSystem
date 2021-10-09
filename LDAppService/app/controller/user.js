@@ -25,6 +25,39 @@ class UserController extends BaseController {
     const res = await this.ctx.service.user.login(userModel)
     this.ctx.body = res;
   }
+  //获取用户信息
+  async getUserById(){
+    const {ctx} = this
+    const {userId} = ctx.request.query
+    const res = await ctx.model.User.find({_id:userId})
+    if(res && res[0]){
+      ctx.body = this.success(res[0])
+    }else{
+      ctx.body = this.error()
+    }
+  }
+  //更新头像
+  async updateAvatar(){
+    const { ctx,logger} = this;
+    const {imgSrc,userId} = ctx.request.body
+    const res = await ctx.model.User.updateOne({_id:userId},{"$set":{"avatar":imgSrc}})
+    ctx.body = this.success()
+  }
+  //更新用户名
+  async updateUserName(){
+    const { ctx,logger} = this;
+    const {userName,userId} = ctx.request.body
+    const res = await ctx.model.User.updateOne({_id:userId},{"$set":{userName}})
+    ctx.body = this.success()
+  }
+  //更新签名
+  async updateSign(){
+    const { ctx,logger} = this;
+    const {sign,userId} = ctx.request.body
+    const res = await ctx.model.User.updateOne({_id:userId},{"$set":{sign}})
+    ctx.body = this.success()
+
+  }
 }
 
 module.exports = UserController;

@@ -107,10 +107,13 @@ class PostController extends BaseController {
     this.logger.info(userId,"userId")
     const resp = await ctx.model.UserPost.find({userId})
     //根据数组查询帖子
-    if(resp && resp[0].postIdlikeArr){
-
+    if(resp && resp[0] && resp[0].postIdlikeArr){
+      const list = await ctx.model.Post.find({"_id":{"$in":resp[0].postIdlikeArr}});
+      this.logger.info(list,"list")
+      ctx.body = this.success(list)
+    }else{
+      ctx.body = this.success([])
     }
-    ctx.body = this.success(resp)
   }
 }
 

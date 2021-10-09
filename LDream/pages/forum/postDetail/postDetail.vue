@@ -1,16 +1,5 @@
 <template>
 	<view class="pt-5 postDetail d-flex flex-column">
-		<!-- <u-sticky offset-top="0" >
-			<view class=" p-2  d-flex justify-between">
-				<view class="" @click="handleBack" >
-					<u-icon name="arrow-left" size="46"></u-icon>
-				</view>
-				<text>{{cateName()}}</text>
-				<view class="">
-					<u-icon name="more-dot-fill" size="46"></u-icon>
-				</view>
-			</view>
-		</u-sticky> -->
 		<view class="bar">
 			<u-navbar back-text="返回" :title="cateName()" :is-fixed="true"></u-navbar>
 		</view>
@@ -39,7 +28,6 @@
 				</view>
 			</view>
 			<view class="content p-2 font-sm">
-				<!-- <rich-text :nodes="curPost.data.content"></rich-text> -->
 				<u-parse :html="curPost.data.content"></u-parse>
 			</view>
 			<view class="w-full bg-grey" style="height: 36upx;">

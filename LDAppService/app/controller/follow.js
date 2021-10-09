@@ -8,7 +8,8 @@ class UserFollowController extends BaseController {
     const {userId} = ctx.request.query
     const res = await ctx.model.UserFollow.find({userId})
     if(res && res[0] && res[0]["followArr"]){
-        ctx.body = this.success(res[0]["followArr"])
+        const list = await ctx.model.User.find({"_id":{"$in":res[0]["followArr"]}},{"passWord":0});
+        ctx.body = this.success(list)
     }else{
         ctx.body = this.success([])
     }

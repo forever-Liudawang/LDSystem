@@ -15,9 +15,10 @@ class MusciController extends BaseController {
   async getRecommendList() {
     const { ctx,config,logger } = this;
     const getRecommendList = config.musicApi.getRecommentList
+    const {pageSize=9,pageIndex=0} = ctx.request.query
     const data = {
-        limit: 30,
-        // offset: query.offset || 0,
+        limit: pageSize,
+        offset: pageIndex * pageSize,
         total: true,
         n: 1000,
     }

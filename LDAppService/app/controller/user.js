@@ -56,7 +56,13 @@ class UserController extends BaseController {
     const {sign,userId} = ctx.request.body
     const res = await ctx.model.User.updateOne({_id:userId},{"$set":{sign}})
     ctx.body = this.success()
-
+  }
+  //修改密码 
+  async updatePsd(){
+    const { ctx,logger} = this;
+    const {psd,userId} = ctx.request.body
+    const res = await ctx.model.User.updateOne({_id:userId},{"$set":{passWord:psd}})
+    ctx.body = this.success()
   }
 }
 

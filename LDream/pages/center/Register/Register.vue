@@ -90,7 +90,6 @@
 		methods: {
 			register(){
 				this.$refs.registerRef.validate(async valid => {
-					console.log(valid)
 					if (valid) {
 						const data = {userName:this.registerModel.account,passWord:this.registerModel.password}
 						const resp = await this.$http({url:"/user/insert",data})

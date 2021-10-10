@@ -1,5 +1,5 @@
-// const BaseURL = "http://192.168.1.90:7001"
-const BaseURL = "http://localhost:7001"
+const BaseURL = "http://192.168.1.90:7001"
+// const BaseURL = "http://localhost:7001"
 const request = (options)=>{
 	return new Promise((resolve,reject)=>{
 			uni.request({
@@ -15,7 +15,7 @@ const request = (options)=>{
 						})
 						uni.hideLoading()
 					}
-					resolve(res);
+					resolve(res)
 				},
 				fail:(err)=>{
 					console.log(err)

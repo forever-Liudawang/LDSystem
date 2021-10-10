@@ -13,7 +13,7 @@ module.exports = app => {
   router.post('/user/updateAvatar', controller.user.updateAvatar);
   router.post('/user/updateUserName', controller.user.updateUserName);
   router.post('/user/updateSign', controller.user.updateSign);
-  
+  router.post('/user/updatePsd', controller.user.updatePsd);
   router.get('/user/getUserById', controller.user.getUserById);
   
   router.post('/post/uploadFile', controller.post.uploadFile);

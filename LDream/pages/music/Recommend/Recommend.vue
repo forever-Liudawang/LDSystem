@@ -72,7 +72,11 @@
 				})
 				const resp = await this.$http({
 					url: "/music/getRecommendList",
-					method: "get"
+					method: "get",
+					data:{
+						pageIndex:0,
+						pageSize:9
+					}
 				})
 				confirm(resp,(data)=>{
 					uni.hideLoading()

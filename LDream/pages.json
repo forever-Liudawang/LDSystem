@@ -6,7 +6,16 @@
 				"enablePullDownRefresh": true,
 				"app-plus":{
 					"pullToRefresh":{
-						"color":"#d81e06"
+						"color":"#d81e06",
+						"contentdown": {
+							"caption": "刷新"
+						},
+						"contentover": {
+							"caption": "释放可刷新自定义文本"
+						},
+						"contentrefresh": {
+							"caption": "正在刷新自定义文本"
+						}
 					}
 				}
 				// "mp-alipay":{
@@ -18,6 +27,12 @@
 		{
 			"path": "pages/music/index/index",
 			"style": {
+				// "enablePullDownRefresh": true,
+				// "app-plus":{
+				// 	"pullToRefresh":{
+				// 		"color":"#d81e06"
+				// 	}
+				// }
 			}
 		},
 		{
@@ -95,9 +110,13 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
+				"enablePullDownRefresh": true,
+				"app-plus":{
+					"pullToRefresh":{
+						"color":"#d81e06"
+					}
+				}
             }
-            
         }
         ,{
             "path" : "pages/music/Singer/Singer",

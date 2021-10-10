@@ -16,7 +16,7 @@
 			</u-cell-group>
 		</view>
 		<view>
-			<u-modal v-model="showModal" @confirm="handleConfirm" @cancel="imgSrc = null" :title="title" width="96%" :show-cancel-button="true">
+			<u-modal v-model="showModal" @confirm="handleConfirm" @cancel="imgSrc = null" :title="title" width="86%" :show-cancel-button="true">
 				<view class="slot-content p-4">
 					<view class=" d-flex justify-center align-center" v-if="type==1">
 						<text>选择头像</text>
@@ -40,20 +40,11 @@
 						>
 						</u-field>
 					</view>
-					<view class="" v-if="type == 4">
-						<u-field
-							v-model="psd"
-							label="新密码"
-							required
-						>
-						</u-field>
-						<u-field
-							v-model="confirmPsd"
-							label="确认密码"
-							required
-							error-message="两次密码不一致"
-						>
-						</u-field>
+					<view class="" v-show="type == 4">
+						<u-form ref="psdRef" :model="psdModel">
+							<u-form-item left-icon="lock-opened-fill" label="密码" prop="psd"><u-input v-model="psdModel.psd" type="password" /></u-form-item>
+							<u-form-item left-icon="lock-fill" label="确认密码" prop="confirmPsd"><u-input v-model="psdModel.confirmPsd" type="password" /></u-form-item>
+						</u-form>
 					</view>
 				</view>
 			</u-modal>
@@ -76,8 +67,35 @@
 				userName:"",
 				sign:"",
 				userInfo:{},
-				psd:"",
-				confirmPsd:""
+				psdModel:{
+					psd:"",
+					confirmPsd:""
+				},
+				rules:{
+					psd: [
+						{
+							required: true,
+							message: '请输入密码', 
+							trigger: ['blur'],
+						}
+					],
+					confirmPsd:[
+						{
+							required: true,
+							message: '请确认密码',
+							trigger: ['blur', 'change'],
+						},
+						{
+							validator:(rule, value, callback)=>{
+								if(value!=this.psdModel.psd){
+									return false
+								}
+								return true
+							},
+							message: '两次密码不一致'
+						}
+					]
+				}
 			}
 		},
 		computed:{
@@ -98,15 +116,18 @@
 		},
 		mounted(){
 			this.getUserInfo();
+			console.log(this.$refs,"refs===")
 		},
 		async onUnload(){
+			//返回中心页重新掉一遍解耦更新数据（防止数据改动没有同步）
+			if(!this.$user)return
 			const resp = await this.$http({url:"/user/getUserById",data:{userId:this.$user._id},method:"get"})
 			confirm(resp,data=>{
 				this.login(data)
 			})
 		},
 		methods: {
-			...mapMutations(["login"]),
+			...mapMutations(["login","logout"]),
 			handleShowModal(type){
 				this.showModal = true
 				this.type = type
@@ -116,6 +137,10 @@
 					this.userName = this.userInfo.userName
 				}else if(type == 3){
 					this.sign = this.userInfo.sign
+				}else if(type == 4){
+					this.$nextTick(()=>{
+						this.$refs.psdRef.setRules(this.rules);
+					})
 				}
 			},
 			handleUploadAvatar(){
@@ -167,6 +192,25 @@
 					confirm(resp,data=>{
 						this.getUserInfo()
 					})
+				}else if(this.type == 4){
+					this.$refs.psdRef.validate(async valid => {
+						if(valid){
+							const resp = await this.$http({url:"/user/updatePsd",data:{userId:this.$user._id,psd:this.psdModel.psd}})
+							confirm(resp,data=>{
+								setTimeout(()=>{
+									uni.switchTab({
+										url:"/pages/center/index/index",
+									})
+								},2000)
+								this.logout()
+								uni.showToast({
+									title:"请重新登陆",
+									icon:"none"
+								})
+								// this.getUserInfo()
+							})
+						}
+					})
 				}
 			}
 		}
@@ -175,6 +219,13 @@
 
 <style lang="scss">
 .editInfo{
+	/deep/ .u-form-item--left{
+		width: auto !important;
+		flex: none !important;
+	}
+	/deep/ .uni-input-placeholder{
+		color: #fff !important;
+	}
 	.uploadImg{
 		width: 200upx;
 		height: 200upx;

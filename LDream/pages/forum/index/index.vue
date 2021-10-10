@@ -135,7 +135,7 @@
 		}
 		.comments{
 			background: #f5f5f5;
-			margin-top: 224upx;
+			margin-top: 160upx;
 		}
 	}
 </style>

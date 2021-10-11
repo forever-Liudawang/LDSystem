@@ -1,7 +1,7 @@
 <template>
-	<view class="music">
+	<view class="recommend">
 		<view class="content" ref="scroll">
-			<view class="" style="height: 800upx;">
+			<view class="">
 				<view class="banner">
 					<u-swiper :list="bannerList" name="pic" border-radius="0"></u-swiper>
 				</view>
@@ -39,7 +39,8 @@
 		data() {
 			return {
 				bannerList: [],
-				recommendList:null
+				recommendList:null,
+				pageIndex:0
 			}
 		},
 		computed:{
@@ -48,6 +49,9 @@
 					return (val/100000).toFixed(2)
 				}
 			}
+		},
+		onReachBottom(){
+			console.log("bottom")
 		},
 		mounted() {
 			this.handleGetBanner()
@@ -74,13 +78,13 @@
 					url: "/music/getRecommendList",
 					method: "get",
 					data:{
-						pageIndex:0,
+						pageIndex:this.pageIndex,
 						pageSize:9
 					}
 				})
 				confirm(resp,(data)=>{
 					uni.hideLoading()
-					this.recommendList = data || []
+					this.recommendList = this.recommendList ? this.recommendList.concat(data|| []):(data||[]);
 				})
 			},
 			handleToDetail(recomend){
@@ -104,7 +108,7 @@
 </script>
 
 <style lang="scss">
-	.music {
+	.recommend {
 		padding-top: var(--status-bar-height);
 		height: 100%;
 		display: flex;
@@ -131,8 +135,7 @@
 
 		.content {
 			flex: 1;
-			overflow: auto;
-
+			// overflow: auto;
 			.listBox {
 				padding: 10upx 6upx;
 

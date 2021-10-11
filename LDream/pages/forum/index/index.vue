@@ -1,34 +1,22 @@
 <template>
 	<view class="forumIndex d-flex flex-column" @touchmove.stop="()=>{}"  @touch.stop="()=>{}">
 		<!-- <u-sticky :offset-top="0" :index="122" bg-color="#fff"> -->
-			<view class="header" style="background-color: #fff;">
-				<view>
-					<TopBar />
-				</view>
-				<view class="w-full pt-2 pb-2 mt-3 cate">
-					<scroll-view class="w-full scroll-container" scroll-x="true" scroll-with-animation="true">
-						<view class=" d-flex w-full justify-between pl-2 pr-2">
-							<view v-for="item in forumCate" :class="['item',{'active':curCate.id == item.id}]" @click="handleSelectCate(item)">{{item.value}}</view>
-						</view>
-					</scroll-view>
-				</view>
+		<view class="header" style="background-color: #fff;">
+			<view>
+				<TopBar />
 			</view>
-		<!-- </u-sticky> -->
-		<<!-- scroll-view class="comments flex-1"  
-			scroll-y="true" 
-			@scrolltolower="loadMore" 
-			@refresherrefresh="handleRefresh" 
-			refresher-enabled="true"
-			refresher-default-style="black"
-			:refresher-threshold="20"
-			:refresher-triggered="triggered">
-			
-			<Post v-for="item in posts" :posts="item"/>
-		</scroll-view> -->
+			<view class="w-full pt-2 pb-2 mt-3 cate">
+				<scroll-view class="w-full scroll-container" scroll-x="true" scroll-with-animation="true">
+					<view class=" d-flex w-full justify-between pl-2 pr-2">
+						<view v-for="item in forumCate" :class="['item',{'active':curCate.id == item.id}]" @click="handleSelectCate(item)">{{item.value}}</view>
+					</view>
+				</scroll-view>
+			</view>
+		</view>
 		<view class="comments flex-1"  @touchmove.stop="()=>{}"  @touch.stop="()=>{}">
-				<view class="">
-					<Post v-for="item in posts" :posts="item"/>
-				</view>
+			<view class="">
+				<Post v-for="item in posts" :posts="item"/>
+			</view>
 		</view>
 	</view>
 </template>
@@ -51,7 +39,9 @@
 				forumCate,
 				curCate:{id:1,cateId:1,value:"校园",label:"校园"},
 				posts:[],
-				triggered: false
+				triggered: false,
+				pageIndex:0,
+				pageSize:5
 			}
 		},
 		computed:{
@@ -60,7 +50,6 @@
 		onPageScroll(pos) {
 		},
 		onPullDownRefresh(){
-			console.log("refresh")
 			this.getData(()=>{
 				uni.showToast({
 					title:"刷新成功",
@@ -69,20 +58,30 @@
 				uni.stopPullDownRefresh()
 			})
 		},
+		onReachBottom(){
+			this.pageIndex++
+			this.getData()
+		},
 		methods: {
 			handleSelectCate(val){
 				this.curCate = val
-				this.getData()
+				this.pageIndex = 0
+				this.getData(null,"isDif")
 			},
-			async getData(cb){
+			async getData(cb,type){
 				const data = {
 					userId: this.userID,
-					cateId:this.curCate.cateId
+					cateId:this.curCate.cateId,
+					pageIndex:this.pageIndex,
+					pageSize:this.pageSize
 				}
 				const resp = await this.$http({url:"/post/getPost",method:"get",data})
 				confirm(resp,(data)=>{
-					console.log(data,"data==>>")
-					this.posts = data || []
+					if(type == "isDif"){
+						this.posts = data
+					}else{
+						this.posts = this.posts.concat(data || [])
+					}
 					cb && cb();
 				})
 			},

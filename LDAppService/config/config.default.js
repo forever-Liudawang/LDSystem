@@ -22,8 +22,8 @@ module.exports = appInfo => {
   config.cors = {
     origin: '*',
   };
-  config.$baseURL = 'http://192.168.1.90:7001';
-  // config.$baseURL = 'http://localhost:7001';
+  // config.$baseURL = 'http://192.168.1.90:7001';
+  config.$baseURL = 'http://localhost:7001';
   config.musicApi = musicApi;
   // add your middleware config here
   config.middleware = [ 'handError' ];
@@ -32,8 +32,8 @@ module.exports = appInfo => {
   };
   config.mongoose = {
     client: {
-      url: 'mongodb://localhost:27017/LDream',
-      // url: 'mongodb://localhost:27017/LDSystem',
+      // url: 'mongodb://localhost:27017/LDream',
+      url: 'mongodb://localhost:27017/LDSystem',
       options: {
         useNewUrlParser: true,
       },

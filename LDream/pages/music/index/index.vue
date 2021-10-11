@@ -14,8 +14,8 @@
 		</view>
 		<swiper class="flex-1" :current="swiperCurrent" @transition="transition" @animationfinish="animationfinish">
 			<swiper-item class="swiper-item h-full" >
-				<scroll-view scroll-y class="h-full" style="width: 100%;" @scrolltolower="onreachBottom">
-					<Recommend/>
+				<scroll-view scroll-y class="h-full" style="width: 100%;" @scrolltolower="loadMoreRecommend">
+					<Recommend ref="recommend"/>
 				</scroll-view>
 			</swiper-item>
 			<swiper-item class="swiper-item h-full" >
@@ -79,7 +79,6 @@
 				this.curCate = item
 			},
 			handleToDetail(recomend){
-				console.log(recomend,"recomend")
 				uni.navigateTo({
 					url:"/pages/music/Detail/Detail?id=" + recomend.id,
 					animationType:'pop-in',
@@ -105,9 +104,14 @@
 				this.swiperCurrent = current;
 				this.current = current;
 			},
+			loadMoreRecommend(){
+				this.$refs.recommend.pageIndex++
+				this.$refs.recommend.handleGetRecomendList()
+				console.log(this.$refs.recommend)
+			},
 			// scroll-view到底部加载更多
 			onreachBottom() {
-				
+				console.log(1222)
 			}
 		}
 	}

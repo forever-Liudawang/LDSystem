@@ -12,7 +12,10 @@
 		<view class="d-flex align-center">
 			<PlayCircle :radius="32"  @click.native="handleChangePlay">
 			</PlayCircle>
-			<view class=" ml-4" @click="handleShowMusicList">
+			<view class=" ml-2 mr-4" @click="handleLikeMusic">
+				<u-image src="/static/unlikeMusic.png" width="48upx" height="48upx" border-radius="6" shape="circle"></u-image>
+			</view>
+			<view  @click="handleShowMusicList">
 				<u-icon class="musicIcon" name="list" color="#d81e06" size="40"></u-icon>		
 			</view>
 		</view>
@@ -116,6 +119,9 @@
 			handleShowMusicList(){
 				// this.changeShowMusicList(true)
 				this.$refs.popup.open('top')
+			},
+			handleLikeMusic(){
+				console.log(this.currentPlayMusic)
 			}
 		}
 	}

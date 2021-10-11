@@ -35,18 +35,19 @@ class PostController extends BaseController {
    */
   async getList(){
     const { ctx,logger} = this;
-    const {userId,cateId} = ctx.request.query
+    const {userId,cateId,pageIndex=0,pageSize=5} = ctx.request.query
+    logger.info(pageIndex,pageSize,pageIndex*pageSize)
     let resList = []
-    let postList = await ctx.model.Post.find({cateId})
+    let postList = await ctx.model.Post.find({cateId}).skip(pageIndex*pageSize).limit(+pageSize)
     resList = postList
     let likePostArr = []
     if(userId){
-      const userPost = await ctx.model.UserPost.find({userId})
+      const userPost = await ctx.model.UserPost.find({userId}).skip(pageIndex*pageSize).limit(+pageSize)
       likePostArr = userPost && userPost[0] && userPost[0].postIdlikeArr;
     }
     resList = postList.map(item=>{
       let lighted = false
-      if(likePostArr.indexOf(item._id)>-1){
+      if(likePostArr&&likePostArr.indexOf(item._id)>-1){
         lighted = true
       }
       return {

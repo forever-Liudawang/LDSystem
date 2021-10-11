@@ -7,7 +7,7 @@
 					<view class="p-2 edit logout d-flex justify-center align-center" @click="showLogout = true">
 						<u-image src="/static/logout.png"  width="52upx" height="52upx"  shape="circle"></u-image>
 					</view>
-					<u-image :src="userInfo.avatar"  width="180upx" height="180upx"  shape="circle"></u-image>
+					<u-image :src="userInfo.avatar"  width="180upx" height="180upx"  shape="circle" @click="handlePreviewImg"></u-image>
 					<view class="p-2 edit d-flex justify-center align-center" @click="handleEditInfo">
 						<u-icon name="edit-pen" color="#fffbf4" size="40" ></u-icon>
 					</view>
@@ -126,6 +126,32 @@
 			},
 			handleLogout(){
 				this.logout();
+			},
+			handlePreviewImg(){
+				const userInfo = this.userInfo
+				uni.previewImage({
+					urls: [userInfo.avatar],
+					indicator:"number",
+					loop:true,
+					longPressActions: {
+						itemList: ['保存图片'],
+						success: (data)=>{
+							console.log(data)
+							uni.saveImageToPhotosAlbum({
+								filePath:userInfo.avatar,
+								success: (data) => {
+									uni.showToast({
+										title:"成功保存至相册",
+										icon:"none"
+									})
+								}
+							})
+						},
+						fail: function(err) {
+							console.log(err.errMsg);
+						}
+					}
+				});
 			},
 			handleToMyPost(){
 				uni.navigateTo({

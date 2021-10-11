@@ -134,6 +134,19 @@ class MusciController extends BaseController {
     )
     ctx.body = this.success(resp.body)
   }
+
+  //喜欢音乐
+  async likeMusic(){
+    const {ctx,logger} = this;
+    const {userId,musicData} = ctx.request.query
+    const resp = await ctx.model.LikeMusic.find({userId})
+    if(resp && resp[0]){
+      await ctx.model.LikeMusic.updateOne({userId},{$push:{"musicLikeList":musicData}})
+    }else{
+      const resp = await ctx.model.LikeMusic.create({userId,musicLikeList:[musicData]});
+      ctx.body = this.success()
+    }
+  }
 }
 
 module.exports = MusciController;

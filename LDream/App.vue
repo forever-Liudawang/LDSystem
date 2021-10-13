@@ -1,6 +1,14 @@
 <script>
+	import {mapState,mapMutations} from "vuex"
 	export default {
+		methods:{
+			...mapMutations(["login","logout"]),
+		},
 		onLaunch: function() {
+			const userInfo = uni.getStorageSync("userInfo")
+			if(userInfo){
+				this.login(userInfo)
+			}
 			console.log('App Launch')
 		},
 		onShow: function() {

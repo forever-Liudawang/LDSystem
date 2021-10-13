@@ -12,7 +12,7 @@ const cateList = [
 					{value:"4",label:"情感"},
 					{value:"5",label:"生活"},
 				]
-const songUrl = (id)=>{
+const getSongUrl = (id)=>{
 	return `https://music.163.com/song/media/outer/url?id=${id}.mp3`
 }
 const getName = (list = []) => {
@@ -26,6 +26,6 @@ const getName = (list = []) => {
 export {
 	forumCate,
 	cateList,
-	songUrl,
+	getSongUrl,
 	getName
 }

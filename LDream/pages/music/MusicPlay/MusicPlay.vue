@@ -13,7 +13,8 @@
 			<PlayCircle :radius="32"  @click.native="handleChangePlay">
 			</PlayCircle>
 			<view class=" ml-2 mr-4" @click="handleLikeMusic">
-				<u-image src="/static/unlikeMusic.png" width="48upx" height="48upx" border-radius="6" shape="circle"></u-image>
+				<u-image src="/static/unlikeMusic.png" v-if="!isLike" width="48upx" height="48upx" border-radius="6" shape="circle"></u-image>
+				<u-image src="/static/likeMusic.png" v-else width="48upx" height="48upx" border-radius="6" shape="circle"></u-image>
 			</view>
 			<view  @click="handleShowMusicList">
 				<u-icon class="musicIcon" name="list" color="#d81e06" size="40"></u-icon>		
@@ -28,10 +29,11 @@
 
 <script>
 	import PlayCircle from "../../../components/PlayCircle.vue"
-	import {songUrl} from "../../../util/config.js"
+	import {getSongUrl} from "../../../util/config.js"
 	import {mapState,mapGetters,mapMutations} from "vuex"
 	import {getName} from "../../../util/config.js"
 	import MusicList from "../../../components/MusicList.vue"
+	import confirm from "../../../util/confirm.js"
 	export default {
 		components:{
 			PlayCircle,
@@ -45,14 +47,15 @@
 				innerAudioContext:null,
 				getName,
 				duration:0,
-				showMusicList:false
+				showMusicList:false,
+				isLike:false
 			}
 		},
 		computed:{
 			...mapState(["currentPlayMusic","playing","currentPlayIndex","currentPlayList","percent","playMode"]),
 			...mapGetters(["musicPlayListLength"]),
 			songUrl(){
-				return this.currentPlayMusic? songUrl(this.currentPlayMusic.id || ""):""
+				return this.currentPlayMusic? getSongUrl(this.currentPlayMusic.id || ""):""
 			},
 			showCom(){
 				return this.currentPlayMusic && Object.keys(this.currentPlayMusic).length>0
@@ -60,7 +63,11 @@
 		},
 		watch:{
 			songUrl(newVal,oldVal){
+				console.log(newVal,oldVal,"songurl")
 				this.innerAudioContext.src = this.songUrl
+				if(this.currentPlayMusic){
+					this.handleIsLiked()
+				}
 			}
 		},
 		mounted(){
@@ -120,8 +127,33 @@
 				// this.changeShowMusicList(true)
 				this.$refs.popup.open('top')
 			},
-			handleLikeMusic(){
-				console.log(this.currentPlayMusic)
+			async handleIsLiked(){
+				const resp = await this.$http({url:"/music/isLiked",data:{userId:this.$user._id,mId:this.currentPlayMusic.al.id}})
+				confirm(resp,data=>{
+					if(data){
+						this.isLike = true
+					}else{
+						this.isLike = false
+					}
+				})
+			},
+			async handleLikeMusic(){
+				if(!this.$user){
+					uni.showToast({
+						title:"请先登录",
+						icon:"none"
+					})
+					return
+				}
+				const resp = await this.$http({url:"/music/likeMusic",data:{
+					userId:this.$user._id,
+					musicData:this.currentPlayMusic,
+					isLike:this.isLike
+				}})
+				confirm(resp,data=>{
+					this.isLike = !this.isLike
+					console.log(data)
+				})
 			}
 		}
 	}

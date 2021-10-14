@@ -138,13 +138,36 @@ class MusciController extends BaseController {
   //喜欢音乐
   async likeMusic(){
     const {ctx,logger} = this;
-    const {userId,musicData} = ctx.request.query
+    const {userId,musicData,isLike} = ctx.request.body
     const resp = await ctx.model.LikeMusic.find({userId})
     if(resp && resp[0]){
-      await ctx.model.LikeMusic.updateOne({userId},{$push:{"musicLikeList":musicData}})
+      if(!isLike){
+        await ctx.model.LikeMusic.updateOne({userId},{$push:{"musicLikeList":musicData}})
+      }else{
+        //取消收藏
+        const resp = await ctx.model.LikeMusic.updateOne({userId},{$pull:{"musicLikeList":{"al.id":musicData.al.id}}})
+        ctx.body = this.success(resp)
+        return
+      }
+      ctx.body = this.success()
     }else{
       const resp = await ctx.model.LikeMusic.create({userId,musicLikeList:[musicData]});
       ctx.body = this.success()
+    }
+  }
+
+  async isLiked(){
+    const {ctx} = this
+    const {userId,mId} = ctx.request.body
+    const userInfo = await ctx.model.LikeMusic.find({userId})
+    if(userInfo && userInfo[0]){
+      const likeList = userInfo[0].musicLikeList
+      const isLiked = likeList.some(item=>{
+        return mId === item.al.id
+      })
+      ctx.body = this.success(isLiked)
+    }else{
+      ctx.body = this.success(false)
     }
   }
 }

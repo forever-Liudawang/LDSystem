@@ -16,6 +16,12 @@
 		<view class="comments flex-1"  @touchmove.stop="()=>{}"  @touch.stop="()=>{}">
 			<view class="">
 				<Post v-for="item in posts" :posts="item"/>
+				<view class="w-full text-center">
+					<u-loading :show="showLoading"></u-loading>
+				</view>
+				<view class="w-full text-center" v-if="showLoadEnd">
+					<text>暂无数据</text>
+				</view>
 			</view>
 		</view>
 	</view>
@@ -41,7 +47,9 @@
 				posts:[],
 				triggered: false,
 				pageIndex:0,
-				pageSize:5
+				pageSize:5,
+				showLoading:true,
+				showLoadEnd:false
 			}
 		},
 		computed:{
@@ -69,6 +77,8 @@
 				this.getData(null,"isDif")
 			},
 			async getData(cb,type){
+				if(this.showLoadEnd)return
+				this.showLoading = true
 				const data = {
 					userId: this.userID,
 					cateId:this.curCate.cateId,
@@ -77,6 +87,11 @@
 				}
 				const resp = await this.$http({url:"/post/getPost",method:"get",data})
 				confirm(resp,(data)=>{
+					this.showLoading = false
+					if(!data || data.length == 0){
+						this.showLoadEnd = true
+						return
+					}
 					if(type == "isDif"){
 						this.posts = data
 					}else{

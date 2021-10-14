@@ -31,8 +31,10 @@ module.exports = app => {
   router.get("/music/getHotSinger",controller.music.getHotSinger)
   router.get("/music/getSingerList",controller.music.getSingerList)
   router.get("/music/getSingerDetail",controller.music.getSingerDetail)
+  router.post("/music/likeMusic",controller.music.likeMusic)
+  router.post("/music/isLiked",controller.music.isLiked)
   
-
+  
   router.get("/follow/getFollow",controller.follow.getFollow)
   router.post("/follow/following",controller.follow.following)
   router.post("/follow/isFollowed",controller.follow.isFollowed)

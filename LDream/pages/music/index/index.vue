@@ -32,7 +32,6 @@
 		<view class="">
 			<MusicPlay />
 		</view>
-
 	</view>
 </template>
 

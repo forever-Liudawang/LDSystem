@@ -6,6 +6,7 @@ const TextComponent = ()=> <div> hello , i am function component </div>
 
 export default class Index1 extends React.Component{
     status = false /* 状态 */
+    static displayName: string
     renderFoot=()=> <div> i am foot</div>
     controlReact = ()=>{
         const reactEle = <div style={{ marginTop:'100px' }}   >
@@ -48,4 +49,4 @@ export default class Index1 extends React.Component{
         return this.controlReact();
     }
 }
-
+Index1.displayName = "Index1";

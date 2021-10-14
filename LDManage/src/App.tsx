@@ -11,6 +11,7 @@ import Index10 from "./study/Index10"
 import Index11 from "./study/Index11"
 import Index12 from "./study/Index12"
 import Index13 from "./study/Index13"
+import Index14 from "./study/Index14"
 function App() {
   return (
     <div className="App">
@@ -25,7 +26,8 @@ function App() {
       {/* <Index10/> */}
       {/* <Index11/> */}
       {/* <Index12/> */}
-      <Index13/>
+      {/* <Index13/> */}
+      <Index14/>
     </div>
   );
 }

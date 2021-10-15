@@ -21,7 +21,6 @@ class ErrorBoundary extends Component<any,any> {
       })
     }
     render() {
-      console.log("1222===>>>>>>>>>>>>>>>>>>>>.")
       if (this.state.hadError) {
         // 你可以渲染任何自定义的降级 UI
         return <h1>Something went wrong.</h1>;
@@ -30,18 +29,27 @@ class ErrorBoundary extends Component<any,any> {
     }
   }
 function Son(){
-    const a:any = [];
-    return <div>{a[0].a}</div>
+    const a:any = null;
+    const b = {...a};
+    console.log('b :>> ', b);
+    return <div>{a.b}</div>
 }
-export default function Index14() {
-    return (
-        <div>
-            <ErrorBoundary>
-                <Son/>
-            </ErrorBoundary>
-            {/* <Suspense fallback={<div>loading.....</div>}>
-                    <LazyComponet/>
-            </Suspense> */}
-        </div>
-    )
+export default class Index14 extends Component {
+  state={
+    hadError:false
+  }
+  componentDidCatch() {
+    this.setState({
+      hadError:true
+    })
+  }
+  render() {
+    return <div>
+      {this.state.hadError?"出错了":<Son/>}
+      <Suspense fallback={<div>loading.....</div>}>
+        <LazyComponet/>
+      </Suspense>
+    </div>
+  }
 }
+

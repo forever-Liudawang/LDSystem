@@ -69,7 +69,9 @@ class PostController extends BaseController {
     };
     if(userId){
       const userPost = await ctx.model.UserPost.find({userId})
-      likePostArr = userPost && userPost[0] && userPost[0].postIdlikeArr;
+      if(userPost[0]){
+        likePostArr =  userPost[0].postIdlikeArr;
+      }
     }
     if(likePostArr.indexOf(res[0]._id)>-1){
       resp.lighted = true

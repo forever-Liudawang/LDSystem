@@ -1,5 +1,7 @@
 import React from 'react';
 import "./index.css"
+import {BrowserRouter as Router,Route,Redirect,Switch} from "react-router-dom"
+import {createBrowserHistory as createHistory} from "history"
 import Index1 from "./study/Index1"
 import Index2 from "./study/Index2"
 import Index3 from "./study/Index3"
@@ -17,6 +19,7 @@ import Index15 from "./study/Index15"
 import Index16 from "./study/Index16"
 import Index17 from "./study/Index17"
 import Demo1 from "./study1/Demo1"
+import Demo2 from "./study1/Demo2"
 // function App() {
 //   return (
 //     <div className="App">
@@ -39,9 +42,26 @@ import Demo1 from "./study1/Demo1"
 //     </div>
 //   );
 // }
-function App(){
+function App(props:React.PropsWithChildren<any>){
   return <div>
-    <Demo1/>
+    {/* <Demo1/> */}
+    <Router>
+        <Switch >
+          {/*
+          <Route path='/router/component'   component={RouteComponent}   /> Route Component形式 
+          <Route path='/router/render'  render={(props)=> <RouterRender { ...props }  /> }  {...mes}  />  Render形式 
+          <Route path='/router/children'  >  chilren形式 
+              <RouterChildren  {...mes} />
+          </Route>
+          <Route path="/router/renderProps"  >
+               (props)=> <RouterRenderProps {...props} {...mes}  /> } renderProps形式
+          </Route>
+          */}
+          <Route path="/demo1" component={Demo1}/>
+          <Route path="/demo2" component={Demo2}/>
+          <Redirect to="/demo2"/>
+        </Switch>
+    </Router>
   </div>
 }
 export default App;

@@ -208,6 +208,7 @@
 					})
 					return
 				}
+				console.log(this.editorCtx)
 				uni.chooseImage({
 				    count: 6, //默认9
 				    sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有

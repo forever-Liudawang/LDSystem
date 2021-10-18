@@ -1,0 +1,69 @@
+<template>
+	<view class="h-full videoBox" @touchmove="handleMove">
+		<uni-list class="h-full">
+			<uni-list-item title="" note="" class="d-flex h-full" style="width: 100vw;"  v-for="(video,index) in dataList">
+				<template slot="body">
+					<view class="flex-1 d-flex h-full">
+						<video src="/static/1.mp4" controls class="w-full h-full"></video>
+					</view>
+				</template>
+			</uni-list-item>
+		</uni-list>
+	</view>
+</template>
+
+<script>
+	export default {
+		data() {
+			return {
+				dataList:[1,2,3,4,5],
+				index:0,
+				containerH:0
+			}
+		},
+		methods: {
+			handleMove(e){
+				console.log("move",e)
+			}
+		},
+		mounted(){
+			const container = uni.createSelectorQuery().select(".videoBox")
+			container.boundingClientRect(data=>{
+				this.containerH = data.height
+			}).exec()
+		},
+		onPageScroll(e){
+			const {scrollTop} = e
+			const dis = scrollTop - this.index*this.containerH
+			let t = 0;
+			t = Math.abs(dis)%this.containerH/this.containerH
+			if(dis<0){
+				if(t>=0.5){
+					this.index--;
+					uni.pageScrollTo({
+						scrollTop: this.containerH*this.index,
+						duration:100
+					})
+				}
+			}else{
+				if(t>=0.5){
+					this.index++;
+					uni.pageScrollTo({
+						scrollTop: this.containerH*this.index,
+						duration:100
+					})
+				}
+			}
+		},
+	}
+</script>
+
+<style lang="scss">
+.videoBox {
+	padding-top: var(--status-bar-height);
+	/deep/ .uni-list-item__container{
+		padding: 0 !important;
+		height: 100%;
+	}
+}
+</style>

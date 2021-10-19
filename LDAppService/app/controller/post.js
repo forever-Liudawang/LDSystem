@@ -36,7 +36,6 @@ class PostController extends BaseController {
   async getList(){
     const { ctx,logger} = this;
     const {userId,cateId,pageIndex=0,pageSize=5} = ctx.request.query
-    logger.info(pageIndex,pageSize,pageIndex*pageSize)
     let resList = []
     let postList = await ctx.model.Post.find({cateId}).skip(pageIndex*pageSize).limit(+pageSize)
     resList = postList

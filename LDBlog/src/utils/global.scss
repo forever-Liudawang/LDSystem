@@ -1,0 +1,162 @@
+a {
+  text-decoration: none;
+  color: white;
+}
+/* 全局颜色变量 */
+h1,h2,h3,h4 {
+  padding: 0;
+  margin: 0;
+}
+.color-primary {
+  color: #d81e06 !important;
+ }
+
+.bg-primary {
+  background-color: #d81e06 !important;
+}
+
+.color-white {
+  color: #fff;
+}
+
+.bg-white {
+  background-color: #fff !important;
+}
+
+.color-light {
+  color: #f9f9f9;
+}
+
+.bg-light {
+  background-color: #f9f9f9 !important;
+}
+
+.color-grey {
+  color: #a1a1a1 !important;
+}
+.color-dec{
+	color: #a19a2f;
+}
+.bg-grey {
+  background-color: #f7f7f7  !important;
+}
+
+.color-dark-1 {
+  color: #343440;
+}
+
+.bg-dark-1 {
+  background-color: #343440 !important;
+}
+
+.color-dark {
+  color: #222;
+}
+
+.bg-dark {
+  background-color: #222 !important;
+}
+
+.color-black {
+  color: #000;
+}
+
+.bg-black {
+  background-color: #000 !important;
+}
+.bg-red{
+	background-color: red !important;
+}
+.text-left {
+  text-align: left;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
+.d-flex {
+  display: flex !important;
+}
+
+.flex-column {
+  flex-direction: column !important;
+}
+
+.flex-1 {
+  flex: 1 !important;
+}
+
+.flex-wrap {
+  flex-wrap: wrap !important;
+}
+
+.justify-start {
+  justify-content: flex-start !important;
+}
+
+.align-start {
+  align-items: flex-start !important;
+}
+
+.justify-end {
+  justify-content: flex-end !important;
+}
+
+.align-end {
+  align-items: flex-end !important;
+}
+
+.justify-center {
+  justify-content: center !important;
+}
+
+.align-center {
+  align-items: center !important;
+}
+
+.justify-around {
+  justify-content: space-around !important;
+}
+
+.align-around {
+  align-items: space-around !important;
+}
+
+.justify-between {
+  justify-content: space-between !important;
+}
+
+.align-between {
+  align-items: space-between !important;
+}
+.font-weigth-bold {
+  font-weight: bold;
+}
+.w-full{
+	width: 100%;
+}
+.h-full{
+	height: 100%;
+}
+.border-bottom{
+	border-bottom: 1px solid #f4f4f4;
+}
+.border-top{
+	border-top: 1px solid #f4f4f4;
+}
+.pos-rel{
+	position: relative;
+}
+.pos-abs{
+	position: absolute;
+}
+.pos-fix{
+	position: fixed;
+}
+.p10{
+  padding: 10px;
+}

@@ -1,0 +1,1 @@
+{"options":{},"indexes":[{"v":2,"key":{"_id":1},"name":"_id_","ns":"LDSystem.userCommentes"},{"v":2,"unique":true,"key":{"userId":1},"name":"userId_1","ns":"LDSystem.userCommentes","background":true}],"uuid":"2c070f742b374e8fbe9e53ab41ed7619"}

@@ -1,6 +1,7 @@
 import React from 'react';
 import "./index.css"
-import {BrowserRouter as Router,Route,Redirect,Switch} from "react-router-dom"
+// import {BrowserRouter as Router,Route,Redirect,Switch} from "react-router-dom"
+import {Switch,Router,Route} from "./study1/MiniRouter/index"
 import {createBrowserHistory as createHistory} from "history"
 import Index1 from "./study/Index1"
 import Index2 from "./study/Index2"
@@ -20,6 +21,8 @@ import Index16 from "./study/Index16"
 import Index17 from "./study/Index17"
 import Demo1 from "./study1/Demo1"
 import Demo2 from "./study1/Demo2"
+import MinRouter from "./study1/MiniRouter/Router"
+import WithRouter from './study1/MiniRouter/WithRouter';
 // function App() {
 //   return (
 //     <div className="App">
@@ -42,6 +45,7 @@ import Demo2 from "./study1/Demo2"
 //     </div>
 //   );
 // }
+
 function App(props:React.PropsWithChildren<any>){
   return <div>
     {/* <Demo1/> */}
@@ -59,7 +63,7 @@ function App(props:React.PropsWithChildren<any>){
           */}
           <Route path="/demo1" component={Demo1}/>
           <Route path="/demo2" component={Demo2}/>
-          <Redirect to="/demo2"/>
+          {/* <Redirect to="/demo2"/> */}
         </Switch>
     </Router>
   </div>

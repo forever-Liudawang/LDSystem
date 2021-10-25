@@ -1,3 +1,52 @@
 .articleDetail{
     padding-top: 60px;
+    display: flex;
+    justify-content: center;
+    color: rgb(54, 54, 54);
+    letter-spacing: 3px;
+    font-family: Optima-Regular, Optima, PingFangSC-light, PingFangTC-light, "PingFang SC", Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+    background-color: rgb(247, 247, 247);
+    min-height: 100vh;
+    box-sizing: border-box;
+    .main{
+        margin-top: 50px;
+        width: 78%;
+        justify-content: center;
+        display: flex;
+        justify-content: space-between;
+        .content{
+            width: 70%;
+            background-color: #fff;
+            padding: 20px 20px 0;
+            .title{
+                text-align: center;
+            }
+            .article{
+                padding-top: 10px;
+                text-indent: 40px;
+            }
+        }
+        .side{
+            width: 24%;
+            ul{
+                padding-left: 0;
+            }
+            li{
+                list-style-type: none;
+                display: flex;
+                align-items: center;
+                font-weight: bold;
+                cursor: pointer;
+                padding: 8px 0;
+                &:hover{
+                    color: #ff4c21;
+                }
+                img{
+                    width: 20px;
+                    padding-right: 4px;
+                }
+            }
+        }
+    }
+    
 }

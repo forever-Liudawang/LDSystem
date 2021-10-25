@@ -1,4 +1,4 @@
-import React,{useState,useRef, useEffect} from 'react'
+import React,{useState,useRef, useEffect, createContext} from 'react'
 import "./home.scss"
 import Header from "../../components/Header/Header"
 import ArticleBox from "../../components/ArticleHomeBox/ArticleBox"
@@ -14,7 +14,7 @@ export default function Home() {
     const [showHeader, setShowHeader] = useState(true)
     const onScroll = (e:Event)=>{
         const top = window.pageYOffset || 0;
-        if(top>=300){
+        if(top>=500){
             setShowHeader(false)
             temp = true
         }else{
@@ -39,7 +39,7 @@ export default function Home() {
                 <Header showHeader={showHeader}/>
                 <Switch>
                     <Route path="/" exact component={()=><Main showHeader={showHeader}/>}></Route>
-                    <Route path="/page" exact component={DetailPage}></Route>
+                    <Route path="/page/:navId" exact component={DetailPage}></Route>
                     <Route path="/articleDetail" exact component={ArticleDetail}></Route>
                     <Redirect to="/"/>
                 </Switch>

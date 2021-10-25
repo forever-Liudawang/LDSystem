@@ -13,20 +13,20 @@ enum NavType {
 const Header = (props:any)=>{
     const [nav, setNav] = useState(NavType.index)
     const [keyWord, setKeyWord] = useState("")
-    const showHeader = props.showHeader
+    const {showHeader} = props
     const handleNav = (nav:NavType)=>{
         setNav(nav)
+        sessionStorage.setItem("Blog_Nav",nav.toString())
         if(nav == NavType.index){
             props.history.push("/")
         }else{
             props.history.push({
-                pathname:"/page",
+                pathname:"/page/"+ nav,
                 state:{
                     curNav:nav
                 }
             })
         }
-        console.log('props :>> ', props);
     }
     const color = useCallback((curNav:NavType)=>{
         if(curNav == nav) return "#ff4c21"
@@ -39,7 +39,8 @@ const Header = (props:any)=>{
     useEffect(()=>{
         const {location} = props
         if(!location.state)return
-        const curNav = location.state && location.state.curNav
+        const storageNav = sessionStorage.getItem("Blog_Nav")
+        const curNav = (location.state && location.state.curNav) || storageNav
         if(curNav == 1){
             setNav(NavType.frontEndTec)
         }else if(curNav == 2){

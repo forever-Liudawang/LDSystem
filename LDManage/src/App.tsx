@@ -23,6 +23,9 @@ import Demo1 from "./study1/Demo1"
 import Demo2 from "./study1/Demo2"
 import MinRouter from "./study1/MiniRouter/Router"
 import WithRouter from './study1/MiniRouter/WithRouter';
+import ModalIndex from "./study1/MiniModal/Index"
+import IndexHook from "./study1/LHook/index"
+import UseQueryTest from './study1/LHook/useQueryTest';
 // function App() {
 //   return (
 //     <div className="App">
@@ -48,7 +51,9 @@ import WithRouter from './study1/MiniRouter/WithRouter';
 
 function App(props:React.PropsWithChildren<any>){
   return <div>
-    {/* <Demo1/> */}
+    {/* <ModalIndex/> */}
+    {/* <IndexHook/> */}
+    <UseQueryTest/>
     <Router>
         <Switch >
           {/*

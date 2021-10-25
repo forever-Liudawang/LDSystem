@@ -216,16 +216,15 @@
                 "enablePullDownRefresh": false
             }
             
-        }
-        ,{
-            "path" : "pages/video/IndexN/IndexN",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
+        },
+		{
+		    "path" : "pages/video/index/index",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "",
+		        "enablePullDownRefresh": false
+		    }
+		}
     ],
 	"easycom": {
 		"^u-(.*)": "uview-ui/components/u-$1/u-$1.vue"
@@ -258,7 +257,7 @@
 			"text": "音乐"
 		},
 		{
-			"pagePath": "pages/video/IndexN/IndexN",
+			"pagePath": "pages/video/index/index",
 			"iconPath":"static/video.png",
 			"selectedIconPath":"static/videoS.png",
 			"text": "视频"

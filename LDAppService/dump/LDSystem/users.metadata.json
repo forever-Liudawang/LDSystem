@@ -1,0 +1,1 @@
+{"options":{},"indexes":[{"v":2,"key":{"_id":1},"name":"_id_","ns":"LDSystem.users"},{"v":2,"unique":true,"key":{"userName":1},"name":"userName_1","ns":"LDSystem.users","background":true}],"uuid":"c318d2b914db46848627e3d1b88d3420"}

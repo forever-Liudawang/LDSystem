@@ -1,5 +1,7 @@
 // const BaseURL = "http://192.168.1.90:7001"
 const BaseURL = "http://172.33.27.87:7001"
+// const BaseURL = "http://123.56.115.178"
+
 const request = (options)=>{
 	return new Promise((resolve,reject)=>{
 			uni.request({

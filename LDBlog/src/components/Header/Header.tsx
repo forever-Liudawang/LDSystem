@@ -8,7 +8,8 @@ enum NavType {
     frontEndTec,
     backEndTec,
     life,
-    message
+    comment,
+    aboutMe
 }
 const Header = (props:any)=>{
     const [nav, setNav] = useState(NavType.index)
@@ -19,6 +20,8 @@ const Header = (props:any)=>{
         sessionStorage.setItem("Blog_Nav",nav.toString())
         if(nav == NavType.index){
             props.history.push("/")
+        }else if(nav == NavType.aboutMe){
+            props.history.push("/about")
         }else{
             props.history.push({
                 pathname:"/page/"+ nav,
@@ -48,7 +51,9 @@ const Header = (props:any)=>{
         }else if(curNav == 3){
             setNav(NavType.life)
         }else if(curNav == 4){
-            setNav(NavType.message)
+            setNav(NavType.comment)
+        }else if(curNav == 5){
+            setNav(NavType.aboutMe)
         }
     },[])
     return (
@@ -71,8 +76,11 @@ const Header = (props:any)=>{
                 <FcUnderlineBtn style={{color:color(NavType.life),fontWeight:"bold","--color":color(NavType.life)}} onClick={()=>handleNav(NavType.life)}>
                     Life
                 </FcUnderlineBtn>
-                <FcUnderlineBtn style={{color:color(NavType.message),fontWeight:"bold","--color":color(NavType.message)}} onClick={()=>handleNav(NavType.message)}>
+                <FcUnderlineBtn style={{color:color(NavType.comment),fontWeight:"bold","--color":color(NavType.comment)}} onClick={()=>handleNav(NavType.comment)}>
                     Message
+                </FcUnderlineBtn>
+                <FcUnderlineBtn style={{color:color(NavType.aboutMe),fontWeight:"bold","--color":color(NavType.aboutMe)}} onClick={()=>handleNav(NavType.aboutMe)}>
+                    about me
                 </FcUnderlineBtn>
             </div>
             <div className="search">

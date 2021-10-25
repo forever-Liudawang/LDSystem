@@ -8,6 +8,11 @@
     background-color: rgb(247, 247, 247);
     min-height: 100vh;
     box-sizing: border-box;
+    .back{
+        position: absolute;
+        left: 61%;
+        top: 10%;
+    }
     .main{
         margin-top: 50px;
         width: 78%;

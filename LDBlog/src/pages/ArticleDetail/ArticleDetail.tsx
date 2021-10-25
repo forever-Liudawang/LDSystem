@@ -8,7 +8,9 @@ export default function ArticleDetail(props:any) {
     }
     return (
         <div className="articleDetail">
-            {/* <FcArrowBtn style={{"--color":"#000",color:"#000"}} onClick={back}/> */}
+            <div className="back">
+                <FcArrowBtn style={{"--color":"#000",color:"#000"}} onClick={back}/>
+            </div>
             <div className="main">
                 <div className="content">
                     <div className="title">
@@ -52,6 +54,9 @@ export default function ArticleDetail(props:any) {
                     </div>
                 </div>
             </div>
+            {/* <div>
+                <iframe src={`/comment.html?articleId=${props.location.state.articleId}`}></iframe>
+            </div> */}
         </div>
     )
 }

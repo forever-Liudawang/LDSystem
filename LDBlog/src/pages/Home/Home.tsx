@@ -40,7 +40,7 @@ export default function Home() {
                 <Switch>
                     <Route path="/" exact component={()=><Main showHeader={showHeader}/>}></Route>
                     <Route path="/page/:navId" exact component={DetailPage}></Route>
-                    <Route path="/articleDetail" exact component={ArticleDetail}></Route>
+                    <Route path="/articleDetail/:articleId" exact component={ArticleDetail}></Route>
                     <Redirect to="/"/>
                 </Switch>
             </Router>

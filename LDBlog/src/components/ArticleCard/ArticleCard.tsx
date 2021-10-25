@@ -12,9 +12,9 @@ interface Iprops {
 function Article(props:RouteChildrenProps) {
     const handleClickToDetali = ()=>{   
         props.history.push({
-            pathname:"/articleDetail",
+            pathname:"/articleDetail/"+1,
             state:{
-                id:1
+                articleId:1
             }
         })
     }

@@ -12,5 +12,6 @@ module.exports = app => {
   //article
   router.post('/article/createArtice', controller.article.createArtice);
   router.get('/article/getArticleById', controller.article.getArticleById);
+  router.get('/article/getArticleList', controller.article.getArticleList);
   
 };

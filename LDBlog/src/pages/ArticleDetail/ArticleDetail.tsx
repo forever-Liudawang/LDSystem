@@ -1,11 +1,18 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 import "./index.scss"
 import {FcArrowBtn} from "../../components/FcHocComponent"
+import request from "../../utils/request"
 export default function ArticleDetail(props:any) {
     console.log('props :>> ', props);
     const back = ()=>{
         props.history.goBack()
     }
+    useEffect(()=>{
+        request({
+            url:"",
+            data:{}
+        })
+    })
     return (
         <div className="articleDetail">
             <div className="back">

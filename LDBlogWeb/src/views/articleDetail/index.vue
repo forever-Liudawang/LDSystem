@@ -34,14 +34,14 @@
                 :on-success="handleAvatarSuccess"
                 :before-upload="beforeAvatarUpload"
               >
-                <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                <img v-if="articleModel.coverImg" :src="articleModel.coverImg" class="avatar">
                 <i v-else class="el-icon-plus avatar-uploader-icon" />
               </el-upload>
             </el-form-item>
           </el-col>
           <el-col :span="4" style="margin:11% 0 0 5%">
             <el-form-item>
-              <el-button type="primary"  @click="submitForm('articleModel')">发布文章</el-button>
+              <el-button type="primary"  @click="updateArticle('articleModel')">更新文章</el-button>
             </el-form-item>
           </el-col>
         </el-row>
@@ -72,12 +72,13 @@ export default {
         ]
       },
       editor: null,
-      imageUrl: ''
+      imageUrl: '',
+      articleId:""
     }
   },
   mounted() {
-    const params = this.$route.params
-    console.log(`params`, params)
+    const {articleId} = this.$route.params
+    this.articleId = articleId;
     this.getArticleById()
     this.initEditor()
   },
@@ -85,21 +86,33 @@ export default {
     async getArticleById() {
       const resp = await this.$http({
         url: '/article/getArticleById',
-        params: { artcileId: '6177aeac693fffb6c4684006' },
+        params: { articleId: this.articleId },
         method: 'get'
       })
       const data = resp.data && resp.data[0]
-      console.log(`data`, data)
-      this.editor.txt.append(data.content)
-      console.log(`resp`, resp)
+      this.articleModel = data
+      this.editor.txt.append(data.content || "")
     },
-    submitForm(formName) {
-      console.log(`this.$refs[formName]`, this.$refs[formName])
+    updateArticle(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          alert('submit!')
-          const content = this.editor.txt.html()
-          console.log(`content`, content)
+          this.$confirm("是否更新文章?","提示",{callback:async (action)=>{
+            if(action == "confirm"){
+              const content = this.editor.txt.html()
+              const resp = await this.$http({
+                url: '/article/updateArticle',
+                data:  {...this.articleModel,content},
+                method: 'post'
+              })
+              if(resp && resp.success) {
+                this.$router.push({
+                  name: 'articleList',
+                })
+                this.$message.success("更新成功")
+              }
+            }
+          }})
+          
         } else {
           console.log('error submit!!')
           return false

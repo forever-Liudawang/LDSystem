@@ -32,7 +32,7 @@
       <el-table :data="tableData" border style="width: 100%">
         <el-table-column prop="created" label="创建时间" width="140" :formatter="dateFormat" />
         <el-table-column prop="userName" label="创建用户" width="100" />
-        <el-table-column prop="articleCate" label="文章分类" :formatter="cateFormat"  width="160"/>
+        <el-table-column prop="articleCate" label="文章分类" :formatter="cateFormat" width="160" />
         <el-table-column prop="articleTitle" label="文章标题" />
         <el-table-column label="操作" width="180">
           <template slot-scope="scope">
@@ -109,14 +109,13 @@ export default {
       console.log(`curPage`, curPage)
     },
     handleEdit(index, row) {
-      console.log(`index,row`, index, row)
       this.$router.push({
         name: 'articleDetail',
         params: { id: 10 }
       })
     },
     handleDelete(index, row) {
-
+      console.log(index, row, '===>>>>>')
     },
     search() {
       this.pagation.curPage = 0

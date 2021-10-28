@@ -68,8 +68,8 @@ export default {
     return {
       tableData: [],
       pagation: {
-        curPage: 1,
-        pageSize: 10,
+        curPage: 0,
+        pageSize: 5,
         total: 0
       },
       filterModel: {
@@ -107,6 +107,8 @@ export default {
     },
     handlePageChange(curPage) {
       console.log(`curPage`, curPage)
+      this.pagation.curPage = curPage - 1
+      this.getDataList()
     },
     handleEdit(index, row) {
       this.$router.push({

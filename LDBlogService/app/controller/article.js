@@ -51,10 +51,17 @@ class ArticleController extends BaseController {
             filterModel.$or = t
         }
         const count = await ctx.model.Article.count()
-        this.logger.info(count,"count")
         const resp = await ctx.model.Article.find(filterModel).limit(parseInt(pageSize)).skip(pageIndex*pageSize)
         ctx.body = this.success(resp,null,{total:count})
     }
+    /**
+     * 获取首页三个分类文章数据
+     */
+    async getRecommendArticle() {
+        const {ctx} = this
+        // const resp = await ctx.model.Article.find().sort({"created":-1})
+        const resp = await ctx.model.Article.aggregate({"$group":{"_id":"articleCate"}}).limit(3)
+        ctx.body = this.success(resp)
+    } 
 }
-
 module.exports = ArticleController;

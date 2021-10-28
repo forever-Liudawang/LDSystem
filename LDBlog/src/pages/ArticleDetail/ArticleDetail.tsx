@@ -11,7 +11,7 @@ export default function ArticleDetail(props:any) {
     const initData = async ()=>{
         const resp = await request({
             url:"/article/getArticleById",
-            params:{articleId:"617a6fbb385742b5cc138aa3"},
+            params:{articleId:"61794c4672d5aa4038985ad0"},
             method:"get"
         })
         if(resp && resp.success){

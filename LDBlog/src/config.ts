@@ -1,0 +1,1 @@
+export const Dev_BaseUrl = "http://locahost:7001"

@@ -111,11 +111,22 @@ export default {
     handleEdit(index, row) {
       this.$router.push({
         name: 'articleDetail',
-        params: { id: 10 }
+        params: { articleId: row._id }
       })
     },
     handleDelete(index, row) {
-      console.log(index, row, '===>>>>>')
+      this.$confirm('是否删除此文章?', '提示', { callback: async(action) => {
+        if (action === 'confirm') {
+          const resp = await this.$http({
+            url: '/article/deleteArticle',
+            data: { articleId: row['_id'] },
+            method: 'post'
+          })
+          if (resp && resp.success) {
+            this.$message.success('删除成功')
+          }
+        }
+      } })
     },
     search() {
       this.pagation.curPage = 0

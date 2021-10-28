@@ -85,16 +85,24 @@ export default {
   },
   methods: {
     submitForm(formName) {
-      console.log(`this.$refs[formName]`, this.$refs[formName])
       this.$refs[formName].validate(async(valid) => {
         if (valid) {
-          const content = this.editor.txt.html()
-          const resp = await this.$http({
-            url: '/article/createArtice',
-            data: { ...this.articleModel, content },
-            method: 'post'
-          })
-          console.log(`resp`, resp)
+        this.$confirm("是否发布文章?","提示",{callback:async (action)=>{
+          if(action == "confirm"){
+            const content = this.editor.txt.html()
+            const resp = await this.$http({
+              url: '/article/createArtice',
+              data: { ...this.articleModel, content },
+              method: 'post'
+            })
+            if(resp && resp.success){
+              this.$message.success("发布成功")
+              this.$router.push({
+                name: 'articleList',
+              })
+            }
+          }
+        }})
         } else {
           console.log('error submit!!')
           return false
@@ -123,7 +131,9 @@ export default {
     handleAvatarSuccess(res) {
       console.log(res)
       if (res && res.success) {
-        this.articleModel.coverImg = res.data
+        setTimeout(()=>{
+          this.articleModel.coverImg = res.data
+        },1000)
       }
     },
     beforeAvatarUpload(file) {

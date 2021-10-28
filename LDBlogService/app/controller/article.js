@@ -24,7 +24,6 @@ class ArticleController extends BaseController {
     async updateArticle(){
         const {ctx} =this
         const articleModel = ctx.request.body
-        console.log('articleModel :>> ', articleModel);
         const {_id,created,updated,...reset} = articleModel
         const resp = await ctx.model.Article.update({_id:articleModel._id},{$set:reset})
         ctx.body = this.success()
@@ -51,9 +50,10 @@ class ArticleController extends BaseController {
             const t = [{content:reg},{articleDesc:reg},{articleTitle:reg}]
             filterModel.$or = t
         }
-        this.logger.info(filterModel)
-        const resp = await ctx.model.Article.find(filterModel).limit(pageSize).skip(pageIndex*pageSize)
-        ctx.body = this.success(resp)
+        const count = await ctx.model.Article.count()
+        this.logger.info(count,"count")
+        const resp = await ctx.model.Article.find(filterModel).limit(parseInt(pageSize)).skip(pageIndex*pageSize)
+        ctx.body = this.success(resp,null,{total:count})
     }
 }
 

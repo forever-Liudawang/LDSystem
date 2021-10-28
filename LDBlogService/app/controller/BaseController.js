@@ -3,11 +3,12 @@
 const Controller = require('egg').Controller;
 
 class BaseController extends Controller {
-  success(data,msg){
+  success(data,msg,extend){
       return {
           success: true,
           message:msg || "成功",
-          data
+          data,
+          extend
       }
   }
   error(msg){

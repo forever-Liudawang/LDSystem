@@ -30,6 +30,7 @@
     </div>
     <div>
       <el-table :data="tableData" border style="width: 100%">
+        <el-table-column prop="_id" label="文章ID" width="220" />
         <el-table-column prop="created" label="创建时间" width="140" :formatter="dateFormat" />
         <el-table-column prop="userName" label="创建用户" width="100" />
         <el-table-column prop="articleCate" label="文章分类" :formatter="cateFormat" width="160" />
@@ -69,7 +70,7 @@ export default {
       pagation: {
         curPage: 1,
         pageSize: 10,
-        total: 1000
+        total: 0
       },
       filterModel: {
         publishTime: '',
@@ -94,7 +95,6 @@ export default {
       }
     },
     cateFormat(row, column) {
-      console.log(`row`, row)
       const articleCate = row['articleCate']
       if (articleCate === '1') {
         return '前端技术'
@@ -135,11 +135,12 @@ export default {
     async getDataList() {
       const resp = await this.$http({
         url: '/article/getArticleList',
-        params: this.filterModel,
+        params: { ...this.filterModel, pageSize: this.pagation.pageSize, pageIndex: this.pagation.curPage },
         method: 'get'
       })
       if (resp && resp.success) {
         this.tableData = resp.data || []
+        this.pagation.total = resp.extend.total
       }
     }
   }

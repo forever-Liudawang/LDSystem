@@ -8,6 +8,11 @@
     background-color: rgb(247, 247, 247);
     min-height: 100vh;
     box-sizing: border-box;
+    .article{
+        img{
+            width: 80%;
+        }
+    }
     .back{
         position: absolute;
         left: 61%;

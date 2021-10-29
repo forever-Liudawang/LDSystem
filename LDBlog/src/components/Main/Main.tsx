@@ -1,12 +1,11 @@
-import React, { memo } from 'react'
+import React, { memo, useContext } from 'react'
 import { FcDblWarpBtn } from '../FcHocComponent'
-import { Link, animateScroll } from 'react-scroll'
+import { Link } from 'react-scroll'
 import ArticleBox from '../ArticleHomeBox/ArticleBox'
-
-function Main(props:any) {
-    const {showHeader} = props
+import {showHeaderCtx} from "../../App"
+const Content = ()=>{
     return (
-        <div>
+        <>
             <div className="mainShow">
                 <span className="mainText">life is a <br/><span style={{marginLeft:"100px"}}>fucking movie</span></span>
             </div>
@@ -36,6 +35,15 @@ function Main(props:any) {
                     本篇文章位于： javascript 类目； 由 AndyLiu 创建，发布于： 2020-05-26 21:51:01
                 </div>
             </div>
+        </>
+    )
+}
+const MemoContent = memo(Content)
+function Main(props:any) {
+    const showHeader = useContext(showHeaderCtx)
+    return (
+        <div>
+            <MemoContent/>
             <Link   spy={true}
                     smooth={true}
                     hashSpy={true}

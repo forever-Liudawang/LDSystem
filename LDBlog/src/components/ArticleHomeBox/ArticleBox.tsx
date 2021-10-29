@@ -1,29 +1,29 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect,memo} from 'react'
 import ArticleCard from "../ArticleCard/ArticleCard"
 import "./index.scss"
 import request from '../../utils/request'
-const data = []
-export default function ArticleBox() {
-    const [articleList,setArticleList] = useState([1,2,3,4,5,6,7,8,9,0])
+function ArticleBox() {
+    const [articleList,setArticleList] = useState<any>([])
     const initData = async ()=>{
         const resp = await request({
             url:"/article/getRecommendArticle",
             method:"get"
         })
         if(resp && resp.success){
-            console.log(resp.data,"data==>>>")
+            setArticleList(resp.data || [])
         }
     }
     useEffect(()=>{
         initData()
     },[])
     return (
-        <div className="articleBox d-flex justify-between flex-wrap" >
+        <div className="articleBox" >
             {
-                articleList.map(item=>{
-                    return <ArticleCard/>
+                articleList.map((item:any)=>{
+                    return <ArticleCard articleCateId={item.articleCateId} articleCateName={item.articleCateName} data={item.data} />
                 })
             }
         </div>
     )
 }
+export default memo(ArticleBox)

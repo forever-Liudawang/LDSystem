@@ -41,7 +41,6 @@ class ArticleController extends BaseController {
     async getArticleList() {
         const {ctx} = this
         const {articleCate=0,publishTime,searchKey,pageSize=10,pageIndex=0} = ctx.request.query
-        this.logger.info(articleCate,publishTime,searchKey)
         const filterModel = {}
         if(articleCate != 0){
             filterModel.articleCate = articleCate
@@ -60,8 +59,27 @@ class ArticleController extends BaseController {
     async getRecommendArticle() {
         const {ctx} = this
         // const resp = await ctx.model.Article.find().sort({"created":-1})
-        const resp = await ctx.model.Article.aggregate({"$group":{"_id":"articleCate"}}).limit(3)
-        ctx.body = this.success(resp)
+        const cateList = await ctx.model.Article.aggregate([{$group:{ _id: "$articleCate"}}]);
+        let respList = []
+        if(cateList && Array.isArray(cateList)){
+            for(let i=0;i<cateList.length;i++){
+                let tObj = {}
+                const item = cateList[i]
+                const articleCateId = item._id;
+                const data = await ctx.model.Article.find({articleCate:articleCateId}).sort({"created":-1}).limit(3)
+                tObj.data = data;
+                tObj.articleCateId = articleCateId
+                if(articleCateId == 1){
+                    tObj.articleCateName = "前端技术"
+                }else if(articleCateId == 2){
+                    tObj.articleCateName = "后端技术"
+                }else if(articleCateId == 3){
+                    tObj.articleCateName = "生活随笔"
+                }
+                respList.push(tObj)
+            }
+        }
+        ctx.body = this.success(respList)
     } 
 }
 module.exports = ArticleController;

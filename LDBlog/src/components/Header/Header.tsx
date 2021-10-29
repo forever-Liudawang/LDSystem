@@ -1,8 +1,9 @@
-import React, { useState,useMemo,useCallback,forwardRef, useEffect,memo} from 'react'
+import React, { useState,useCallback,useEffect,memo, useContext} from 'react'
 import "./header.scss"
-import {FcPixelBtn,FcParenthesesBtn,FcUnderlineBtn,FcTypingInput,Fc3DBtn} from "../../components/FcHocComponent"
-// import {withRouter} from "react-router"
-import {withRouter, RouteChildrenProps} from "react-router-dom"
+import {FcUnderlineBtn,FcTypingInput,Fc3DBtn} from "../../components/FcHocComponent"
+import {withRouter} from "react-router-dom"
+import {showHeaderCtx} from "../../App"
+
 enum NavType {
     index,
     frontEndTec,
@@ -11,10 +12,11 @@ enum NavType {
     comment,
     aboutMe
 }
+
 const Header = (props:any)=>{
     const [nav, setNav] = useState(NavType.index)
     const [keyWord, setKeyWord] = useState("")
-    const {showHeader} = props
+    const showHeader = useContext(showHeaderCtx)
     const handleNav = (nav:NavType)=>{
         setNav(nav)
         sessionStorage.setItem("Blog_Nav",nav.toString())

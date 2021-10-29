@@ -11,7 +11,7 @@ export default function DetailBox(props:any) {
         <div className="detailCateCardBox d-flex justify-between flex-wrap" style={{marginTop:"20px"}} >
             {
                 articleList.map(item=>{
-                    return <ArticleCard/>
+                    // return <ArticleCard/>
                 })
             }
         </div>

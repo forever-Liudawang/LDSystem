@@ -11,7 +11,7 @@ export default function ArticleDetail(props:any) {
     const initData = async ()=>{
         const resp = await request({
             url:"/article/getArticleById",
-            params:{articleId:"61794c4672d5aa4038985ad0"},
+            params:{articleId:"617a6fbb385742b5cc138aa3"},
             method:"get"
         })
         if(resp && resp.success){
@@ -25,7 +25,7 @@ export default function ArticleDetail(props:any) {
     return (
         <div className="articleDetail">
             <div className="back">
-                <FcArrowBtn style={{"--color":"#000",color:"#000"}} onClick={back}/>
+                <FcArrowBtn style={{"--color":"#ff4c21",color:"#ff4c21"}} onClick={back}/>
             </div>
             <div className="main">
                 <div className="content">

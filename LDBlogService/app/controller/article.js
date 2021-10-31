@@ -81,5 +81,11 @@ class ArticleController extends BaseController {
         }
         ctx.body = this.success(respList)
     } 
+    /**获取最新blog */
+    async getLatestArticle() {
+        const {ctx} = this
+        const resp = await ctx.model.Article.find().sort({"created":-1}).limit(1)
+        ctx.body = this.success(resp)
+    }
 }
 module.exports = ArticleController;

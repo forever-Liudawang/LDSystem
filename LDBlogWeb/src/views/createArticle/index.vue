@@ -64,13 +64,14 @@ export default {
       rules: {
         articleTitle: [
           { required: true, message: '请选择文章标题', trigger: 'blur' },
-          { min: 5, max: 40, message: '长度在 5 到 40 个字符', trigger: 'blur' }
+          { min: 5, max: 20, message: '长度在 5 到 20 个字符', trigger: 'blur' }
         ],
         articleCate: [
           { required: true, message: '请选择文章分类', trigger: 'blur' }
         ],
         articleDesc: [
-          { required: true, message: '请填写文章简介', trigger: 'blur' }
+          { required: true, message: '请填写文章简介', trigger: 'blur' },
+          { min: 5, max: 40, message: '长度在 5 到 80 个字符', trigger: 'blur' }
         ],
         coverImg: [
           { required: true, message: '请上传文章封面', trigger: 'blur' }

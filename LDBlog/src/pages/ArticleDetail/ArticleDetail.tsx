@@ -9,9 +9,12 @@ export default function ArticleDetail(props:any) {
         props.history.goBack()
     }
     const initData = async ()=>{
+        console.log('props :>> ', props);
+        const {location={}} = props
+        const articleId = location.state && location.state.articleId
         const resp = await request({
             url:"/article/getArticleById",
-            params:{articleId:"617a6fbb385742b5cc138aa3"},
+            params:{articleId},
             method:"get"
         })
         if(resp && resp.success){

@@ -4,8 +4,12 @@
     margin-bottom: 20px;
     background-color: #fff;
     transition: box-shadow .2s;
-    box-shadow: 4px 4px 8px 0 rgba(207, 207, 207, 0.2);
+    box-shadow: 4px 4px 10px 0 rgba(207, 207, 207, 0.2);
     margin-bottom: 10px;
+    .title{
+        color: #ff4c21;
+        padding: 10px 0 10px 20px;
+    }
     .itemBox{
         width: 100%;
         display: flex;

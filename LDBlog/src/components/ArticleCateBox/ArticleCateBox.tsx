@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import ArticleCard from "../ArticleCard/ArticleCard"
 import "./index.scss"
 import { animateScroll } from 'react-scroll'
-export default function DetailBox(props:any) {
+export default function ArticleCateBox(props:any) {
     const [articleList,setArticleList] = useState([1,2,3,4,5,6,7,8,9,0])
     const toTop = ()=>{
         animateScroll.scrollToTop()

@@ -3,7 +3,6 @@ import "./header.scss"
 import {FcUnderlineBtn,FcTypingInput,Fc3DBtn} from "../../components/FcHocComponent"
 import {withRouter} from "react-router-dom"
 import {showHeaderCtx} from "../../App"
-
 enum NavType {
     index,
     frontEndTec,
@@ -12,7 +11,19 @@ enum NavType {
     comment,
     aboutMe
 }
-
+const handleSetNav = (curNav:any,setNav:Function)=>{
+    if(curNav == 1){
+        setNav(NavType.frontEndTec)
+    }else if(curNav == 2){
+        setNav(NavType.backEndTec)
+    }else if(curNav == 3){
+        setNav(NavType.life)
+    }else if(curNav == 4){
+        setNav(NavType.comment)
+    }else if(curNav == 5){
+        setNav(NavType.aboutMe)
+    }
+}
 const Header = (props:any)=>{
     const [nav, setNav] = useState(NavType.index)
     const [keyWord, setKeyWord] = useState("")
@@ -40,22 +51,19 @@ const Header = (props:any)=>{
     const handleSearchByKeyWord = ()=>{
         console.log('keyWord :>> ', keyWord);
     }
-    
     useEffect(()=>{
+        const unlisten = props.history.listen((location: any)=>{
+            const {state} = location
+            const articleCate = state ? state.articleCate :0;
+            handleSetNav(articleCate,setNav)
+        })
         const {location} = props
         if(!location.state)return
         const storageNav = sessionStorage.getItem("Blog_Nav")
         const curNav = (location.state && location.state.curNav) || storageNav
-        if(curNav == 1){
-            setNav(NavType.frontEndTec)
-        }else if(curNav == 2){
-            setNav(NavType.backEndTec)
-        }else if(curNav == 3){
-            setNav(NavType.life)
-        }else if(curNav == 4){
-            setNav(NavType.comment)
-        }else if(curNav == 5){
-            setNav(NavType.aboutMe)
+        handleSetNav(curNav,setNav)
+        return ()=>{
+            unlisten()
         }
     },[])
     return (

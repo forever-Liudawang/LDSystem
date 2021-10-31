@@ -1,6 +1,6 @@
 import React, { createContext, useEffect, useState } from 'react';
 import Home from "./pages/Home/Home"
-import DetailPage from "./pages/DetailPage/DetailPage"
+import DetailPage from "./pages/ArticleCate/ArticleCate"
 import {Switch,Route,BrowserRouter as Router,Redirect} from "react-router-dom"
 import ArticleDetail from './pages/ArticleDetail/ArticleDetail';
 import AboutMe from './pages/AboutMe/AboutMe';
@@ -39,7 +39,7 @@ export default function App() {
                 <Route path="/page/:navId" exact component={DetailPage}></Route>
                 <Route path="/articleDetail/:articleId" exact component={ArticleDetail}></Route>
                 <Route path="/about" exact component={AboutMe}></Route>
-                <Redirect to="/"/>
+                {/* <Redirect exact from="/*" to="/"/> */}
               </showHeaderCtx.Provider>
             </Switch>
           </Router>

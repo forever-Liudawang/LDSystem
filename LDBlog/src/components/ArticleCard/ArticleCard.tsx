@@ -10,10 +10,15 @@ function ArticleCard(props:Iprops) {
     const {articleCateId,articleCateName,data}= props
     return (
         <div className="articleCard">
-            <div className="title p10">
-                <h2>
-                    {articleCateName}
-                </h2>
+            <div className="title d-flex align-center">
+                <div>
+                    <img src="/imgs/latest.png" alt=""/>
+                </div>
+                <div style={{marginLeft:"10px"}}>
+                    <h2>
+                        {articleCateName}
+                    </h2>
+                </div>
             </div>
             <div className="itemBox">
             {

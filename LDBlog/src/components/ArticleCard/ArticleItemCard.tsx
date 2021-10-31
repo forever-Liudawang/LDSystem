@@ -1,20 +1,29 @@
 import React from 'react'
 import { withRouter } from 'react-router'
 import { FcDblWarpBtn } from '../FcHocComponent'
-import {dateDistance} from "../../utils/item"
+import {dateDistance} from "../../utils/time"
 function ArticleItemCard(props:any) {
     const {articleData,articleCateName} = props
     const handleClickToDetali = ()=>{   
         props.history.push({
-            pathname:"/articleDetail/"+1,
+            pathname:"/articleDetail/"+ articleData.articleCate,
             state:{
-                articleId:1
+                articleId:articleData._id,
+                articleCate: articleData.articleCate
             }
         })
+        sessionStorage.setItem("Blog_Nav",articleData.articleCate)
     }
     const handleToCate = (e: React.MouseEvent<HTMLSpanElement, MouseEvent>)=>{
         e.stopPropagation();
-        console.log(1233)
+        props.history.push({
+            pathname:"/page/"+ articleData.articleCate,
+            state:{
+                articleId:articleData._id,
+                articleCate: articleData.articleCate
+            }
+        })
+        sessionStorage.setItem("Blog_Nav",articleData.articleCate)
     }
     return (
         <div className="itemArticleCard" onClick={handleClickToDetali}>

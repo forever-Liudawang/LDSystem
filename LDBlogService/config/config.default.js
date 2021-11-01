@@ -1,7 +1,7 @@
 /* eslint valid-jsdoc: "off" */
 
-// const fs = require("fs")
-// const path = require("path")
+const fs = require("fs")
+const path = require("path")
 'use strict';
 /**
  * @param {Egg.EggAppInfo} appInfo app info
@@ -27,18 +27,18 @@ module.exports = appInfo => {
   config.$baseURL = 'http://localhost:7001';
   // add your middleware config here
   config.middleware = [ 'handError' ];
-  // config.static = {
-  //   dir:[
-  //     {prefix: '/static',dir:path.join(appInfo.baseDir,"app/public")},
-  //     {prefix: '/imgs',dir:path.join(appInfo.baseDir,"app/public/imgs")}
-  //   ]
-  // };
+  config.static = {
+    dir:[
+      {prefix: '/static',dir:path.join(appInfo.baseDir,"app/public")},
+      {prefix: '/imgs',dir:path.join(appInfo.baseDir,"app/public/imgs")}
+    ]
+  };
   config.static = {
     prefix: '/static',
   };
-  // config.siteFile = {
-  //   "/blog": fs.readFileSync(path.join(appInfo.baseDir,'app/public/blog/index.html'))
-  // }
+  config.siteFile = {
+    "/blog": fs.readFileSync(path.join(appInfo.baseDir,'app/public/blog/index.html'))
+  }
   config.mongoose = {
     client: {
       // url: 'mongodb://localhost:27017/LDream',

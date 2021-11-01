@@ -33,9 +33,9 @@ module.exports = appInfo => {
       {prefix: '/imgs',dir:path.join(appInfo.baseDir,"app/public/imgs")}
     ]
   };
-  config.static = {
-    prefix: '/static',
-  };
+  // config.static = {
+  //   prefix: '/static',
+  // };
   config.siteFile = {
     "/blog": fs.readFileSync(path.join(appInfo.baseDir,'app/public/blog/index.html'))
   }

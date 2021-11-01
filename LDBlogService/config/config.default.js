@@ -42,13 +42,15 @@ module.exports = appInfo => {
       url: 'mongodb://localhost:27017/LDBlog',
       options: {
         useNewUrlParser: true,
+        // useUnifiedTopology
+        useUnifiedTopology:true
       },
     },
   };
   config.cluster = {
     listen: {
       path: '',
-      port: 8000,
+      port: 8090,
       hostname: '0.0.0.0',
     }
   };

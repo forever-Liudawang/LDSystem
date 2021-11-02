@@ -37,8 +37,8 @@ module.exports = appInfo => {
   //   prefix: '/static',
   // };
   config.siteFile = {
-    "/app": fs.readFileSync(path.join(appInfo.baseDir,'app/public/blog/index.html')),
-    "/manage": fs.readFileSync(path.join(appInfo.baseDir,'app/public/blogWeb/index.html'))
+    "/app": fs.readFileSync(path.join(appInfo.baseDir,'app/public/app/index.html')),
+    "/manage": fs.readFileSync(path.join(appInfo.baseDir,'app/public/manage/index.html'))
   }
   config.mongoose = {
     client: {

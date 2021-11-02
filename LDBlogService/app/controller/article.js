@@ -87,5 +87,12 @@ class ArticleController extends BaseController {
         const resp = await ctx.model.Article.find().sort({"created":-1}).limit(1)
         ctx.body = this.success(resp)
     }
+    /**获取某类文章数据 */
+    async getCateArticle(){
+        const {ctx} = this
+        const {articleCateId,pageIndex=0,pageSize=9} = ctx.request.query
+        const resp = await ctx.model.Article.find({articleCate:articleCateId}).limit(parseInt(pageSize)).skip(pageIndex*pageSize)
+        ctx.body = this.success(resp)
+    }
 }
 module.exports = ArticleController;

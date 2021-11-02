@@ -17,5 +17,5 @@ module.exports = app => {
   router.post('/article/deleteArticle', controller.article.deleteArticle);
   router.get('/article/getRecommendArticle', controller.article.getRecommendArticle);
   router.get('/article/getLatestArticle', controller.article.getLatestArticle);
-  
+  router.get('/article/getCateArticle', controller.article.getCateArticle);
 };

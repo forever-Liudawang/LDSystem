@@ -14,7 +14,6 @@ const Content = (props:any)=>{
             url:"/article/getLatestArticle",
             method:"get"
         })
-        console.log('resp :>> ', resp);
         if(resp && resp.success){
             setArticle(resp.data && resp.data[0])
         }
@@ -28,7 +27,7 @@ const Content = (props:any)=>{
             }
         })
         sessionStorage.setItem("Blog_Nav",latestArticle.articleCate)
-        console.log('props :>> ', latestArticle,props);
+        sessionStorage.setItem("ArticleId",latestArticle._id)
     }
     useEffect(() => {
         initData()

@@ -33,12 +33,12 @@ module.exports = appInfo => {
       {prefix: '/imgs',dir:path.join(appInfo.baseDir,"app/public/imgs")}
     ]
   };
-  // config.static = {
-  //   prefix: '/static',
-  // };
   config.siteFile = {
     "/app": fs.readFileSync(path.join(appInfo.baseDir,'app/public/app/index.html')),
     "/manage": fs.readFileSync(path.join(appInfo.baseDir,'app/public/manage/index.html'))
+  }
+  config.multipart = {
+
   }
   config.mongoose = {
     client: {

@@ -9,9 +9,9 @@ export default function ArticleDetail(props:any) {
         props.history.goBack()
     }
     const initData = async ()=>{
-        console.log('props :>> ', props);
         const {location={}} = props
-        const articleId = location.state && location.state.articleId
+        const storageId = sessionStorage.getItem("ArticleId")
+        const articleId = (location.state && location.state.articleId) || storageId
         const resp = await request({
             url:"/article/getArticleById",
             params:{articleId},

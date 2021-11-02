@@ -21,8 +21,7 @@ const dynmicalTitle = (curNav:string|number)=>{
     return {}
 }
 function FrontTitle(props:RouteChildrenProps) {
-    const {location}:any = props
-    const curNav = location.state.curNav;
+    const curNav:any = sessionStorage.getItem("Blog_Nav");
     const {title,bgImg} = dynmicalTitle(curNav)
     return (
         <div className="detailPageHeader w-full">

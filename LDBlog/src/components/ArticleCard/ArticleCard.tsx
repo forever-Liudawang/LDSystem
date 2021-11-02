@@ -2,7 +2,7 @@ import React from 'react'
 import "./index.scss"
 import ArticleItemCard from './ArticleItemCard'
 interface Iprops {
-    articleCateId: number | string,
+    articleCateId?: number | string,
     articleCateName:string,
     data: Array<any>
 }

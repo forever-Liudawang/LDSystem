@@ -22,6 +22,8 @@ const handleSetNav = (curNav:any,setNav:Function)=>{
         setNav(NavType.comment)
     }else if(curNav == 5){
         setNav(NavType.aboutMe)
+    }else{
+        setNav(NavType.index)
     }
 }
 const Header = (props:any)=>{
@@ -32,12 +34,12 @@ const Header = (props:any)=>{
         setNav(nav)
         sessionStorage.setItem("Blog_Nav",nav.toString())
         if(nav == NavType.index){
-            props.history.push("/blog")
+            props.history.push("/app")
         }else if(nav == NavType.aboutMe){
             props.history.push("/about")
         }else{
             props.history.push({
-                pathname:"/blog/"+ nav,
+                pathname:"/app/"+ nav,
                 state:{
                     curNav:nav
                 }
@@ -54,11 +56,15 @@ const Header = (props:any)=>{
     useEffect(()=>{
         const unlisten = props.history.listen((location: any)=>{
             const {state} = location
-            const articleCate = state ? state.articleCate :0;
+            console.log('state :>> ', state);
+            const a = sessionStorage.getItem("Blog_Nav")
+            console.log('a :>> ', a);
+            const articleCate = state ? (state.articleCate ? state.articleCate: state.curNav) :0;
+            sessionStorage.setItem("Blog_Nav",articleCate)
             handleSetNav(articleCate,setNav)
         })
         const {location} = props
-        if(!location.state)return
+        // if(!location.state)return
         const storageNav = sessionStorage.getItem("Blog_Nav")
         const curNav = (location.state && location.state.curNav) || storageNav
         handleSetNav(curNav,setNav)

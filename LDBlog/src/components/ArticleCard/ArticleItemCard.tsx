@@ -13,11 +13,12 @@ function ArticleItemCard(props:any) {
             }
         })
         sessionStorage.setItem("Blog_Nav",articleData.articleCate)
+        sessionStorage.setItem("ArticleId",articleData._id)
     }
     const handleToCate = (e: React.MouseEvent<HTMLSpanElement, MouseEvent>)=>{
         e.stopPropagation();
         props.history.push({
-            pathname:"/blog/"+ articleData.articleCate,
+            pathname:"/app/"+ articleData.articleCate,
             state:{
                 articleId:articleData._id,
                 articleCate: articleData.articleCate

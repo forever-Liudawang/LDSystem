@@ -67,7 +67,7 @@ export const constantRoutes = [
     component: Layout,
     children: [
       {
-        path: 'http://localhost:3000',
+        path: 'http://110.42.186.20/app#/app',
         meta: { title: 'External Link', icon: 'link' }
       }
     ]

@@ -78,7 +78,8 @@ export default {
         ]
       },
       editor: null,
-      imageUrl: ''
+      imageUrl: '',
+      uploadImgUrl:process.env.VUE_APP_BASE_API + "/uploadImg"
     }
   },
   mounted() {

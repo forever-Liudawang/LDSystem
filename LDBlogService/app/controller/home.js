@@ -4,7 +4,6 @@ const BaseController  = require("./BaseController")
 const path = require("path")
 const fs = require("fs")
 const OSS = require("ali-oss")
-const random = require('string-random')
 const sendToWormhole = require("stream-wormhole")
 //https://help.aliyun.com/document_detail/31837.html
 const ossInfo = {

@@ -35,11 +35,11 @@ export default function App() {
             <Switch>
               <showHeaderCtx.Provider value={showHeader}>
                 <Header/>
-                <Route path="/" exact component={Home}></Route>
-                <Route path="/page/:navId" exact component={DetailPage}></Route>
+                <Route path="/blog" exact component={Home}></Route>
+                <Route path="/blog/:navId" exact component={DetailPage}></Route>
                 <Route path="/articleDetail/:articleId" exact component={ArticleDetail}></Route>
                 <Route path="/about" exact component={AboutMe}></Route>
-                {/* <Redirect exact from="/*" to="/"/> */}
+                <Redirect exact from="/*" to="/blog"/>
               </showHeaderCtx.Provider>
             </Switch>
           </Router>

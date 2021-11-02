@@ -8,7 +8,7 @@ import formatArticleName from "../../utils/articleIdFormat"
 import { withRouter } from 'react-router'
 import Footer from "../../components/Footer/Footer"
 const Content = (props:any)=>{
-    const [latestArticle,setArticle] = useState<any>({})
+    const [latestArticle={},setArticle] = useState<any>({})
     const initData = async ()=>{
         const resp = await request({
             url:"/article/getLatestArticle",

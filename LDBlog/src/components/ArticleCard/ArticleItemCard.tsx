@@ -17,7 +17,7 @@ function ArticleItemCard(props:any) {
     const handleToCate = (e: React.MouseEvent<HTMLSpanElement, MouseEvent>)=>{
         e.stopPropagation();
         props.history.push({
-            pathname:"/page/"+ articleData.articleCate,
+            pathname:"/blog/"+ articleData.articleCate,
             state:{
                 articleId:articleData._id,
                 articleCate: articleData.articleCate

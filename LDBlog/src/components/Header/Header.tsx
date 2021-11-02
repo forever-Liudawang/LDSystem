@@ -32,12 +32,12 @@ const Header = (props:any)=>{
         setNav(nav)
         sessionStorage.setItem("Blog_Nav",nav.toString())
         if(nav == NavType.index){
-            props.history.push("/")
+            props.history.push("/blog")
         }else if(nav == NavType.aboutMe){
             props.history.push("/about")
         }else{
             props.history.push({
-                pathname:"/page/"+ nav,
+                pathname:"/blog/"+ nav,
                 state:{
                     curNav:nav
                 }

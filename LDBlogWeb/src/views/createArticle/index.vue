@@ -14,7 +14,6 @@
                 <el-option label="前端技术" value="1" />
                 <el-option label="后端技术" value="2" />
                 <el-option label="生活随笔" value="3" />
-                <!-- <el-option label="区域二" value="beijing"></el-option> -->
               </el-select>
             </el-form-item>
           </el-col>
@@ -22,27 +21,36 @@
         <el-row>
           <el-col :span="12">
             <el-form-item label="文章简介" prop="articleDesc">
-              <el-input v-model="articleModel.articleDesc" clearable :rows="8" type="textarea" />
+              <el-input v-model="articleModel.articleDesc" clearable :rows="2" type="textarea" />
+            </el-form-item>
+            <el-form-item label="标签分类" prop="articleTags" class="tagSelect">
+              <el-select v-model="articleModel.articleTags" multiple placeholder="请选择">
+                <el-option
+                  
+                  v-for="item in articleTagsSelect"
+                  :key="item"
+                  :label="item"
+                  :value="item">
+                </el-option>
+              </el-select>
             </el-form-item>
           </el-col>
-          <el-col :span="6">
-            <el-form-item label="文章图片" prop="coverImg">
-              <el-upload
-                class="avatar-uploader"
-                action="http://localhost:7001/uploadImg"
-                :show-file-list="false"
-                :on-success="handleAvatarSuccess"
-                :before-upload="beforeAvatarUpload"
-              >
-                <img v-if="articleModel.coverImg" :src="articleModel.coverImg" class="avatar">
-                <i v-else class="el-icon-plus avatar-uploader-icon" />
-              </el-upload>
-            </el-form-item>
-          </el-col>
-          <el-col :span="4" style="margin:11% 0 0 5%">
-            <el-form-item>
-              <el-button type="primary" @click="submitForm('articleModel')">发布文章</el-button>
-            </el-form-item>
+          <el-col :span="12">
+            <div style="display:flex;align-items: flex-start">
+              <el-form-item label="文章图片" prop="coverImg" style="width:60%">
+                <el-upload
+                  class="avatar-uploader"
+                  :action="uploadImgUrl"
+                  :show-file-list="false"
+                  :on-success="handleAvatarSuccess"
+                  :before-upload="beforeAvatarUpload"
+                >
+                  <img v-if="articleModel.coverImg" :src="articleModel.coverImg" class="avatar">
+                  <i v-else class="el-icon-plus avatar-uploader-icon" />
+                </el-upload>
+              </el-form-item>
+              <el-button style="height:40px" type="primary" @click="submitForm('articleModel')">发布文章</el-button>
+            </div>
           </el-col>
         </el-row>
       </el-form>
@@ -79,7 +87,8 @@ export default {
       },
       editor: null,
       imageUrl: '',
-      uploadImgUrl:process.env.VUE_APP_BASE_API + "/uploadImg"
+      uploadImgUrl:process.env.VUE_APP_BASE_API + "/uploadImg",
+      articleTagsSelect:["Vue","React","nodejs","java","数据库","部署"]
     }
   },
   mounted() {
@@ -87,6 +96,7 @@ export default {
   },
   methods: {
     submitForm(formName) {
+      console.log(`this.articleModel`, this.articleModel)
       this.$refs[formName].validate(async(valid) => {
         if (valid) {
         this.$confirm("是否发布文章?","提示",{callback:async (action)=>{
@@ -118,24 +128,27 @@ export default {
       const editor = new WangEditor(this.$refs.editorRef)
       editor.config.height = 1000
       editor.config.zIndex = 10
-      // editor.config.uploadImgShowBase64 = true
-      editor.config.customUploadImg = function(resultFiles, insertImgFn) {
-        // resultFiles 是 input 中选中的文件列表
-        // insertImgFn 是获取图片 url 后，插入到编辑器的方法
-
-        // 上传图片，返回结果，将图片插入到编辑器中
-        // insertImgFn(imgUrl)
+      editor.config.customUploadImg = async (resultFiles, insertImgFn)=>{
+        const formData = new FormData()
+        formData.append("file",resultFiles[0])
+        const resp = await this.$http({
+          url: '/uploadImg',
+          data: formData,
+          method: 'post',
+        })
+        if(resp.success){
+          insertImgFn(resp.data)
+        }else{
+          this.$message.error(data)
+        }
       }
       // 创建编辑器
       editor.create()
       this.editor = editor
     },
     handleAvatarSuccess(res) {
-      console.log(res)
       if (res && res.success) {
-        setTimeout(()=>{
-          this.articleModel.coverImg = res.data
-        },1000)
+        this.articleModel.coverImg = res.data
       }
     },
     beforeAvatarUpload(file) {
@@ -160,7 +173,15 @@ export default {
 .createArticle >>> .el-form-item__error{
   left:40% !important;
 }
-
+.tagSelect{
+  padding-left: 8px;
+}
+.tagSelect >>> .el-input{
+  width:100% !important;
+}
+.tagSelect >>> .el-select{
+  width: 81% !important;
+}
 </style>
 <style>
 .avatar-uploader .el-upload {
@@ -176,14 +197,14 @@ export default {
   .avatar-uploader-icon {
     font-size: 28px;
     color: #8c939d;
-    width: 178px;
-    height: 178px;
-    line-height: 178px;
+    width: 115px;
+    height: 115px;
+    line-height: 115px;
     text-align: center;
   }
   .avatar {
-    width: 178px;
-    height: 178px;
+    width: 115px;
+    height: 115px;
     display: block;
   }
 </style>

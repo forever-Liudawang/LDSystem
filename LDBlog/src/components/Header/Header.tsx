@@ -29,6 +29,7 @@ const handleSetNav = (curNav:any,setNav:Function)=>{
 const Header = (props:any)=>{
     const [nav, setNav] = useState(NavType.index)
     const [keyWord, setKeyWord] = useState("")
+    console.log('keyWord :>> ', keyWord);
     const showHeader = useContext(showHeaderCtx)
     const handleNav = (nav:NavType)=>{
         setNav(nav)
@@ -51,20 +52,18 @@ const Header = (props:any)=>{
         return "#000"
     },[nav])
     const handleSearchByKeyWord = ()=>{
-        console.log('keyWord :>> ', keyWord);
+        props.history.push("/articleSearch")
+        sessionStorage.setItem("SEARCHKEY",keyWord)
     }
     useEffect(()=>{
         const unlisten = props.history.listen((location: any)=>{
             const {state} = location
-            console.log('state :>> ', state);
             const a = sessionStorage.getItem("Blog_Nav")
-            console.log('a :>> ', a);
             const articleCate = state ? (state.articleCate ? state.articleCate: state.curNav) :0;
             sessionStorage.setItem("Blog_Nav",articleCate)
             handleSetNav(articleCate,setNav)
         })
         const {location} = props
-        // if(!location.state)return
         const storageNav = sessionStorage.getItem("Blog_Nav")
         const curNav = (location.state && location.state.curNav) || storageNav
         handleSetNav(curNav,setNav)
@@ -92,17 +91,18 @@ const Header = (props:any)=>{
                 <FcUnderlineBtn style={{color:color(NavType.life),fontWeight:"bold","--color":color(NavType.life)}} onClick={()=>handleNav(NavType.life)}>
                     Life
                 </FcUnderlineBtn>
-                <FcUnderlineBtn style={{color:color(NavType.comment),fontWeight:"bold","--color":color(NavType.comment)}} onClick={()=>handleNav(NavType.comment)}>
+                {/* <FcUnderlineBtn style={{color:color(NavType.comment),fontWeight:"bold","--color":color(NavType.comment)}} onClick={()=>handleNav(NavType.comment)}>
                     Message
-                </FcUnderlineBtn>
+                </FcUnderlineBtn> */}
                 <FcUnderlineBtn style={{color:color(NavType.aboutMe),fontWeight:"bold","--color":color(NavType.aboutMe)}} onClick={()=>handleNav(NavType.aboutMe)}>
                     about me
                 </FcUnderlineBtn>
             </div>
             <div className="search">
-                <FcTypingInput  placeholder="关键字搜索"   style={{"--color":"#000"}} value={keyWord} onInput={(e:any)=>setKeyWord(e.target.value)}>
-                </FcTypingInput>
-                <Fc3DBtn style={{marginLeft:"10px","--color":"#000"}} onClick={handleSearchByKeyWord}>搜索</Fc3DBtn>
+                <input id="searchInput" placeholder="关键字搜索" type="text" value={keyWord} onInput={(e:any)=>setKeyWord(e.target.value)}/>
+                {/* <FcTypingInput  placeholder="关键字搜索"   style={{"--color":"#000"}} value={keyWord} onInput={(e:any)=>{console.log(e.target.value);}}>
+                </FcTypingInput> */}
+                <Fc3DBtn style={{marginLeft:"20px","--color":"#000"}} onClick={handleSearchByKeyWord}>搜索</Fc3DBtn>
             </div>
         </div>
     )

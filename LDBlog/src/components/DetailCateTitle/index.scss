@@ -7,19 +7,20 @@
     .title{
         font-size: 56px;
         font-weight: bold;
-        text-shadow: 2px 2px 2px #ccc;
         text-align: center;
         display: flex;
         align-items: center;
         justify-content: center;
-        letter-spacing: 4px;
+        letter-spacing: 16px;
         width: 48%;
-        height: 180px;
+        height: 120px;
         -webkit-animation: tracking-in-contract-bck-top 1s cubic-bezier(0.215, 0.610, 0.355, 1.000) both;
         animation: tracking-in-contract-bck-top 1s cubic-bezier(0.215, 0.610, 0.355, 1.000) both;        
         // background-image: url("./front.jpg");
         background-size:100% 100%;
         border-radius: 10px;
+        text-shadow: 0 1px 0 #a7a7a7, 0 2px 0 #a7a7a7, 0 3px 0 #a7a7a7, 0 4px 0 #a7a7a7, 0 5px 0 #a7a7a7, 0 6px 0 #a7a7a7, 0 7px 0 #a7a7a7, 0 8px 0 #a7a7a7, 0 9px 0 #a7a7a7, 0 50px 30px rgba(0, 0, 0, 0.3);
+
         @-webkit-keyframes tracking-in-contract-bck-top {
             0% {
               letter-spacing: 1em;

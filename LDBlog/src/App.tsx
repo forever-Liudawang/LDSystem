@@ -6,6 +6,7 @@ import ArticleDetail from './pages/ArticleDetail/ArticleDetail';
 import AboutMe from './pages/AboutMe/AboutMe';
 import { animateScroll } from 'react-scroll';
 import Header from "./components/Header/Header"
+import ArticleSearch from "./pages/ArticleSearch/ArticleSearch"
 export const showHeaderCtx = createContext(true)
 let temp = true
 export default function App() {
@@ -36,9 +37,10 @@ export default function App() {
               <showHeaderCtx.Provider value={showHeader}>
                 <Header/>
                 <Route path="/app" exact component={Home}></Route>
-                <Route path="/app/:navId(\d+)?" exact component={DetailPage}></Route>
+                <Route path="/app/:navId" exact component={DetailPage}></Route>
                 <Route path="/articleDetail/:articleId" exact component={ArticleDetail}></Route>
                 <Route path="/about" exact component={AboutMe}></Route>
+                <Route path="/articleSearch" exact component={ArticleSearch}></Route>
                 {/* <Redirect exact={true} strict={true} from="/" to="/app"/> */}
               </showHeaderCtx.Provider>
             </Switch>

@@ -11,7 +11,7 @@ const Content = (props:any)=>{
     const [latestArticle={},setArticle] = useState<any>({})
     const initData = async ()=>{
         const resp = await request({
-            url:"/article/getLatestArticle",
+            url:"/article/getMyRecommendArticle",
             method:"get"
         })
         if(resp && resp.success){
@@ -45,12 +45,12 @@ const Content = (props:any)=>{
             <div className="latest" onClick={handleToDetail}>
                 <div className="title">
                     <h1>
-                        The Latest
+                        小 刘 推 荐
                     </h1>
                 </div>
                 <div className="contentTitle">
                     <h2 className=" p10"> 
-                        <FcDblWarpBtn style={{width:"300px",height:"40px","--color":"#000"}}>
+                        <FcDblWarpBtn style={{height:"40px","--color":"#000"}}>
                             {latestArticle.articleTitle}
                         </FcDblWarpBtn>
                     </h2>

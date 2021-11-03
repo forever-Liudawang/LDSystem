@@ -4,17 +4,17 @@ import { withRouter, RouteChildrenProps } from 'react-router'
 const dynmicalTitle = (curNav:string|number)=>{
     if(curNav == 1){
         return {
-            title:"前端技术文章",
+            title:"前端文章",
             bgImg: "url('/imgs/front.jpg')"
         }
     }else if(curNav == 2){
         return {
-            title:"后端技术文章",
+            title:"后端文章",
             bgImg: "url('/imgs/backEnd.jpg')"
         }
     }else if(curNav == 3){
         return {
-            title:"生活二三事",
+            title:"生活趣事",
             bgImg: "url('/imgs/front.jpg')"
         }
     }
@@ -25,7 +25,7 @@ function FrontTitle(props:RouteChildrenProps) {
     const {title,bgImg} = dynmicalTitle(curNav)
     return (
         <div className="detailPageHeader w-full">
-            <div className="title" style={{backgroundImage:bgImg}}>{title}</div>
+            <div className="title" >{title}</div>
         </div>
     )
 }

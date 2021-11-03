@@ -36,7 +36,7 @@ class ArticleController extends BaseController {
         ctx.body = this.success()
     }
     /**
-     * 模糊查询 $regex
+     * 模糊查询管理端 $regex
      */
     async getArticleList() {
         const {ctx} = this
@@ -49,7 +49,7 @@ class ArticleController extends BaseController {
             const t = [{content:reg},{articleDesc:reg},{articleTitle:reg}]
             filterModel.$or = t
         }
-        const count = await ctx.model.Article.count()
+        const count = await ctx.model.Article.find(filterModel).count()
         const resp = await ctx.model.Article.find(filterModel).limit(parseInt(pageSize)).skip(pageIndex*pageSize)
         ctx.body = this.success(resp,null,{total:count})
     }
@@ -82,9 +82,13 @@ class ArticleController extends BaseController {
         ctx.body = this.success(respList)
     } 
     /**获取最新blog */
-    async getLatestArticle() {
+    async getMyRecommendArticle() {
         const {ctx} = this
-        const resp = await ctx.model.Article.find().sort({"created":-1}).limit(1)
+        let resp = null;
+        resp = await ctx.model.Article.find({isMyRecommend:true}).limit(1)
+        if(!resp || !resp[0]){
+            resp = await ctx.model.Article.find().sort({"created":-1}).limit(1)
+        }
         ctx.body = this.success(resp)
     }
     /**获取某类文章数据 */
@@ -93,6 +97,43 @@ class ArticleController extends BaseController {
         const {articleCateId,pageIndex=0,pageSize=9} = ctx.request.query
         const resp = await ctx.model.Article.find({articleCate:articleCateId}).limit(parseInt(pageSize)).skip(pageIndex*pageSize)
         ctx.body = this.success(resp)
+    }
+    /**
+     * 获取近期文章 5 篇
+     */
+    async getLatestFive(){
+        const {ctx} = this
+        const resp = await ctx.model.Article.find().sort({"created":-1}).limit(10)
+        ctx.body = this.success(resp)
+    }
+
+    /**
+     * app blog 端 搜索查询
+     */
+    async getSearchList() {
+        const {ctx} = this
+        const {searchKey,pageSize=10,pageIndex=0} = ctx.request.query
+        const filterModel = {}
+        const reg = {$regex:searchKey}
+        const t = [{content:reg},{articleDesc:reg},{articleTitle:reg}]
+        filterModel.$or = t
+        const count = await ctx.model.Article.find(filterModel).count()
+        const resp = await ctx.model.Article.find(filterModel).limit(parseInt(pageSize)).skip(pageIndex*pageSize)
+        ctx.body = this.success(resp,null,{total:count})
+    }
+    /**
+     * 修改个人推荐文章
+     */
+    async switchRecommendArticle (){
+        const {ctx} = this
+        const {newState,articleId} = ctx.request.body
+        if(newState){
+            (await ctx.model.Article.find()).forEach(async (item)=>{
+                await ctx.model.Article.update({_id:item._id},{isMyRecommend:false})
+            })
+        }
+        await ctx.model.Article.update({_id:articleId},{isMyRecommend:newState})
+        ctx.body = this.success()
     }
 }
 module.exports = ArticleController;

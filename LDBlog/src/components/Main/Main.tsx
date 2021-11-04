@@ -1,9 +1,37 @@
-import React, { memo, useContext } from 'react'
+import React, { memo, useContext, useState, useEffect } from 'react'
 import { FcDblWarpBtn } from '../FcHocComponent'
 import { Link } from 'react-scroll'
 import ArticleBox from '../ArticleHomeBox/ArticleBox'
 import {showHeaderCtx} from "../../App"
-const Content = ()=>{
+import request from '../../utils/request'
+import formatArticleName from "../../utils/articleIdFormat"
+import { withRouter } from 'react-router'
+import Footer from "../../components/Footer/Footer"
+const Content = (props:any)=>{
+    const [latestArticle={},setArticle] = useState<any>({})
+    const initData = async ()=>{
+        const resp = await request({
+            url:"/article/getMyRecommendArticle",
+            method:"get"
+        })
+        if(resp && resp.success){
+            setArticle(resp.data && resp.data[0])
+        }
+    }
+    const handleToDetail = ()=>{
+        props.history.push({
+            pathname:"/articleDetail/"+ latestArticle.articleCate,
+            state:{
+                articleId:latestArticle._id,
+                articleCate: latestArticle.articleCate
+            }
+        })
+        sessionStorage.setItem("Blog_Nav",latestArticle.articleCate)
+        sessionStorage.setItem("ArticleId",latestArticle._id)
+    }
+    useEffect(() => {
+        initData()
+    }, [])
     return (
         <>
             <div className="mainShow">
@@ -14,31 +42,30 @@ const Content = ()=>{
                 <span></span>
                 <span></span>
             </div>
-            <div className="latest">
+            <div className="latest" onClick={handleToDetail}>
                 <div className="title">
                     <h1>
-                        The Latest
+                        小 刘 推 荐
                     </h1>
                 </div>
                 <div className="contentTitle">
                     <h2 className=" p10"> 
-                        <FcDblWarpBtn style={{width:"300px",height:"40px","--color":"#000"}}>
-                            高阶函数替换JavaScript中的循环
+                        <FcDblWarpBtn style={{height:"40px","--color":"#000"}}>
+                            {latestArticle.articleTitle}
                         </FcDblWarpBtn>
                     </h2>
                 </div>
                 <div className="main  p10">
-                    Web前端开发中相信很多人面对表单元素都会将其原始样式重置或借助非表单元素来模拟表单控件，之所以这般操作，是因为表单控件...
-                    Web前端开发中相信很多人面对表单元素都会将其原始样式重置或借助非表单元素来模拟表单控件，之所以这般操作，是因为表单控件...
+                    {latestArticle.articleDesc}
                 </div>
                 <div className="footer">
-                    本篇文章位于： javascript 类目； 由 AndyLiu 创建，发布于： 2020-05-26 21:51:01
+                    本篇文章位于： {formatArticleName(latestArticle.articleCate)} 类目； 由 AndyLiu 创建，发布于： {latestArticle.created}
                 </div>
             </div>
         </>
     )
 }
-const MemoContent = memo(Content)
+const MemoContent = withRouter(memo(Content))
 function Main(props:any) {
     const showHeader = useContext(showHeaderCtx)
     return (
@@ -55,6 +82,7 @@ function Main(props:any) {
             </Link>
             <div className="marinContent" id="list">
                 <ArticleBox/>
+                <Footer/>
             </div>
         </div>
     )

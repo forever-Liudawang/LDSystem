@@ -1,12 +1,14 @@
 /* eslint-disable no-unused-vars */
 import axios from 'axios'
-import {Dev_BaseUrl} from "../config"
+import {Dev_BaseUrl,Pro_BaseUrl} from "../config"
 
 let baseUrl = "";
 const env = process.env.NODE_ENV;
 console.log(`env`, env)
 if(env === "development"){
     baseUrl = Dev_BaseUrl
+}else if(env === "production"){
+  baseUrl = Pro_BaseUrl
 }
 const service = axios.create({
   baseURL: baseUrl, // url = base url + request url

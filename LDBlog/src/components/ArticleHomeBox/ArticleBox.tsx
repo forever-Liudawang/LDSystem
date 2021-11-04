@@ -20,7 +20,7 @@ function ArticleBox() {
         <div className="articleBox" >
             {
                 articleList.map((item:any)=>{
-                    return <ArticleCard articleCateId={item.articleCateId} articleCateName={item.articleCateName} data={item.data} />
+                    return <ArticleCard articleCateId={item.articleCateId} key={item.articleCateId} articleCateName={item.articleCateName} data={item.data} />
                 })
             }
         </div>

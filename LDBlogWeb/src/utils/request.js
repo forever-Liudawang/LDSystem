@@ -5,7 +5,6 @@ import store from '@/store'
 import { getToken } from '@/utils/auth'
 
 console.log(`process.env.VUE_APP_BASE_API`, process.env.VUE_APP_BASE_API)
-// create an axios instance
 const service = axios.create({
   baseURL: process.env.VUE_APP_BASE_API, // url = base url + request url
   // withCredentials: true, // send cookies when cross-domain requests
@@ -72,7 +71,7 @@ service.interceptors.response.use(
 
     if (!res.success) {
       Message({
-        message: res.error || 'Error',
+        message: res.message || 'Error',
         type: 'error',
         duration: 5 * 1000
       })

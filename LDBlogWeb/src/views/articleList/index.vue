@@ -35,6 +35,16 @@
         <el-table-column prop="userName" label="创建用户" width="100" />
         <el-table-column prop="articleCate" label="文章分类" :formatter="cateFormat" width="160" />
         <el-table-column prop="articleTitle" label="文章标题" />
+        <el-table-column prop="isMyRecommend" label="文章热推" >
+          <template slot-scope="scope">
+            <el-switch
+              @change="handleSwitch(scope)"
+              v-model="scope.row.isMyRecommend"
+              active-color="#13ce66"
+              inactive-color="#ff4949">
+            </el-switch>
+          </template>
+        </el-table-column>
         <el-table-column label="操作" width="180">
           <template slot-scope="scope">
             <el-button
@@ -75,8 +85,10 @@ export default {
       filterModel: {
         publishTime: '',
         articleCate: '',
-        searchKey: ''
-      }
+        searchKey: '',
+        isMyRecommend: false
+      },
+      curRecommend:false
     }
   },
   mounted() {
@@ -143,6 +155,18 @@ export default {
       if (resp && resp.success) {
         this.tableData = resp.data || []
         this.pagation.total = resp.extend.total
+      }
+    },
+    async handleSwitch(scope) {
+      const data = scope.row
+      console.log(`data`, data)
+      const resp = await this.$http({
+        url: '/article/switchRecommendArticle',
+        data: { articleId:data._id,newState:data.isMyRecommend },
+        method: 'post'
+      })
+      if(resp && resp.success){
+        this.getDataList()
       }
     }
   }

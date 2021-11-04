@@ -6,10 +6,19 @@
     <title>Document</title>
 </head>
 <body>
-    评论
-    <script>
-        // console.log(window.location,"location")
+    <div id="SOHUCS" sid=""></div>
+    <script charset="utf-8" type="text/javascript" src="https://cy-cdn.kuaizhan.com/upload/changyan.js" ></script>
+    <script type="text/javascript">
         console.log(`location`, location)
+        const search = location.search
+        const aId = search.split("=")[1]
+        const ele = document.getElementById("SOHUCS")
+        console.log(`aId`, aId)
+        ele.setAttribute("sid",aId)
+        window.changyan.api.config({
+            appid: 'cyvJ24s07',
+            conf: 'prod_9e2c4aa575da023b7ba312f1b098bc48'
+        });
     </script>
 </body>
 </html>

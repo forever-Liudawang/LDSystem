@@ -1,5 +1,7 @@
 /* eslint valid-jsdoc: "off" */
 
+const fs = require("fs")
+const path = require("path")
 'use strict';
 /**
  * @param {Egg.EggAppInfo} appInfo app info
@@ -26,17 +28,36 @@ module.exports = appInfo => {
   // add your middleware config here
   config.middleware = [ 'handError' ];
   config.static = {
-    prefix: '/static',
+    dir:[
+      {prefix: '/static',dir:path.join(appInfo.baseDir,"app/public")},
+      {prefix: '/imgs',dir:path.join(appInfo.baseDir,"app/public/imgs")}
+    ]
   };
+  config.siteFile = {
+    "/app": fs.readFileSync(path.join(appInfo.baseDir,'app/public/app/index.html')),
+    "/manage": fs.readFileSync(path.join(appInfo.baseDir,'app/public/manage/index.html'))
+  }
+  config.multipart = {
+
+  }
   config.mongoose = {
     client: {
       // url: 'mongodb://localhost:27017/LDream',
       url: 'mongodb://localhost:27017/LDBlog',
       options: {
         useNewUrlParser: true,
+        // useUnifiedTopology
+        // useUnifiedTopology:true
       },
     },
   };
+  // config.cluster = {
+  //   listen: {
+  //     path: '',
+  //     port: 8090,
+  //     hostname: '0.0.0.0',
+  //   }
+  // };
   // add your user config here
   const userConfig = {
     // myAppName: 'egg',

@@ -8,7 +8,8 @@ module.exports = (app)=>{
             required:true
         },
         passWord:{
-            type:String
+            type:String,
+            required:true
         },
         avatar:{
             type:String

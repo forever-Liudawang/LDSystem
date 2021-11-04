@@ -124,6 +124,18 @@
                 position: absolute;
                 right: 4%;
                 display: flex;
+                #searchInput{
+                        box-shadow: 1px 1px 2px #000;
+                        border: none;
+                        outline: none;
+                        border-radius: 2px;
+                        width: 200px;
+                        padding-left: 4px;
+                        &:focus{
+                                box-shadow: 2px 2px 10px #000;
+                                transition: all 0.2s;   
+                        }
+                }
         }
 
         @-webkit-keyframes logText {

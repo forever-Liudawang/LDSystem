@@ -1,39 +1,76 @@
 /* eslint-disable react/no-danger-with-children */
-import React,{useEffect, useState} from 'react'
+import React, { useEffect, useState, useRef,useMemo} from 'react'
 import "./index.scss"
-import {FcArrowBtn} from "../../components/FcHocComponent"
 import request from "../../utils/request"
-export default function ArticleDetail(props:any) {
-    const [articleData, setData ] = useState<any>({})
-    const back = ()=>{
-        props.history.goBack()
-    }
-    const initData = async ()=>{
+import Footer from "../../components/Footer/Footer"
+import { withRouter } from 'react-router'
+function ArticleDetail(props: any) {
+    const [articleData, setData] = useState<any>({})
+    const [latestFive,setList] = useState([])
+    const [articleId, setArticleId] = useState(()=>{
+        const { location = {} } = props
+        const storageId = sessionStorage.getItem("ArticleId")
+        const articleId = (location.state && location.state.articleId) || storageId
+        return articleId
+    })
+    const comRef = useRef<any>()
+    const initData = async () => {
         const resp = await request({
-            url:"/article/getArticleById",
-            params:{articleId:"617a6fbb385742b5cc138aa3"},
-            method:"get"
+            url: "/article/getArticleById",
+            params: { articleId },
+            method: "get"
         })
-        if(resp && resp.success){
+        if (resp && resp.success) {
             const data = resp.data && resp.data[0]
             setData(data || {})
         }
     }
-    useEffect(()=>{
+    const getLatestFive = async ()=>{
+        const resp = await request({
+            url: "/article/getLatestFive",
+            method: "get"
+        })
+        if(resp && resp.success){
+            setList(resp.data)
+        }
+    }
+    const handleToDetail = (item:any)=>{
+        console.log('item :>> ', item);
+        props.history.push({
+            pathname:"/articleDetail/"+ item.articleCate,
+            state:{
+                articleId:item._id,
+                articleCate: item.articleCate
+            }
+        })
+        setArticleId(item._id)
+        sessionStorage.setItem("Blog_Nav",item.articleCate)
+        sessionStorage.setItem("ArticleId",item._id)
+    }   
+    useEffect(() => {
         initData()
+        comRef.current.onload = function(){
+            comRef.current.height = comRef.current.contentDocument.body.scrollHeight + 20
+        }
+    }, [articleId])
+    useEffect(()=>{
+        getLatestFive()
     },[])
     return (
         <div className="articleDetail">
-            <div className="back">
-                <FcArrowBtn style={{"--color":"#ff4c21",color:"#ff4c21"}} onClick={back}/>
-            </div>
             <div className="main">
                 <div className="content">
                     <div className="title">
                         <h1>{articleData["articleTitle"]}</h1>
                     </div>
-                    <div className="article" dangerouslySetInnerHTML={{__html:articleData["content"]}}>
+                    <div className="article" dangerouslySetInnerHTML={{ __html: articleData["content"] }}>
                     </div>
+                    <div id="SOHUCS" ref={comRef}></div>
+                    <iframe
+                        ref={comRef}
+                        style={{ width: "100%", marginTop: "100px",minHeight:"500px",border: "none" }}
+                        src={`/comment.html?articleId=${articleId}`}
+                    ></iframe>
                 </div>
                 <div className="side">
                     <div className="bg-white p10">
@@ -42,26 +79,21 @@ export default function ArticleDetail(props:any) {
                         </div>
                         <div>
                             <ul>
-                                <li>
-                                    <img src="/imgs/list.png" alt="" />
-                                    <span>问问问问问问问问问问问问</span>
-                                </li>
-                                <li>
-                                    <img src="/imgs/list.png" alt="" />
-                                    <span>问问问问</span>
-                                </li>
-                                <li>
-                                    <img src="/imgs/list.png" alt="" />
-                                    <span>问问问问</span>
-                                </li>
+                                {
+                                    latestFive.map((item:any)=>{
+                                        return <li key={item._id} onClick={()=>{handleToDetail(item)}}>
+                                            <img src="/imgs/list.png" alt=""/>
+                                            <span>{item.articleTitle}</span>
+                                        </li>
+                                    })
+                                }
                             </ul>
                         </div>
                     </div>
                 </div>
             </div>
-            {/* <div>
-                <iframe src={`/comment.html?articleId=${props.location.state.articleId}`}></iframe>
-            </div> */}
+            <Footer/>
         </div>
     )
 }
+export default  withRouter(ArticleDetail)

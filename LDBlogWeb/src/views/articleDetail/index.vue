@@ -14,7 +14,6 @@
                 <el-option label="前端技术" value="1" />
                 <el-option label="后端技术" value="2" />
                 <el-option label="生活随笔" value="3" />
-                <!-- <el-option label="区域二" value="beijing"></el-option> -->
               </el-select>
             </el-form-item>
           </el-col>
@@ -22,27 +21,36 @@
         <el-row>
           <el-col :span="12">
             <el-form-item label="文章简介" prop="articleDesc">
-              <el-input v-model="articleModel.articleDesc" clearable :rows="8" type="textarea" />
+              <el-input v-model="articleModel.articleDesc" clearable :rows="2" type="textarea" />
+            </el-form-item>
+            <el-form-item label="标签分类" prop="articleTags" class="tagSelect">
+              <el-select v-model="articleModel.articleTags" multiple placeholder="请选择">
+                <el-option
+                  
+                  v-for="item in articleTagsSelect"
+                  :key="item"
+                  :label="item"
+                  :value="item">
+                </el-option>
+              </el-select>
             </el-form-item>
           </el-col>
-          <el-col :span="6">
-            <el-form-item label="文章图片">
-              <el-upload
-                class="avatar-uploader"
-                action="https://jsonplaceholder.typicode.com/posts/"
-                :show-file-list="false"
-                :on-success="handleAvatarSuccess"
-                :before-upload="beforeAvatarUpload"
-              >
-                <img v-if="articleModel.coverImg" :src="articleModel.coverImg" class="avatar">
-                <i v-else class="el-icon-plus avatar-uploader-icon" />
-              </el-upload>
-            </el-form-item>
-          </el-col>
-          <el-col :span="4" style="margin:11% 0 0 5%">
-            <el-form-item>
-              <el-button type="primary"  @click="updateArticle('articleModel')">更新文章</el-button>
-            </el-form-item>
+          <el-col :span="12">
+            <div style="display:flex;align-items: flex-start">
+              <el-form-item label="文章图片" prop="coverImg" style="width:60%">
+                <el-upload
+                  class="avatar-uploader"
+                  :action="uploadImgUrl"
+                  :show-file-list="false"
+                  :on-success="handleAvatarSuccess"
+                  :before-upload="beforeAvatarUpload"
+                >
+                  <img v-if="articleModel.coverImg" :src="articleModel.coverImg" class="avatar">
+                  <i v-else class="el-icon-plus avatar-uploader-icon" />
+                </el-upload>
+              </el-form-item>
+              <el-button style="height:40px" type="primary" @click="updateArticle('articleModel')">更新文章</el-button>
+            </div>
           </el-col>
         </el-row>
       </el-form>
@@ -73,7 +81,10 @@ export default {
       },
       editor: null,
       imageUrl: '',
-      articleId:""
+      articleId:"",
+      uploadImgUrl:process.env.VUE_APP_BASE_API + "/uploadImg",
+      articleTagsSelect:["Vue","React","nodejs","java","数据库","部署"]
+
     }
   },
   mounted() {
@@ -161,9 +172,17 @@ export default {
   width: 80% !important;
 }
 .createArticle >>> .el-form-item__error{
-  left:12% !important;
+  left:40% !important;
 }
-
+.tagSelect{
+  padding-left: 8px;
+}
+.tagSelect >>> .el-input{
+  width:100% !important;
+}
+.tagSelect >>> .el-select{
+  width: 81% !important;
+}
 </style>
 <style>
 .avatar-uploader .el-upload {
@@ -179,14 +198,14 @@ export default {
   .avatar-uploader-icon {
     font-size: 28px;
     color: #8c939d;
-    width: 178px;
-    height: 178px;
-    line-height: 178px;
+    width: 115px;
+    height: 115px;
+    line-height: 115px;
     text-align: center;
   }
   .avatar {
-    width: 178px;
-    height: 178px;
+    width: 115px;
+    height: 115px;
     display: block;
   }
 </style>

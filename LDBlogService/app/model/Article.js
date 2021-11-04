@@ -22,6 +22,14 @@ module.exports = (app)=>{
         },
         articleTitle:{
             type:String
+        },
+        articleTags:{
+            type:Array,
+            default:[]
+        },
+        isMyRecommend:{
+            type:Boolean,
+            default:false
         }
     },{
         timestamps:{createdAt: 'created', updatedAt: 'updated'}

@@ -8,21 +8,19 @@ import useLazyScroll from "../../components/LazyScroll/useLazyScroll"
 import useCallbackData from "../../utils/useCallbackData"
 
 let isOver = false
+let scrollTop = 0
 function ArticleCateBox(props:RouteChildrenProps) {
     const [articleList,setArticleList] = useState<any []>([])
-    const [pagation,setPagation] = useState({pageSize:3,pageIndex:0})
+    const [pagation,setPagation] = useState({pageSize:6,pageIndex:0})
+    let [pageIndex,setPageIndex] = useState(0)
     const articleCateId = sessionStorage.getItem("Blog_Nav") || 0
-    useLazyScroll(80,()=>{
-        console.log('pagation :>> ', pagation);
-        setPagation({pageSize:pagation.pageSize,pageIndex:pagation.pageIndex+1})
-    })
     const initData =async ()=>{
         const resp = await request({
             url:"/article/getCateArticle",
             method:"get",
             params:{
                 articleCateId,
-                ...pagation
+                ...{pageSize:6,pageIndex}
             }
         })
         if(resp.success){
@@ -33,11 +31,39 @@ function ArticleCateBox(props:RouteChildrenProps) {
             setArticleList([...articleList,...resp.data])
         }
     }
+    const listenScroll = useCallback(()=>{
+        const curScrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+        if(curScrollTop - scrollTop > 330){
+            scrollTop = curScrollTop
+            let newIndex = pageIndex+1;
+            console.log('newIndex :>> ', newIndex);
+            setPageIndex(++pageIndex)
+        }
+    },[articleCateId])
+    //文章分类更改置空文章列表数据
+    useEffect(()=>{
+        const unlisten = props.history.listen((location)=>{
+            setArticleList([])
+            setPageIndex(0)
+            document.documentElement.scrollTop = 0
+            scrollTop = 0
+        })
+        return ()=>{
+            unlisten()
+        }
+    },[])
+    useEffect(()=>{
+        window.addEventListener("scroll",listenScroll)
+        return ()=>{
+            window.removeEventListener("scroll",listenScroll)
+        }
+    },[])
     useEffect(() => {
+        console.log('pageIndex :>> ', pageIndex);
         initData()
-    }, [articleCateId,pagation])
+    }, [articleCateId,pageIndex])
     return (
-        <div className="detailCateCardBox d-flex justify-between flex-wrap" style={{marginTop:"200px"}} >
+        <div className="detailCateCardBox d-flex justify-between flex-wrap" style={{marginTop:"30px"}} >
             {
                 articleList.map((item:any)=>{
                     return <ArticleItemCard articleData={item} articleCateName={formatArticleName(item.articleCate)} key={item._id}/>

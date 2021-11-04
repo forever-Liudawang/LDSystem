@@ -1,4 +1,4 @@
-import React,{useState,useEffect, memo} from 'react'
+import React,{memo} from 'react'
 import "./home.scss"
 import Main from "../../components/Main/Main"
 function Home(props:any) {

@@ -1,13 +1,21 @@
-import React, { useState,useEffect} from 'react'
+import React, { useState,useEffect, useCallback} from 'react'
 import "./index.scss"
 import request from '../../utils/request'
 import { withRouter, RouteChildrenProps } from 'react-router'
 import ArticleItemCard from "../ArticleCard/ArticleItemCard"
 import formatArticleName from "../../utils/articleIdFormat"
+import useLazyScroll from "../../components/LazyScroll/useLazyScroll"
+import useCallbackData from "../../utils/useCallbackData"
+
+let isOver = false
 function ArticleCateBox(props:RouteChildrenProps) {
-    const [articleList,setArticleList] = useState([1,2,3,4,5,6,7,8,9,0])
-    const [pagation, setPagation] = useState({pageSize:9,pageIndex:0})
+    const [articleList,setArticleList] = useState<any []>([])
+    const [pagation,setPagation] = useState({pageSize:3,pageIndex:0})
     const articleCateId = sessionStorage.getItem("Blog_Nav") || 0
+    useLazyScroll(80,()=>{
+        console.log('pagation :>> ', pagation);
+        setPagation({pageSize:pagation.pageSize,pageIndex:pagation.pageIndex+1})
+    })
     const initData =async ()=>{
         const resp = await request({
             url:"/article/getCateArticle",
@@ -18,14 +26,18 @@ function ArticleCateBox(props:RouteChildrenProps) {
             }
         })
         if(resp.success){
-            setArticleList(resp.data)
+            if(!resp.data || resp.data.length === 0){
+                isOver = true
+                return
+            }
+            setArticleList([...articleList,...resp.data])
         }
     }
     useEffect(() => {
         initData()
-    }, [articleCateId])
+    }, [articleCateId,pagation])
     return (
-        <div className="detailCateCardBox d-flex justify-between flex-wrap" style={{marginTop:"20px"}} >
+        <div className="detailCateCardBox d-flex justify-between flex-wrap" style={{marginTop:"200px"}} >
             {
                 articleList.map((item:any)=>{
                     return <ArticleItemCard articleData={item} articleCateName={formatArticleName(item.articleCate)} key={item._id}/>

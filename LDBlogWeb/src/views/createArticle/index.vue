@@ -26,12 +26,12 @@
             <el-form-item label="标签分类" prop="articleTags" class="tagSelect">
               <el-select v-model="articleModel.articleTags" multiple placeholder="请选择">
                 <el-option
-                  
+
                   v-for="item in articleTagsSelect"
                   :key="item"
                   :label="item"
-                  :value="item">
-                </el-option>
+                  :value="item"
+                />
               </el-select>
             </el-form-item>
           </el-col>
@@ -87,8 +87,8 @@ export default {
       },
       editor: null,
       imageUrl: '',
-      uploadImgUrl:process.env.VUE_APP_BASE_API + "/uploadImg",
-      articleTagsSelect:["Vue","React","nodejs","java","数据库","部署"]
+      uploadImgUrl: process.env.VUE_APP_BASE_API + '/uploadImg',
+      articleTagsSelect: ['Vue', 'React', 'nodejs', 'java', '数据库', '部署']
     }
   },
   mounted() {
@@ -99,22 +99,22 @@ export default {
       console.log(`this.articleModel`, this.articleModel)
       this.$refs[formName].validate(async(valid) => {
         if (valid) {
-        this.$confirm("是否发布文章?","提示",{callback:async (action)=>{
-          if(action == "confirm"){
-            const content = this.editor.txt.html()
-            const resp = await this.$http({
-              url: '/article/createArtice',
-              data: { ...this.articleModel, content },
-              method: 'post'
-            })
-            if(resp && resp.success){
-              this.$message.success("发布成功")
-              this.$router.push({
-                name: 'articleList',
+          this.$confirm('是否发布文章?', '提示', { callback: async(action) => {
+            if (action === 'confirm') {
+              const content = this.editor.txt.html()
+              const resp = await this.$http({
+                url: '/article/createArtice',
+                data: { ...this.articleModel, content },
+                method: 'post'
               })
+              if (resp && resp.success) {
+                this.$message.success('发布成功')
+                // this.$router.push({
+                //   name: 'articleList'
+                // })
+              }
             }
-          }
-        }})
+          } })
         } else {
           console.log('error submit!!')
           return false
@@ -128,18 +128,18 @@ export default {
       const editor = new WangEditor(this.$refs.editorRef)
       editor.config.height = 1000
       editor.config.zIndex = 10
-      editor.config.customUploadImg = async (resultFiles, insertImgFn)=>{
+      editor.config.customUploadImg = async(resultFiles, insertImgFn) => {
         const formData = new FormData()
-        formData.append("file",resultFiles[0])
+        formData.append('file', resultFiles[0])
         const resp = await this.$http({
           url: '/uploadImg',
           data: formData,
-          method: 'post',
+          method: 'post'
         })
-        if(resp.success){
+        if (resp.success) {
           insertImgFn(resp.data)
-        }else{
-          this.$message.error(data)
+        } else {
+          this.$message.error(resp.data)
         }
       }
       // 创建编辑器

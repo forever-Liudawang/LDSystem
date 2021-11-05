@@ -25,13 +25,21 @@ export const constantRoutes = [
   {
     path: '/',
     component: Layout,
-    redirect: '/dashboard',
+    // redirect: '/dashboard',
+    meta: { title: '系统管理', icon: 'dashboard' },
     children: [{
       path: 'dashboard',
       name: 'dashboard',
       component: () => import('@/views/dashboard/index'),
-      meta: { title: '首页', icon: 'dashboard' }
-    }]
+      meta: { title: '系统管理', icon: 'dashboard' }
+    },
+    {
+      path: 'sysSetting',
+      name: 'sysSetting',
+      component: () => import('@/views/articleTag/index'),
+      meta: { title: '文章标签', icon: 'dashboard' }
+    }
+    ]
   },
   {
     path: '/articleC',

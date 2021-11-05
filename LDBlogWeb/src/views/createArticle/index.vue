@@ -26,11 +26,10 @@
             <el-form-item label="标签分类" prop="articleTags" class="tagSelect">
               <el-select v-model="articleModel.articleTags" multiple placeholder="请选择">
                 <el-option
-
                   v-for="item in articleTagsSelect"
-                  :key="item"
-                  :label="item"
-                  :value="item"
+                  :key="item._id"
+                  :label="item.articleTagName"
+                  :value="item.articleTagName"
                 />
               </el-select>
             </el-form-item>
@@ -67,7 +66,8 @@ export default {
   data() {
     return {
       articleModel: {
-        coverImg: ''
+        coverImg: '',
+        articleCate: ''
       },
       rules: {
         articleTitle: [
@@ -91,12 +91,17 @@ export default {
       articleTagsSelect: ['Vue', 'React', 'nodejs', 'java', '数据库', '部署']
     }
   },
+  watch: {
+    'articleModel.articleCate'(newVal, oldVal) {
+      console.log(newVal, oldVal)
+      this.handleGetTags(newVal)
+    }
+  },
   mounted() {
     this.initEditor()
   },
   methods: {
     submitForm(formName) {
-      console.log(`this.articleModel`, this.articleModel)
       this.$refs[formName].validate(async(valid) => {
         if (valid) {
           this.$confirm('是否发布文章?', '提示', { callback: async(action) => {
@@ -109,9 +114,9 @@ export default {
               })
               if (resp && resp.success) {
                 this.$message.success('发布成功')
-                // this.$router.push({
-                //   name: 'articleList'
-                // })
+                this.$router.push({
+                  name: 'articleList'
+                })
               }
             }
           } })
@@ -153,6 +158,26 @@ export default {
     },
     beforeAvatarUpload(file) {
       console.log(`file`, file)
+    },
+    async handleGetTags(articleCateId) {
+      if (articleCateId > 2) {
+        this.articleTagsSelect = []
+        return
+      }
+      const resp = await this.$http({
+        url: '/articleTag/getTags',
+        method: 'get'
+      })
+      if (resp && resp.success) {
+        const data = resp.data || []
+        const newData = data.filter(item => {
+          // eslint-disable-next-line eqeqeq
+          return item.articleCateId == articleCateId
+        })
+        this.articleTagsSelect = newData
+      } else {
+        this.$message.error(resp.error)
+      }
     }
   }
 }

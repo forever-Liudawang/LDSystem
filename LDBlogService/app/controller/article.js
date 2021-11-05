@@ -58,7 +58,6 @@ class ArticleController extends BaseController {
      */
     async getRecommendArticle() {
         const {ctx} = this
-        // const resp = await ctx.model.Article.find().sort({"created":-1})
         const cateList = await ctx.model.Article.aggregate([{$group:{ _id: "$articleCate"}}]);
         let respList = []
         if(cateList && Array.isArray(cateList)){
@@ -94,8 +93,17 @@ class ArticleController extends BaseController {
     /**获取某类文章数据 */
     async getCateArticle(){
         const {ctx} = this
-        const {articleCateId,pageIndex=0,pageSize=9} = ctx.request.query
-        const resp = await ctx.model.Article.find({articleCate:articleCateId}).limit(parseInt(+pageSize)).skip(pageIndex*pageSize)
+        const {articleCateId,pageIndex=0,pageSize=9,tag=""} = ctx.request.query
+        let filter = {
+            articleCate:articleCateId,
+        }
+        if(tag!=""){
+            filter = {
+                ...filter,
+                articleTags:{$all:[tag]}
+            }
+        }
+        const resp = await ctx.model.Article.find(filter).limit(parseInt(+pageSize)).skip(pageIndex*pageSize)
         ctx.body = this.success(resp)
     }
     /**

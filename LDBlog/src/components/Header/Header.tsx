@@ -38,7 +38,8 @@ const Header = (props:any)=>{
             props.history.push("/app")
         }else if(nav == NavType.aboutMe){
             props.history.push("/about")
-        }else{
+        }
+        else{
             props.history.push({
                 pathname:"/app/"+ nav,
                 state:{

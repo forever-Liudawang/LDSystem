@@ -26,5 +26,11 @@ module.exports = app => {
   //user
   router.post('/user/login', controller.user.login);
   router.post('/user/logout', controller.user.logout);
+
+  //articleTags
+  router.get('/articleTag/getTags', controller.articleTag.getTags);
+  router.post('/articleTag/inertTag', controller.articleTag.inertTag);
+  router.post('/articleTag/deleteTag', controller.articleTag.deleteTag);
+
   
 };

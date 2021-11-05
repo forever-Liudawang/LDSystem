@@ -1,0 +1,22 @@
+.filterCateArticle{
+    display: flex;
+    margin:0 0 10px 10px;
+    div{
+        padding: 4px 10px;
+        margin: 0 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        &:hover{
+            transition: all .3s;
+            background-color: antiquewhite;
+            cursor: pointer;
+        }
+    }
+    .active{
+        background-color: #ff4c21;
+        color: #fff;
+        &:hover{
+            background-color: #ff4c21 !important;
+        }
+    }
+}

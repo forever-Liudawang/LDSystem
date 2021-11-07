@@ -58,7 +58,7 @@ class ArticleController extends BaseController {
      */
     async getRecommendArticle() {
         const {ctx} = this
-        const cateList = await ctx.model.Article.aggregate([{$group:{ _id: "$articleCate"}}]);
+        const cateList = await ctx.model.Article.aggregate([{$group:{ _id: "$articleCate"}}]).sort({"articleCate":1})
         let respList = []
         if(cateList && Array.isArray(cateList)){
             for(let i=0;i<cateList.length;i++){
@@ -126,7 +126,8 @@ class ArticleController extends BaseController {
         const t = [{content:reg},{articleDesc:reg},{articleTitle:reg}]
         filterModel.$or = t
         const count = await ctx.model.Article.find(filterModel).count()
-        const resp = await ctx.model.Article.find(filterModel).limit(parseInt(pageSize)).skip(pageIndex*pageSize)
+        // const resp = await ctx.model.Article.find(filterModel).limit(parseInt(pageSize)).skip(pageIndex*pageSize)
+        const resp = await ctx.model.Article.find(filterModel)
         ctx.body = this.success(resp,null,{total:count})
     }
     /**

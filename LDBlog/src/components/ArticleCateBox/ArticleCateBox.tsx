@@ -5,13 +5,15 @@ import { withRouter, RouteChildrenProps } from 'react-router'
 import ArticleItemCard from "../ArticleCard/ArticleItemCard"
 import formatArticleName from "../../utils/articleIdFormat"
 import FilterCateArticle from "../../components/FilterCateArticle/FilterCateArticle"
+import Mask from "../../components/Mask/Mask"
 let scrollTop = 0
 function ArticleCateBox(props:RouteChildrenProps) {
     const [articleList,setArticleList] = useState<any []>([])
     let   [pageIndex,setPageIndex] = useState(0)
     const [isOver,setIsOver] = useState(false)
     const [tag, setTag] = useState<string>("")
-    const articleCateId = sessionStorage.getItem("Blog_Nav") || 0
+    const {match}:any = props
+    const articleCateId = match?.params.navId || 1
     const initData =async ()=>{
         // if(isOver)return
         const resp = await request({
@@ -36,6 +38,8 @@ function ArticleCateBox(props:RouteChildrenProps) {
         setArticleList([])
         setIsOver(false)
         setTag(articleCate)
+        scrollTop = 0
+        document.body.scrollTop = 0
     },[])
     const listenScroll = useCallback(()=>{
         const curScrollTop = document.body.scrollTop || document.documentElement.scrollTop;
@@ -43,7 +47,7 @@ function ArticleCateBox(props:RouteChildrenProps) {
             scrollTop = curScrollTop
             setPageIndex(++pageIndex)
         }
-    },[articleCateId])
+    },[articleCateId,tag])
     //文章分类更改置空文章列表数据
     useEffect(()=>{
         const unlisten = props.history.listen((location)=>{
@@ -58,19 +62,24 @@ function ArticleCateBox(props:RouteChildrenProps) {
         }
     },[])
     useEffect(()=>{
-        setTag("")
         window.removeEventListener("scroll",listenScroll)
         window.addEventListener("scroll",listenScroll)
         return ()=>{
             window.removeEventListener("scroll",listenScroll)
         }
+    },[articleCateId,tag])
+    useEffect(()=>{
+        setTag("")
+        setPageIndex(0)
     },[articleCateId])
+    /**
+     * 点击标签重新获取数据 pageIndex可能为0没有改变导致无法initData
+     */
     useEffect(()=>{
         initData()
     },[tag])
     useEffect(() => {
         initData()
-        console.log('tag :>> ', tag);
     }, [articleCateId,pageIndex])
     return (
         <div className="detailCateCardBox d-flex justify-between flex-column" style={{marginTop:"30px"}} >

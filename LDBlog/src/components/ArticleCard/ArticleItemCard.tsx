@@ -7,7 +7,8 @@ function ArticleItemCard(props:any) {
     const {articleData,articleCateName} = props
     const handleClickToDetali = ()=>{   
         props.history.push({
-            pathname:"/articleDetail/"+ articleData.articleCate,
+            // pathname:"/articleDetail/"+ articleData.articleCate,
+            pathname:`/articleDetail/${articleData.articleCate}/${articleData._id}`,
             state:{
                 articleId:articleData._id,
                 articleCate: articleData.articleCate

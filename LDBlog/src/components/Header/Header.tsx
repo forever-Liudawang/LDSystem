@@ -1,15 +1,14 @@
 import React, { useState,useCallback,useEffect,memo, useContext} from 'react'
 import "./header.scss"
-import {FcUnderlineBtn,FcTypingInput,Fc3DBtn} from "../../components/FcHocComponent"
-import {withRouter} from "react-router-dom"
+import {FcUnderlineBtn,Fc3DBtn} from "../../components/FcHocComponent"
+import {withRouter,useRouteMatch} from "react-router-dom"
 import {showHeaderCtx} from "../../App"
 enum NavType {
     index,
     frontEndTec,
     backEndTec,
     life,
-    comment,
-    aboutMe
+    liuMusic
 }
 const handleSetNav = (curNav:any,setNav:Function)=>{
     if(curNav == 1){
@@ -19,9 +18,7 @@ const handleSetNav = (curNav:any,setNav:Function)=>{
     }else if(curNav == 3){
         setNav(NavType.life)
     }else if(curNav == 4){
-        setNav(NavType.comment)
-    }else if(curNav == 5){
-        setNav(NavType.aboutMe)
+        setNav(NavType.liuMusic)
     }else{
         setNav(NavType.index)
     }
@@ -29,15 +26,19 @@ const handleSetNav = (curNav:any,setNav:Function)=>{
 const Header = (props:any)=>{
     const [nav, setNav] = useState(NavType.index)
     const [keyWord, setKeyWord] = useState("")
-    console.log('keyWord :>> ', keyWord);
     const showHeader = useContext(showHeaderCtx)
     const handleNav = (nav:NavType)=>{
         setNav(nav)
         sessionStorage.setItem("Blog_Nav",nav.toString())
         if(nav == NavType.index){
             props.history.push("/app")
-        }else if(nav == NavType.aboutMe){
-            props.history.push("/about")
+        }else if(nav == NavType.liuMusic){
+            props.history.push({
+                pathname: "/music",
+                state:{
+                    curNav:nav
+                }
+            })
         }
         else{
             props.history.push({
@@ -59,6 +60,7 @@ const Header = (props:any)=>{
     useEffect(()=>{
         const unlisten = props.history.listen((location: any)=>{
             const {state} = location
+            const {match} = props
             const a = sessionStorage.getItem("Blog_Nav")
             const articleCate = state ? (state.articleCate ? state.articleCate: state.curNav) :0;
             sessionStorage.setItem("Blog_Nav",articleCate)
@@ -79,7 +81,7 @@ const Header = (props:any)=>{
                     <img className="h-full w-full" src="/imgs/logo.png" alt=""/>
                 </div>
                 <div className="logText">
-                    <span className="logText">AndyLiu </span>
+                    <span className="logText" style={{color:color(NavType.index)}}>AndyLiu </span>
                 </div>
             </div>
             <div className="cateBox d-flex">
@@ -92,17 +94,12 @@ const Header = (props:any)=>{
                 <FcUnderlineBtn style={{color:color(NavType.life),fontWeight:"bold","--color":color(NavType.life)}} onClick={()=>handleNav(NavType.life)}>
                     Life
                 </FcUnderlineBtn>
-                {/* <FcUnderlineBtn style={{color:color(NavType.comment),fontWeight:"bold","--color":color(NavType.comment)}} onClick={()=>handleNav(NavType.comment)}>
-                    Message
-                </FcUnderlineBtn> */}
-                <FcUnderlineBtn style={{color:color(NavType.aboutMe),fontWeight:"bold","--color":color(NavType.aboutMe)}} onClick={()=>handleNav(NavType.aboutMe)}>
-                    about me
+                <FcUnderlineBtn style={{color:color(NavType.liuMusic),fontWeight:"bold","--color":color(NavType.liuMusic)}} onClick={()=>handleNav(NavType.liuMusic)}>
+                    AndyMusic
                 </FcUnderlineBtn>
             </div>
             <div className="search">
                 <input id="searchInput" placeholder="关键字搜索" type="text" value={keyWord} onInput={(e:any)=>setKeyWord(e.target.value)}/>
-                {/* <FcTypingInput  placeholder="关键字搜索"   style={{"--color":"#000"}} value={keyWord} onInput={(e:any)=>{console.log(e.target.value);}}>
-                </FcTypingInput> */}
                 <Fc3DBtn style={{marginLeft:"20px","--color":"#000"}} onClick={handleSearchByKeyWord}>搜索</Fc3DBtn>
             </div>
         </div>

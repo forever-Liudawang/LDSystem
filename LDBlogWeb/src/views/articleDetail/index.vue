@@ -26,12 +26,11 @@
             <el-form-item label="标签分类" prop="articleTags" class="tagSelect">
               <el-select v-model="articleModel.articleTags" multiple placeholder="请选择">
                 <el-option
-                  
                   v-for="item in articleTagsSelect"
-                  :key="item"
-                  :label="item"
-                  :value="item">
-                </el-option>
+                  :key="item._id"
+                  :label="item.articleTagName"
+                  :value="item.articleTagName"
+                />
               </el-select>
             </el-form-item>
           </el-col>
@@ -66,7 +65,9 @@ import WangEditor from 'wangeditor'
 export default {
   data() {
     return {
-      articleModel: {},
+      articleModel: {
+        articleCate:''
+      },
       rules: {
         articleTitle: [
           { required: true, message: '请选择文章标题', trigger: 'blur' },
@@ -85,6 +86,12 @@ export default {
       uploadImgUrl:process.env.VUE_APP_BASE_API + "/uploadImg",
       articleTagsSelect:["Vue","React","nodejs","java","数据库","部署"]
 
+    }
+  },
+  watch: {
+    'articleModel.articleCate'(newVal, oldVal) {
+      console.log(newVal, oldVal)
+      this.handleGetTags(newVal)
     }
   },
   mounted() {
@@ -154,6 +161,26 @@ export default {
     },
     beforeAvatarUpload() {
 
+    },
+    async handleGetTags(articleCateId) {
+      if (articleCateId > 2) {
+        this.articleTagsSelect = []
+        return
+      }
+      const resp = await this.$http({
+        url: '/articleTag/getTags',
+        method: 'get'
+      })
+      if (resp && resp.success) {
+        const data = resp.data || []
+        const newData = data.filter(item => {
+          // eslint-disable-next-line eqeqeq
+          return item.articleCateId == articleCateId
+        })
+        this.articleTagsSelect = newData
+      } else {
+        this.$message.error(resp.error)
+      }
     }
   }
 }

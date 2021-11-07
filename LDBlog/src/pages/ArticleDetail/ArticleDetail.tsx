@@ -8,9 +8,9 @@ function ArticleDetail(props: any) {
     const [articleData, setData] = useState<any>({})
     const [latestFive,setList] = useState([])
     const [articleId, setArticleId] = useState(()=>{
-        const { location = {} } = props
-        const storageId = sessionStorage.getItem("ArticleId")
-        const articleId = (location.state && location.state.articleId) || storageId
+        const { match:{params},location={}} = props
+        console.log('props :>> ', props);
+        const articleId =  params.articleId || ""
         return articleId
     })
     const comRef = useRef<any>()
@@ -35,13 +35,8 @@ function ArticleDetail(props: any) {
         }
     }
     const handleToDetail = (item:any)=>{
-        console.log('item :>> ', item);
         props.history.push({
-            pathname:"/articleDetail/"+ item.articleCate,
-            state:{
-                articleId:item._id,
-                articleCate: item.articleCate
-            }
+            pathname:`/articleDetail/${item.articleCate}/${item._id}`,
         })
         setArticleId(item._id)
         sessionStorage.setItem("Blog_Nav",item.articleCate)
@@ -49,6 +44,7 @@ function ArticleDetail(props: any) {
     }   
     useEffect(() => {
         initData()
+        document.documentElement.scrollTop = document.body.scrollTop = 0
         comRef.current.onload = function(){
             comRef.current.height = comRef.current.contentDocument.body.scrollHeight + 20
         }

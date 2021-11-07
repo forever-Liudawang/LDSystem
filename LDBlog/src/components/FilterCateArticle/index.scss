@@ -13,10 +13,10 @@
         }
     }
     .active{
-        background-color: #ff4c21;
+        background-color: $theme-color;
         color: #fff;
         &:hover{
-            background-color: #ff4c21 !important;
+            background-color: $theme-color !important;
         }
     }
 }

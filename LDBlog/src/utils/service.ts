@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import axios from 'axios'
 import {Dev_BaseUrl,Pro_BaseUrl} from "../config"
-
+import Mask from "../components/Mask/Mask"
 let baseUrl = "";
 const env = process.env.NODE_ENV;
 console.log(`env`, env)
@@ -18,6 +18,7 @@ const service = axios.create({
 // request interceptor
 service.interceptors.request.use(
   config => {
+    Mask.show()
     return config;
   }
 )
@@ -36,6 +37,7 @@ service.interceptors.response.use(
    */
   response => {
     const res = response.data
+    Mask.hidden()
     if (!res.success) {
       alert(res.error)
       return res

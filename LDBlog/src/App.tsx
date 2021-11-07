@@ -1,9 +1,9 @@
 import React, { createContext, useEffect, useState } from 'react';
 import Home from "./pages/Home/Home"
 import DetailPage from "./pages/ArticleCate/ArticleCate"
-import {Switch,Route,HashRouter as Router,Redirect} from "react-router-dom"
+import {Switch,Route,BrowserRouter as Router,Redirect} from "react-router-dom"
 import ArticleDetail from './pages/ArticleDetail/ArticleDetail';
-import AboutMe from './pages/AboutMe/AboutMe';
+import AboutMe from './pages/Music/Music';
 import { animateScroll } from 'react-scroll';
 import Header from "./components/Header/Header"
 import ArticleSearch from "./pages/ArticleSearch/ArticleSearch"
@@ -38,8 +38,8 @@ export default function App() {
                 <Header/>
                 <Route path="/app" exact component={Home}></Route>
                 <Route path="/app/:navId" exact component={DetailPage}></Route>
-                <Route path="/articleDetail/:articleId" exact component={ArticleDetail}></Route>
-                <Route path="/about" exact component={AboutMe}></Route>
+                <Route path="/articleDetail/:articleCateId/:articleId" exact component={ArticleDetail}></Route>
+                <Route path="/music" exact component={AboutMe}></Route>
                 <Route path="/articleSearch" exact component={ArticleSearch}></Route>
                 {/* <Redirect exact={true} strict={true} from="/" to="/app"/> */}
               </showHeaderCtx.Provider>

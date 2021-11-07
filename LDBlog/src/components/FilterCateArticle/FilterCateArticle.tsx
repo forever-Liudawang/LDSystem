@@ -14,6 +14,7 @@ function FilterCateArticle(props:IProps) {
     const [cateList,setCateList] = useState<any []>([])
     const [curSelect,setCurSelect] = useState<any>()
     const handleClick = (item:any)=>{
+        if(curSelect && item._id == curSelect._id)return
         setCurSelect(item)
         getCateFunc(item.articleTagName)
     }

@@ -93,7 +93,6 @@ export default {
   },
   watch: {
     'articleModel.articleCate'(newVal, oldVal) {
-      console.log(newVal, oldVal)
       this.handleGetTags(newVal)
     }
   },

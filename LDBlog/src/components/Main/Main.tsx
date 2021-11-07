@@ -20,7 +20,7 @@ const Content = (props:any)=>{
     }
     const handleToDetail = ()=>{
         props.history.push({
-            pathname:"/articleDetail/"+ latestArticle.articleCate,
+            pathname:`/articleDetail/${latestArticle.articleCate}/${latestArticle._id}`,
             state:{
                 articleId:latestArticle._id,
                 articleCate: latestArticle.articleCate
@@ -45,7 +45,7 @@ const Content = (props:any)=>{
             <div className="latest" onClick={handleToDetail}>
                 <div className="title">
                     <h1>
-                        小 刘 推 荐
+                        重 磅 推 荐
                     </h1>
                 </div>
                 <div className="contentTitle">

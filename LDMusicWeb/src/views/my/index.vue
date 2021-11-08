@@ -70,7 +70,7 @@ export default {
     computed: {
         ...mapGetters(['isLogin', 'userInfo'])
     },
-    mounted () {
+    async mounted () {
         if (this.isLogin) {
             this.getUserPlayList()
         }

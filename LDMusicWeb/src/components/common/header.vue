@@ -142,6 +142,9 @@ export default {
             return this.$route.path
         }
     },
+    mounted () {
+        console.log('this.userInfo', this.userInfo)
+    },
     // 方法集合
     methods: {
         ...mapMutations(['setLogin', 'setUserInfo', 'setLoginDialog']),

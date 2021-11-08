@@ -52,7 +52,7 @@ export default {
             fit: 'cover',
             activeName: 'psdLogin',
             loginKey: '',
-            checkTimer:null,
+            checkTimer: null
         }
     },
     // 监听属性 类似于data概念
@@ -95,54 +95,53 @@ export default {
         },
         async getQrCode () {
             const resp = await this.$http.loginByQrCodeGetKey()
-            if(!resp.data && resp.data.code !== 200){
-                this.$msg.error("登陆失败")
-            }else{
+            if (!resp.data && resp.data.code !== 200) {
+                this.$msg.error('登陆失败')
+            } else {
                 const key = resp.data.data.unikey
                 this.loginKey = key
                 const res = await this.$http.loginByQrCodeGetImg(key)
-                if(this.checkTimer)clearInterval(this.checkTimer)
+                if (this.checkTimer)clearInterval(this.checkTimer)
                 this.handleCheckLogin()
-                if(res && res.data){
-                    if(res.data.code == 200){
+                if (res && res.data) {
+                    if (res.data.code == 200) {
                         this.codeUrl = res.data.data && res.data.data.qrimg
-                        console.log(`this.codeUrl`, this.codeUrl)
-                    }else{
-                        this.$msg.error("出现错误啦,请稍后重试！！！")
+                        console.log('this.codeUrl', this.codeUrl)
+                    } else {
+                        this.$msg.error('出现错误啦,请稍后重试！！！')
                     }
-                }else{
-                        this.$msg.error("出现错误啦,请稍后重试！！！")
+                } else {
+                        this.$msg.error('出现错误啦,请稍后重试！！！')
                 }
             }
         },
-        handleClick(tab) {
-            console.log(`this.qrimg`, this.codeUrl)
-            if(this.activeName == "qRcodeLogin" && !this.codeUrl) {
+        handleClick (tab) {
+            console.log('this.qrimg', this.codeUrl)
+            if (this.activeName == 'qRcodeLogin' && !this.codeUrl) {
                 this.getQrCode()
-                
             }
         },
-        async handleCheckLogin() {
-            this.checkTimer = setInterval(async ()=>{
-                const resp = await this.$http.loginByQrCodeCheck(this.loginKey,Date.now())
-                if(resp && resp.data){
-                    if(resp.data.code == 803){
+        async handleCheckLogin () {
+            this.checkTimer = setInterval(async () => {
+                const resp = await this.$http.loginByQrCodeCheck(this.loginKey, Date.now())
+                if (resp && resp.data) {
+                    if (resp.data.code == 803) {
                         const resp = await this.$http.loginSuccess(Date.now())
-                        console.log(`resp`, resp)
-                        if(resp.data && (resp.data.data && resp.data.data.code == 200)){
+                        console.log('resp', resp)
+                        if (resp.data && (resp.data.data && resp.data.data.code == 200)) {
                             this.getUserInfo(resp.data.data.profile.userId)
                             window.sessionStorage.setItem('isLogin', true)
                             this.setLoginDialog(false)
                             clearInterval(this.checkTimer)
-                            this.$msg.success("登陆成功！")
+                            this.$msg.success('登陆成功！')
                         }
                     }
                 }
-            },3000)
+            }, 3000)
         }
     },
-    beforeDestroy(){
-        console.log(`12333`, 12333)
+    beforeDestroy () {
+        console.log('12333', 12333)
         this.checkTimer && clearInterval(this.checkTimer)
     }
 }

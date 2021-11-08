@@ -133,8 +133,6 @@ export default {
     // 监听属性 类似于data概念
     computed: {},
     async mounted () {
-        const resp = await this.$http.getPlayList()
-        console.log(`resp`, resp)
         this.init()
     },
     // 方法集合

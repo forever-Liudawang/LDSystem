@@ -12,7 +12,7 @@
                 <div class="columnIndex">
                     {{getIndex(index)}}
                 </div>
-                <div class="columnName userItem_name">
+                <div class="columnName userItem_name" @click="handleToUserDetail(item)">
                     <el-image :src="item.avatarUrl + '?param=120y120'" style="width:40px"></el-image>
                     <!-- <el-image src="http://p1.music.126.net/7tpx_FGrXJvxZAMQUuwgrw==/109951163860779781.jpg?param=180y180" style="width:60px;border-radius:4px"></el-image> -->
                     <span class="userName">{{item.nickname}} </span>
@@ -36,6 +36,7 @@
 </template>
 
 <script>
+import {mapMutations} from "vuex"
 export default {
   name: "userList",
   props: {
@@ -68,6 +69,7 @@ export default {
     return {};
   },
   methods: {
+    ...mapMutations(['setCurrentUserInfo']),
     getIndex(index) {
       return this.offset + index + 1;
     },
@@ -112,6 +114,10 @@ export default {
             });
         }
       }
+    },
+    handleToUserDetail(userInfo) {
+      this.setCurrentUserInfo(userInfo)
+      this.$router.push({ path: '/user'})
     }
   }
 };
@@ -174,11 +180,12 @@ export default {
       padding-left: 20px;
       font-size: 16px;
       font-weight: 600;
-      &:hover {
+      
+    }
+    &:hover {
         color: @color-theme;
         cursor: pointer;
       }
-    }
     img {
       padding-left: 4px;
       width: 20px;

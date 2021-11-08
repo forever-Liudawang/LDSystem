@@ -23,6 +23,9 @@ const mutations = {
     },
     setPlayListTips (state, val = null) {
         state.playListTips = val
+    },
+    setCurrentUserInfo (state, val = null) {
+        state.currentUserInfo = val
     }
 }
 export default mutations

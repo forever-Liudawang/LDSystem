@@ -2,6 +2,8 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Favorite from '@views/my/favorite.vue'
 import Playlist from '@views/my/playlist.vue'
+import UserFavorite from '@views/user/favorite.vue'
+import UserPlaylist from '@views/user/playlist.vue'
 Vue.use(VueRouter)
 
 const routes = [
@@ -33,8 +35,15 @@ const routes = [
         path: '/search', name: 'search', component: resolve => { require(['@views/search/index.vue'], resolve) }
     }, {
         path: '/video', name: 'video', component: resolve => { require(['@views/video/detail.vue'], resolve) }
-    }, {
-        path: '/user', name: 'user', component: resolve => { require(['@views/user/index.vue'], resolve) }
+    }, 
+    // {
+    //     path: '/user', name: 'user', component: resolve => { require(['@views/user/index.vue'], resolve) }
+    // },
+    {
+        path: '/user', 
+        name: 'user',
+        redirect:'/user/favorite',
+        children: [{ path: '/user/favorite', name: 'userFavorite', component: UserFavorite }, { path: '/user/playlist', name: 'userPlayList', component: UserPlaylist }], component: resolve => { require(['@views/user/index.vue'], resolve) }
     }
 ]
 

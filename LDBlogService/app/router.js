@@ -32,5 +32,8 @@ module.exports = app => {
   router.post('/articleTag/inertTag', controller.articleTag.inertTag);
   router.post('/articleTag/deleteTag', controller.articleTag.deleteTag);
 
+  //邮箱
+  router.post('/email/sendEmail', controller.email.sendEmail);
+
   
 };

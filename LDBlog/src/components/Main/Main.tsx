@@ -7,6 +7,7 @@ import request from '../../utils/request'
 import formatArticleName from "../../utils/articleIdFormat"
 import { withRouter } from 'react-router'
 import Footer from "../../components/Footer/Footer"
+import FeedBack from '../FeedBack/FeedBack'
 const Content = (props:any)=>{
     const [latestArticle={},setArticle] = useState<any>({})
     const initData = async ()=>{
@@ -18,6 +19,7 @@ const Content = (props:any)=>{
             setArticle(resp.data && resp.data[0])
         }
     }
+    
     const handleToDetail = ()=>{
         props.history.push({
             pathname:`/articleDetail/${latestArticle.articleCate}/${latestArticle._id}`,
@@ -29,11 +31,18 @@ const Content = (props:any)=>{
         sessionStorage.setItem("Blog_Nav",latestArticle.articleCate)
         sessionStorage.setItem("ArticleId",latestArticle._id)
     }
+    const handleFeedBack = ()=>{
+        FeedBack.show()
+        console.log("123333")
+    }
     useEffect(() => {
         initData()
     }, [])
     return (
         <>
+            <div className="feedbackBtn" title="点我反馈" onClick={handleFeedBack}>
+                <img src="/imgs/feedback.svg" className="w-full h-full" alt=""/>
+            </div>
             <div className="mainShow">
                 <span className="mainText">life is a <br/><span style={{marginLeft:"100px"}}>fucking movie</span></span>
             </div>

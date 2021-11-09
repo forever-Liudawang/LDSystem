@@ -1,16 +1,15 @@
-.footer{
+.footerBox{
     width: 100%;
-    padding: 16px;
-    // height: 80px;
-    // line-height: 80px;
+    padding: 10px;
     border-top: 1px solid rgb(236, 236, 236);
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
     text-align: center;
     justify-content: center;
-    color: rgb(119, 119, 119);
-    font-size: 14px;
+    color: #fff;
+    background-color: #000;
+    font-size: 12px;
     margin-top: 20px;
     footer{
         height: 100%;

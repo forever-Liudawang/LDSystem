@@ -2,7 +2,7 @@ import React from 'react'
 import "./index.scss"
 export default function Footer() {
     return (
-        <div className="footer">
+        <div className="footerBox">
             <div>Design By AndyLiu 🐂</div>
             <div>沪ICP备1832445号</div>
             <div>

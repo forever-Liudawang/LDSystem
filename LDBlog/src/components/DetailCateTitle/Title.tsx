@@ -4,17 +4,17 @@ import { withRouter, RouteChildrenProps } from 'react-router'
 const dynmicalTitle = (curNav:string|number)=>{
     if(curNav == 1){
         return {
-            title:"前端文章",
+            title:"Front-End Technology",
             bgImg: "url('/imgs/front.jpg')"
         }
     }else if(curNav == 2){
         return {
-            title:"后端文章",
+            title:"Back-End Technology",
             bgImg: "url('/imgs/backEnd.jpg')"
         }
     }else if(curNav == 3){
         return {
-            title:"生活趣事",
+            title:"Interesting Things In Life",
             bgImg: "url('/imgs/front.jpg')"
         }
     }

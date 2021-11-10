@@ -34,6 +34,8 @@ module.exports = app => {
 
   //邮箱
   router.post('/email/sendEmail', controller.email.sendEmail);
+  router.post('/email/insert', controller.email.insert);
+  router.get('/email/getList', controller.email.getList);
 
   
 };

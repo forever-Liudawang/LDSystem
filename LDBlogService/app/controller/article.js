@@ -1,6 +1,7 @@
 'use strict';
 
 const BaseController  = require("./BaseController")
+const moment = require("moment")
 class ArticleController extends BaseController {
     async index(){
         this.ctx.body = 123
@@ -42,6 +43,7 @@ class ArticleController extends BaseController {
         const {ctx} = this
         const {articleCate=0,publishTime,searchKey,pageSize=10,pageIndex=0} = ctx.request.query
         const filterModel = {}
+        let filterTime = {}
         if(articleCate != 0){
             filterModel.articleCate = articleCate
         }else if(searchKey!= ""){
@@ -49,8 +51,18 @@ class ArticleController extends BaseController {
             const t = [{content:reg},{articleDesc:reg},{articleTitle:reg}]
             filterModel.$or = t
         }
-        const count = await ctx.model.Article.find(filterModel).count()
-        const resp = await ctx.model.Article.find(filterModel).limit(parseInt(pageSize)).skip(pageIndex*pageSize)
+        if(publishTime){
+            let d1 = new Date(moment(new Date(parseInt(publishTime, 10))).format('YYYY-MM-DD'));
+            let d2 = new Date(moment(new Date(parseInt(publishTime, 10))).add(1, 'days').format('YYYY-MM-DD'));
+            filterTime = {
+                created:{
+                    $gte: d1,
+                    $lt: d2
+                }
+            }
+        }
+        const count = await ctx.model.Article.find(filterModel).find(filterTime).count()
+        const resp = await ctx.model.Article.find(filterModel).find(filterTime).limit(parseInt(pageSize)).skip(pageIndex*pageSize)
         ctx.body = this.success(resp,null,{total:count})
     }
     /**
@@ -69,16 +81,16 @@ class ArticleController extends BaseController {
                 tObj.data = data;
                 tObj.articleCateId = articleCateId
                 if(articleCateId == 1){
-                    tObj.articleCateName = "前端技术"
+                    tObj.articleCateName = "FrontEnd Technology"
                 }else if(articleCateId == 2){
-                    tObj.articleCateName = "后端技术"
+                    tObj.articleCateName = "BackEnd Technology"
                 }else if(articleCateId == 3){
-                    tObj.articleCateName = "生活随笔"
+                    tObj.articleCateName = "Interesting Things In Life"
                 }
                 respList.push(tObj)
             }
         }
-        ctx.body = this.success(respList)
+        ctx.body = this.success(respList.reverse())
     } 
     /**获取最新blog */
     async getMyRecommendArticle() {

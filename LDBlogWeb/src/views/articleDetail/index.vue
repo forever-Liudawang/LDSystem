@@ -66,7 +66,7 @@ export default {
   data() {
     return {
       articleModel: {
-        articleCate:''
+        articleCate: ''
       },
       rules: {
         articleTitle: [
@@ -82,9 +82,9 @@ export default {
       },
       editor: null,
       imageUrl: '',
-      articleId:"",
-      uploadImgUrl:process.env.VUE_APP_BASE_API + "/uploadImg",
-      articleTagsSelect:["Vue","React","nodejs","java","数据库","部署"]
+      articleId: '',
+      uploadImgUrl: process.env.VUE_APP_BASE_API + '/uploadImg',
+      articleTagsSelect: ['Vue', 'React', 'nodejs', 'java', '数据库', '部署']
 
     }
   },
@@ -95,8 +95,8 @@ export default {
     }
   },
   mounted() {
-    const {articleId} = this.$route.params
-    this.articleId = articleId;
+    const { articleId } = this.$route.params
+    this.articleId = articleId
     this.getArticleById()
     this.initEditor()
   },
@@ -109,28 +109,27 @@ export default {
       })
       const data = resp.data && resp.data[0]
       this.articleModel = data
-      this.editor.txt.append(data.content || "")
+      this.editor.txt.append(data.content || '')
     },
     updateArticle(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          this.$confirm("是否更新文章?","提示",{callback:async (action)=>{
-            if(action == "confirm"){
+          this.$confirm('是否更新文章?', '提示', { callback: async(action) => {
+            if (action === 'confirm') {
               const content = this.editor.txt.html()
               const resp = await this.$http({
                 url: '/article/updateArticle',
-                data:  {...this.articleModel,content},
+                data: { ...this.articleModel, content },
                 method: 'post'
               })
-              if(resp && resp.success) {
+              if (resp && resp.success) {
                 this.$router.push({
-                  name: 'articleList',
+                  name: 'articleList'
                 })
-                this.$message.success("更新成功")
+                this.$message.success('更新成功')
               }
             }
-          }})
-          
+          } })
         } else {
           console.log('error submit!!')
           return false

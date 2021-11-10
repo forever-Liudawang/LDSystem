@@ -2,19 +2,19 @@ import React, { useState } from 'react'
 import "./index.scss"
 import { withRouter, RouteChildrenProps } from 'react-router'
 const dynmicalTitle = (curNav:string|number)=>{
-    if(curNav == 1){
+    if(curNav === 1){
         return {
-            title:"Front-End Technology",
+            title:"FrontEnd",
             bgImg: "url('/imgs/front.jpg')"
         }
-    }else if(curNav == 2){
+    }else if(curNav === 2){
         return {
-            title:"Back-End Technology",
+            title:"BackEnd",
             bgImg: "url('/imgs/backEnd.jpg')"
         }
-    }else if(curNav == 3){
+    }else if(curNav === 3){
         return {
-            title:"Interesting Things In Life",
+            title:"Interesting Things",
             bgImg: "url('/imgs/front.jpg')"
         }
     }

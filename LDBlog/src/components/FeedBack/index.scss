@@ -9,15 +9,32 @@
     display: flex;
     justify-content: center;
     align-items: center;
-
     .form {
-        width: 50%;
-        height: 60%;
+        width: 32%;
+        min-height: 38%;
+        margin-bottom: 200px;
         background: #fff;
         border-radius: 4px;
+        padding: 20px;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
         -webkit-animation: scale-up-center 0.4s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
         animation: scale-up-center 0.4s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
-
+        .formItem{
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .btn{
+            justify-content: space-around;
+        }
+        label{
+            font-weight: bold;
+        }
     }
 
     @-webkit-keyframes scale-up-center {

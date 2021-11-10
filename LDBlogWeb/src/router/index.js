@@ -71,6 +71,17 @@ export const constantRoutes = [
     }]
   },
   {
+    path: '/f',
+    component: Layout,
+    redirect: '/feedback',
+    children: [{
+      path: 'feedback',
+      name: 'feedback',
+      component: () => import('@/views/feedBack/index'),
+      meta: { title: '反馈信息', icon: 'articleList' }
+    }]
+  },
+  {
     path: 'external-link',
     component: Layout,
     children: [

@@ -14,7 +14,7 @@
         <el-form-item label="发布时间">
           <el-date-picker
             v-model="filterModel.publishTime"
-            type="datetime"
+            type="date"
             format="yyyy-MM-dd"
             value-format="timestamp"
             placeholder="选择日期时间"
@@ -29,7 +29,7 @@
       </el-form>
     </div>
     <div>
-      <el-table :data="tableData" border style="width: 100%">
+      <el-table :data="tableData" border style="width: 100%" >
         <el-table-column prop="_id" label="文章ID" width="220" />
         <el-table-column prop="created" label="创建时间" width="140" :formatter="dateFormat" />
         <el-table-column prop="userName" label="创建用户" width="100" />

@@ -33,7 +33,6 @@ const Content = (props:any)=>{
     }
     const handleFeedBack = ()=>{
         FeedBack.show()
-        console.log("123333")
     }
     useEffect(() => {
         initData()
@@ -54,7 +53,7 @@ const Content = (props:any)=>{
             <div className="latest" onClick={handleToDetail}>
                 <div className="title">
                     <h1>
-                        重 磅 推 荐
+                        Recommend
                     </h1>
                 </div>
                 <div className="contentTitle">

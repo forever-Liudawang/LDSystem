@@ -37,6 +37,10 @@ function ArticleDetail(props: any) {
     const handleToDetail = (item:any)=>{
         props.history.push({
             pathname:`/articleDetail/${item.articleCate}/${item._id}`,
+            state:{
+                articleId: item._id,
+                articleCate: item.articleCate
+            }
         })
         setArticleId(item._id)
         sessionStorage.setItem("Blog_Nav",item.articleCate)
@@ -46,7 +50,7 @@ function ArticleDetail(props: any) {
         initData()
         document.documentElement.scrollTop = document.body.scrollTop = 0
         comRef.current.onload = function(){
-            comRef.current.height = comRef.current.contentDocument.body.scrollHeight + 20
+            comRef.current.height = comRef.current.contentDocument.body && comRef.current.contentDocument.body.scrollHeight + 20
         }
     }, [articleId])
     useEffect(()=>{

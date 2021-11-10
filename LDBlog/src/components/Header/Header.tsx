@@ -60,9 +60,8 @@ const Header = (props:any)=>{
     useEffect(()=>{
         const unlisten = props.history.listen((location: any)=>{
             const {state} = location
-            const {match} = props
             const a = sessionStorage.getItem("Blog_Nav")
-            const articleCate = state ? (state.articleCate ? state.articleCate: state.curNav) :0;
+            const articleCate = state ? (state.articleCate ? state.articleCate: state.curNav) :(a?a:0);
             sessionStorage.setItem("Blog_Nav",articleCate)
             handleSetNav(articleCate,setNav)
         })
@@ -78,7 +77,7 @@ const Header = (props:any)=>{
         <div className={`header ${showHeader?"show":"hide"}`}>
             <div className="d-flex align-center" onClick={()=>handleNav(NavType.index)}>
                 <div className="logo">
-                    <img className="h-full w-full" src="/imgs/logo.png" alt=""/>
+                    <img className="h-full w-full" src="/me.svg" alt=""/>
                 </div>
                 <div className="logText">
                     <span className="logText" style={{color:color(NavType.index)}}>AndyLiu </span>

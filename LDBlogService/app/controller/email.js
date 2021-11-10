@@ -23,7 +23,7 @@ class EmailController extends BaseController {
             // 发件人地址
             from: 'lmy15973914530@163.com',
             // 收件人列表, 向163邮箱, gmail邮箱, qq邮箱各发一封
-            to: '2387498813@qq.com',
+            to: 'lmy15973914530@163.com',
             // 邮件主题
             subject: '用nodemailer发出的邮件~',
             // 文字内容

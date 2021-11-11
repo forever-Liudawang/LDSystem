@@ -77,7 +77,7 @@ const Header = (props:any)=>{
         <div className={`header ${showHeader?"show":"hide"}`}>
             <div className="d-flex align-center" onClick={()=>handleNav(NavType.index)}>
                 <div className="logo">
-                    <img className="h-full w-full" src="/me.svg" alt=""/>
+                    <img className="h-full w-full" src="/imgs/me.svg" alt=""/>
                 </div>
                 <div className="logText">
                     <span className="logText" style={{color:color(NavType.index)}}>AndyLiu </span>

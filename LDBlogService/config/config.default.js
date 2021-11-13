@@ -35,7 +35,8 @@ module.exports = appInfo => {
   };
   config.siteFile = {
     "/app": fs.readFileSync(path.join(appInfo.baseDir,'app/public/app/index.html')),
-    "/manage": fs.readFileSync(path.join(appInfo.baseDir,'app/public/manage/index.html'))
+    "/manage": fs.readFileSync(path.join(appInfo.baseDir,'app/public/manage/index.html')),
+    "/Ldmusic": fs.readFileSync(path.join(appInfo.baseDir,'app/public/music/index.html'))
   }
   config.multipart = {
 

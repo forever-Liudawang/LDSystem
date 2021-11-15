@@ -1,7 +1,7 @@
 import React, { createContext, useEffect, useState } from 'react';
 import Home from "./pages/Home/Home"
 import DetailPage from "./pages/ArticleCate/ArticleCate"
-import {Switch,Route,BrowserRouter as Router,Redirect} from "react-router-dom"
+import {Switch,Route,HashRouter as Router,Redirect} from "react-router-dom"
 import ArticleDetail from './pages/ArticleDetail/ArticleDetail';
 import AboutMe from './pages/Music/Music';
 import { animateScroll } from 'react-scroll';

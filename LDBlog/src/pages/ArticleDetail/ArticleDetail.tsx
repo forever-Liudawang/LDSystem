@@ -4,6 +4,13 @@ import "./index.scss"
 import request from "../../utils/request"
 import Footer from "../../components/Footer/Footer"
 import { withRouter } from 'react-router'
+const env = process.env.NODE_ENV;
+let iframeUrl = ""
+if(env === "development"){
+    iframeUrl = "/comment.html"
+}else if(env === "production"){
+    iframeUrl = "/static/comment.html"
+}
 function ArticleDetail(props: any) {
     const [articleData, setData] = useState<any>({})
     const [latestFive,setList] = useState([])
@@ -69,7 +76,7 @@ function ArticleDetail(props: any) {
                     <iframe
                         ref={comRef}
                         style={{ width: "100%", marginTop: "100px",minHeight:"500px",border: "none" }}
-                        src={`/comment.html?articleId=${articleId}`}
+                        src={`${iframeUrl}?articleId=${articleId}`}
                     ></iframe>
                 </div>
                 <div className="side">

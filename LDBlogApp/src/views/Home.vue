@@ -6,15 +6,12 @@ import BScroll from "@src/components/BScroll.vue";
 <template>
   <div class="home">
     <Header></Header>
-    <BScroll>
-      <div>123</div>
-    </BScroll>
+    <!-- <BScroll>
+    </BScroll> -->
   </div>
 </template>
 
 <style lang="scss" scoped>
 .home{
-  background-color: red;
-  color: #fff;
 }
 </style>

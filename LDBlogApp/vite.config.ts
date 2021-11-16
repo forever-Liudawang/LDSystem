@@ -36,5 +36,12 @@ export default ({ command, mode }: ConfigEnv):UserConfigExport=>{
         {find:"@src",replacement:resolve("src")}
       ]
     },
+    css:{
+      preprocessorOptions:{
+        scss:{
+          additionalData: `@import "@src/global.scss";`
+        }
+      }
+    }
   })
 }

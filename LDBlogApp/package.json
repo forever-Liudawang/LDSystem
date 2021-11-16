@@ -4,18 +4,29 @@
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
-    "serve": "vite preview"
+    "lint:eslint": "eslint src --fix --ext .ts,.tsx,.vue ",
+    "serve": "vite preview",
+    "lint:prettier": "prettier --write  \"src/**/*.{js,json,ts,tsx,css,less,scss,vue,html,md}\""
   },
   "dependencies": {
+    "axios": "^0.24.0",
+    "better-scroll": "^2.4.2",
     "lib-flexible": "^0.3.2",
     "postcss-pxtorem": "^6.0.0",
+    "sass": "^1.43.4",
     "vant": "^3.2.8",
+    "vite-plugin-vconsole": "^1.1.0",
     "vue": "^3.2.16",
     "vue-router": "^4.0.12"
   },
   "devDependencies": {
     "@types/node": "^16.11.7",
     "@vitejs/plugin-vue": "^1.9.3",
+    "eslint": "^8.2.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-vue": "^8.0.3",
+    "lint-staged": "^12.0.2",
+    "prettier": "^2.4.1",
     "typescript": "^4.4.3",
     "vite": "^2.6.4",
     "vite-plugin-style-import": "^1.3.0",

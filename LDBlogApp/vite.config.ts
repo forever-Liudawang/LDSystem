@@ -1,30 +1,40 @@
-import { defineConfig,loadEnv} from 'vite'
+import { ConfigEnv, defineConfig,loadEnv, UserConfigExport} from 'vite'
 import vue from '@vitejs/plugin-vue'
 import path from "path"
+
+import {viteVConsole} from "vite-plugin-vconsole"
 //按需加载
 import styleImport from "vite-plugin-style-import"
-const resolve = (name:string)=> path.resolve(__dirname.toString(),name)
-// https://vitejs.dev/config/
-export default defineConfig({
-  plugins: [
-    vue(),
-    styleImport({
-      libs:[
-        {
-          libraryName:'vant',
-          esModule: true,
-          resolveComponent: (name:string):string=> `vant/es/${name}style`
+// 通过loadenv
+// loadEnv(mode, process.cwd()).VITE_APP_PATH
+const resolve = (name:string)=> path.join(__dirname,name)
+export default ({ command, mode }: ConfigEnv):UserConfigExport=>{
+  return defineConfig({
+    plugins: [
+      vue(),
+      styleImport({
+        libs:[
+          {
+            libraryName:'vant',
+            esModule: true,
+            resolveComponent: (name:string):string=> `vant/es/${name}style`
+          }
+        ]
+      }),
+      viteVConsole({
+        entry: resolve('src/main.ts'),
+        localEnabled: command === 'serve',
+        enabled: command === 'build' && mode === 'test',
+        config: {
+          maxLogNumber: 1000,
+          theme: 'light'
         }
+      })
+    ],
+    resolve:{
+      alias:[
+        {find:"@src",replacement:resolve("src")}
       ]
-    })
-  ],
-  resolve:{
-    alias:[
-      {find:"@src",replacement:resolve("src")}
-    ]
-  },
-})
-function __dirname(__dirname: any, name: string) {
-  throw new Error('Function not implemented.')
+    },
+  })
 }
-

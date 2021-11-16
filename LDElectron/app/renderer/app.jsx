@@ -7,7 +7,7 @@ function App() {
     <Router>
       <Switch>
         <Route path="/">
-          <div>可视化简历平台</div>
+          <div>可视化简历平台1</div>
           <div>这是 Electron + React </div>
         </Route>
       </Switch>

@@ -15,7 +15,15 @@ defineExpose({
 
 <template>
   <div :class="['sideBar', show ? 'show' : 'hide']" v-show="show">
-    <div class="item left">12212</div>
+    <div class="item left">
+      <div class="d-flex justify-center avatar">
+        <van-image round width="100" height="100" src="https://img.yzcdn.cn/vant/cat.jpeg" />
+      </div>
+      <div>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
     <div class="item right" @click="handleHide"></div>
   </div>
 </template>
@@ -33,14 +41,17 @@ defineExpose({
     animation: scale-in-hor-left 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
   }
   &.hide {
-    -webkit-animation: scale-out-hor-left 0.5s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
-    animation: scale-out-hor-left 0.5s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
+    transform: translateX(-100%);
+    transition: all cubic-bezier(0.55, 0.085, 0.68, 0.53);
   }
   .item {
     height: 100%;
   }
   .left {
     flex: 1;
+    .avatar{
+      
+    }
   }
   .right {
     width: 40%;

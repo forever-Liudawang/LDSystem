@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { reactive, ref, toRefs, defineExpose } from 'vue'
+import {ref, defineExpose } from 'vue'
 const show = ref(false)
 const handleShow = () => {
   show.value = true
@@ -17,7 +17,7 @@ defineExpose({
   <div :class="['sideBar', show ? 'show' : 'hide']" v-show="show">
     <div class="item left">
       <div class="d-flex justify-center avatar">
-        <van-image round width="100" height="100" src="https://img.yzcdn.cn/vant/cat.jpeg" />
+        <!-- <van-image round width="100" height="100" src="https://img.yzcdn.cn/vant/cat.jpeg" /> -->
       </div>
       <div>
         <span></span>
@@ -36,6 +36,8 @@ defineExpose({
   top: $headerHeight;
   display: flex;
   justify-content: center;
+  overflow: hidden;
+  transform: translateX(200px);
   &.show {
     -webkit-animation: scale-in-hor-left 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
     animation: scale-in-hor-left 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
@@ -49,8 +51,8 @@ defineExpose({
   }
   .left {
     flex: 1;
+    padding: 20px 10px;
     .avatar{
-      
     }
   }
   .right {

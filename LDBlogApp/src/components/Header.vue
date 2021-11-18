@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import SideBar from '@src/components/SideBar.vue'
+import { useRouter } from 'vue-router'
 const searchKey = ref('')
 const sideRef = ref<any>(null)
 const showSearch = ref(false)
+const router = useRouter()
 const handleShowSearch = () => {
   showSearch.value = true
 }
@@ -21,7 +23,7 @@ const handleShowBar = () => {
     <div class="nav" @click="handleShowBar">
       <van-icon name="apps-o" color="#999" size="24" />
     </div>
-    <div class="title">
+    <div class="title" @click="router.push('/')">
       <img src="/me.svg" alt="" />
       <span>Andys'Blog</span>
     </div>
@@ -45,6 +47,7 @@ const handleShowBar = () => {
 <style lang="scss" scoped>
 .header {
   height: $headerHeight;
+  background-color: #fff;
   line-height: $headerHeight;
   box-shadow: 0 1px 8px 0 rgba(0, 0, 0, 0.1);
   display: flex;
@@ -52,6 +55,7 @@ const handleShowBar = () => {
   justify-content: space-between;
   padding: 0 20px;
   position: fixed;
+  z-index: 100000;
   top: 0;
   width: 100%;
   box-sizing: border-box;

@@ -1,4 +1,6 @@
+import { Toast } from 'vant';
 import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios'
+import {IHttpResponse,IHttpConfig} from "./types"
 const codeMessage: Record<number, string> = {
   400: '请求错误',
   401: '用户没有权限。',
@@ -12,7 +14,6 @@ const codeMessage: Record<number, string> = {
   503: '服务不可用，服务器暂时过载或维护。',
   504: '网关超时。'
 }
-
 const service = axios.create({
   baseURL: import.meta.env.VITE_APP_BASE_API,
   timeout:2000
@@ -22,10 +23,33 @@ service.interceptors.request.use((config:AxiosRequestConfig)=>{
 },(err:AxiosError)=>{
   return Promise.resolve(err || "出错啦")
 })
-service.interceptors.response.use((resp:AxiosResponse)=>{
-  console.log(resp)
-  return resp;
+service.interceptors.response.use((resp:AxiosResponse<IHttpResponse>)=>{
+  if(!resp || resp.status>=400){
+    if(resp && resp.data){
+      Toast.fail(resp.data.message)
+    }else{
+      Toast.fail("请求出错啦！！")
+    }
+    return {
+      success: false,
+      data: null,
+      message: ""
+    }
+  }else{
+    return resp.data;
+  }
 },(error:AxiosError)=>{
   return Promise.reject(error)
 })
-export default service
+const request = (config:IHttpConfig)=>{
+  const {url,method="post",data,params} =config
+  return new Promise<IHttpResponse>(async (resolve,reject)=>{
+      const resp:any= await service({url,method,data,params})
+      if(resp && resp.success){
+          resolve(resp)
+      }else{
+          reject(resp.error)
+      }
+  })
+}
+export default request

@@ -11,6 +11,11 @@ const routes:RouteRecordRaw[] = [
         path:"/articleDetail",
         name:"ArticleDetail",
         component: ()=>import("@src/views/ArticleDetail.vue")
+    },
+    {
+        path:"/articleCate/:cateId",
+        name:"ArticleCate",
+        component: ()=>import("@src/views/ArticleCate.vue")
     }
 ]
 const history = createWebHashHistory()

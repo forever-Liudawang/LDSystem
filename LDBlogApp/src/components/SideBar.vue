@@ -1,11 +1,25 @@
 <script setup lang="ts">
 import {ref, defineExpose } from 'vue'
+import { useRouter } from 'vue-router'
 const show = ref(false)
+const navList = [
+  {title:"FrontEnd",cateId:"1",path:""},
+  {title:"BackEnd",cateId:"2",path:""},
+  {title:"Life",cateId:"3",path:""},
+  {title:"Project",cateId:"4",path:""}]
+const router = useRouter()
 const handleShow = () => {
   show.value = true
 }
 const handleHide = () => {
   show.value = false
+}
+const handleTo = (nav:any) =>{
+  router.push({
+    path:`/articleCate/${nav.cateId}`
+  })
+  handleHide()
+  console.log(`nav`, nav)
 }
 defineExpose({
   handleShow,
@@ -14,14 +28,22 @@ defineExpose({
 </script>
 
 <template>
-  <div :class="['sideBar', show ? 'show' : 'hide']" v-show="show">
+  <div :class="['sideBar', show ? 'show' : 'hide']" >
     <div class="item left">
       <div class="d-flex justify-center avatar">
-        <!-- <van-image round width="100" height="100" src="https://img.yzcdn.cn/vant/cat.jpeg" /> -->
+        <van-image round width="100" height="100" src="https://img.yzcdn.cn/vant/cat.jpeg" />
       </div>
-      <div>
-        <span></span>
-        <span></span>
+      <div class="sign d-flex justify-center">
+        <span>AndyLiu</span>
+        <span>记忆最深处的是回忆</span>
+      </div>
+      <div class="nav">
+        <ul>
+          <li v-for="item in navList" @click="handleTo(item)">
+            <span>{{item.title}}</span>
+            <van-icon name="arrow" size="28" />
+          </li>
+        </ul>
       </div>
     </div>
     <div class="item right" @click="handleHide"></div>
@@ -37,14 +59,14 @@ defineExpose({
   display: flex;
   justify-content: center;
   overflow: hidden;
-  transform: translateX(200px);
+  z-index: 1000000;
   &.show {
-    -webkit-animation: scale-in-hor-left 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
-    animation: scale-in-hor-left 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+    transform: translateX(0);
+    transition:.4s transform cubic-bezier(0.55, 0.085, 0.68, 0.53);
   }
   &.hide {
-    transform: translateX(-100%);
-    transition: all cubic-bezier(0.55, 0.085, 0.68, 0.53);
+    transform: translateX(-100vw);
+    transition:.4s transform cubic-bezier(0.55, 0.085, 0.68, 0.53);
   }
   .item {
     height: 100%;
@@ -52,77 +74,42 @@ defineExpose({
   .left {
     flex: 1;
     padding: 20px 10px;
-    .avatar{
+    background-color: #fff;
+    .sign{
+      padding-top: 20px;
+      font-size: 32px;
+      font-weight: bold;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-content: center;
+      span:first-child{
+        font-size: 28px;
+        color: #999;
+        padding: 10px 0;
+      }
+      span{
+        text-align: center;
+      }
+    }
+    .nav{
+      padding-top: 30px;
+      li{
+        box-shadow: 0 8px 12px #ebedf0;
+        padding: 20px;
+        margin: 10px 0;
+        font-size: 32px;
+        font-weight: bold;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
     }
   }
   .right {
     width: 40%;
     background-color: #242424;
     opacity: 0.8;
-  }
-  @-webkit-keyframes scale-in-hor-left {
-    0% {
-      -webkit-transform: scaleX(0);
-      transform: scaleX(0);
-      -webkit-transform-origin: 0% 0%;
-      transform-origin: 0% 0%;
-      opacity: 1;
-    }
-    100% {
-      -webkit-transform: scaleX(1);
-      transform: scaleX(1);
-      -webkit-transform-origin: 0% 0%;
-      transform-origin: 0% 0%;
-      opacity: 1;
-    }
-  }
-  @keyframes scale-in-hor-left {
-    0% {
-      -webkit-transform: scaleX(0);
-      transform: scaleX(0);
-      -webkit-transform-origin: 0% 0%;
-      transform-origin: 0% 0%;
-      opacity: 1;
-    }
-    100% {
-      -webkit-transform: scaleX(1);
-      transform: scaleX(1);
-      -webkit-transform-origin: 0% 0%;
-      transform-origin: 0% 0%;
-      opacity: 1;
-    }
-  }
-  @-webkit-keyframes scale-out-hor-left {
-    0% {
-      -webkit-transform: scaleX(1);
-      transform: scaleX(1);
-      -webkit-transform-origin: 0 0;
-      transform-origin: 0 0;
-      opacity: 1;
-    }
-    100% {
-      -webkit-transform: scaleX(0);
-      transform: scaleX(0);
-      -webkit-transform-origin: 0 0;
-      transform-origin: 0 0;
-      opacity: 1;
-    }
-  }
-  @keyframes scale-out-hor-left {
-    0% {
-      -webkit-transform: scaleX(1);
-      transform: scaleX(1);
-      -webkit-transform-origin: 0 0;
-      transform-origin: 0 0;
-      opacity: 1;
-    }
-    100% {
-      -webkit-transform: scaleX(0);
-      transform: scaleX(0);
-      -webkit-transform-origin: 0 0;
-      transform-origin: 0 0;
-      opacity: 1;
-    }
   }
 }
 </style>

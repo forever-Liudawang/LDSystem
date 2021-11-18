@@ -13,15 +13,14 @@ const handleBlur = () => {
   showSearch.value = false
 }
 const handleShowBar = () => {
-  console.log(sideRef.value)
-  sideRef.value.handleShow()
+  sideRef.value.handleSwitch()
 }
 </script>
 
 <template>
   <div class="header">
     <div class="nav" @click="handleShowBar">
-      <van-icon name="apps-o" color="#999" size="24" />
+      <van-icon name="apps-o" :color="showSearch?'#000':'#999'" size="24" />
     </div>
     <div class="title" @click="router.push('/')">
       <img src="/me.svg" alt="" />
@@ -62,6 +61,11 @@ const handleShowBar = () => {
   .nav {
     display: flex;
     align-items: center;
+    &:active{
+      .van-icon-apps-o{
+        color: #000 !important;
+      }
+    }
   }
   .title {
     font-size: 36px;

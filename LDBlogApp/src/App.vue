@@ -8,9 +8,9 @@ import Header from "@src/components/Header.vue";
 <template>
   <Header></Header>
   <div class="main">
-    <KeepAlive>
+    <!-- <KeepAlive> -->
       <router-view></router-view>
-    </KeepAlive>
+    <!-- </KeepAlive> -->
   </div>
 </template>
 

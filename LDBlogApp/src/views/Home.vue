@@ -20,10 +20,10 @@ const handlePullingUp = () => {}
 </script>
 
 <template>
-  <BScroll @scroll="handleScroll" @pullingUp="handlePullingUp">
+  <!-- <BScroll @scroll="handleScroll" @pullingUp="handlePullingUp"> -->
     <div class="home">
       <div class="title">
-        <span>Andy的博客</span>
+        <span>Andy的Blog</span>
         <span>始于平淡，归于坦然</span>
       </div>
       <div class="content">
@@ -35,7 +35,7 @@ const handlePullingUp = () => {}
         </div>
       </div>
     </div>
-  </BScroll>
+  <!-- </BScroll> -->
 </template>
 
 <style lang="scss" scoped>
@@ -52,7 +52,7 @@ const handlePullingUp = () => {}
     align-items: center;
     letter-spacing: 6px;
     span:first-child {
-      font-size: 48px;
+      font-size: 60px;
       font-weight: bold;
     }
     span:last-child {

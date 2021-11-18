@@ -8,8 +8,8 @@ const navList = [
   {title:"Life",cateId:"3",path:""},
   {title:"Project",cateId:"4",path:""}]
 const router = useRouter()
-const handleShow = () => {
-  show.value = true
+const handleSwitch = () => {
+  show.value = !show.value
 }
 const handleHide = () => {
   show.value = false
@@ -22,7 +22,7 @@ const handleTo = (nav:any) =>{
   console.log(`nav`, nav)
 }
 defineExpose({
-  handleShow,
+  handleSwitch,
   handleHide
 })
 </script>
@@ -62,11 +62,11 @@ defineExpose({
   z-index: 1000000;
   &.show {
     transform: translateX(0);
-    transition:.4s transform cubic-bezier(0.55, 0.085, 0.68, 0.53);
+    transition:.2s transform cubic-bezier(0.55, 0.085, 0.68, 0.53);
   }
   &.hide {
     transform: translateX(-100vw);
-    transition:.4s transform cubic-bezier(0.55, 0.085, 0.68, 0.53);
+    transition:.2s transform cubic-bezier(0.55, 0.085, 0.68, 0.53);
   }
   .item {
     height: 100%;

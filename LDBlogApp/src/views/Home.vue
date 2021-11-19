@@ -20,7 +20,7 @@ const handlePullingUp = () => {}
 </script>
 
 <template>
-  <!-- <BScroll @scroll="handleScroll" @pullingUp="handlePullingUp"> -->
+  <BScroll @scroll="handleScroll" @pullingUp="handlePullingUp">
     <div class="home">
       <div class="title">
         <span>Andy的Blog</span>
@@ -35,7 +35,7 @@ const handlePullingUp = () => {}
         </div>
       </div>
     </div>
-  <!-- </BScroll> -->
+  </BScroll>
 </template>
 
 <style lang="scss" scoped>

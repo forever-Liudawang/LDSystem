@@ -13,3 +13,17 @@ export interface IHttpConfig {
     [key:string]:any,
 
 }
+//文章数据类型
+export interface IArticleModel {
+    articleCate: string | number
+    articleDesc:string,
+    articleTags: Array<string>
+    articleTitle: string,
+    content:string,
+    coverImg: string,
+    created: string
+    isMyRecommend: boolean
+    updated: string
+    userName: string
+    _id: string
+}

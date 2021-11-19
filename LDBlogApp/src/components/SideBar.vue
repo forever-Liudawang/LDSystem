@@ -1,13 +1,10 @@
 <script setup lang="ts">
 import {ref, defineExpose } from 'vue'
-import { useRouter } from 'vue-router'
+import { onBeforeRouteUpdate, useRoute, useRouter } from 'vue-router'
+import {sideBarNevList} from "@src/config"
 const show = ref(false)
-const navList = [
-  {title:"FrontEnd",cateId:"1",path:""},
-  {title:"BackEnd",cateId:"2",path:""},
-  {title:"Life",cateId:"3",path:""},
-  {title:"Project",cateId:"4",path:""}]
 const router = useRouter()
+let route = useRoute()
 const handleSwitch = () => {
   show.value = !show.value
 }
@@ -19,8 +16,10 @@ const handleTo = (nav:any) =>{
     path:`/articleCate/${nav.cateId}`
   })
   handleHide()
-  console.log(`nav`, nav)
 }
+onBeforeRouteUpdate((to)=>{
+    route = to
+})
 defineExpose({
   handleSwitch,
   handleHide
@@ -39,7 +38,7 @@ defineExpose({
       </div>
       <div class="nav">
         <ul>
-          <li v-for="item in navList" @click="handleTo(item)">
+          <li v-for="item in sideBarNevList" :class="route.params.cateId ==item.cateId ?'active':''" @click="handleTo(item)">
             <span>{{item.title}}</span>
             <van-icon name="arrow" size="28" />
           </li>
@@ -103,6 +102,12 @@ defineExpose({
         display: flex;
         justify-content: space-between;
         align-items: center;
+      }
+      .active{
+        color: $theme-color;
+        .van-icon-arrow{
+          color: $theme-color !important;
+        }
       }
     }
   }

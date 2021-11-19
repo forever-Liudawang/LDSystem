@@ -1,16 +1,23 @@
 <script setup lang="ts">
 import { reactive, toRefs, ref, onMounted,toRaw} from 'vue'
 import dateFormat from "@src/utils/time"
+import { useRouter } from 'vue-router'
+const router = useRouter()
 interface Props {
   articleModel?: any
 }
 const props = withDefaults(defineProps<Props>(),{
 })
 const articleModel = props.articleModel || {}
+const handleToArticleDetail= ()=>{
+  router.push({
+    path:`/articleDetail/${articleModel.articleCate}/${articleModel._id}`
+  })
+}
 </script>
 
 <template>
-  <div class="article">
+  <div class="article" @click="handleToArticleDetail">
     <div class="avatar">
       <van-image cover radius="4" width="90" height="100%" :src="articleModel.coverImg" />
     </div>

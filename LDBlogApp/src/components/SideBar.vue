@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import {ref, defineExpose } from 'vue'
+import { ref, defineExpose } from 'vue'
 import { onBeforeRouteUpdate, useRoute, useRouter } from 'vue-router'
-import {sideBarNevList} from "@src/config"
+import { sideBarNevList } from '@src/config'
 const show = ref(false)
 const router = useRouter()
 let route = useRoute()
@@ -11,14 +11,21 @@ const handleSwitch = () => {
 const handleHide = () => {
   show.value = false
 }
-const handleTo = (nav:any) =>{
-  router.push({
-    path:`/articleCate/${nav.cateId}`
-  })
+const handleTo = (nav: any) => {
+  if (nav.title == 'FeedBack') {
+    router.push({
+      path: `/feedback/${nav.cateId}`
+    })
+  } else {
+    router.push({
+      path: `/articleCate/${nav.cateId}`
+    })
+  }
+
   handleHide()
 }
-onBeforeRouteUpdate((to)=>{
-    route = to
+onBeforeRouteUpdate((to) => {
+  route = to
 })
 defineExpose({
   handleSwitch,
@@ -27,54 +34,43 @@ defineExpose({
 </script>
 
 <template>
-  <div :class="['sideBar', show ? 'show' : 'hide']" >
-    <div class="item left">
-      <div class="d-flex justify-center avatar">
-        <van-image round width="100" height="100" src="https://img.yzcdn.cn/vant/cat.jpeg" />
+  <div class="sideBar">
+    <van-popup v-model:show="show" position="left" class="custom" :style="{ width: '60%', height: '100%' ,}">
+      <div class="item left">
+        <div class="d-flex justify-center avatar">
+          <van-image round width="100" height="100" src="/warriors.jpg" />
+        </div>
+        <div class="sign d-flex justify-center">
+          <span>AndyLiu</span>
+          <span>本无恶意，随手记记</span>
+        </div>
+        <div class="nav">
+          <ul>
+            <li v-for="item in sideBarNevList" :class="route.params.cateId == item.cateId ? 'active' : ''" @click="handleTo(item)">
+              <span>{{ item.title }}</span>
+              <van-icon name="arrow" size="28" />
+            </li>
+          </ul>
+        </div>
       </div>
-      <div class="sign d-flex justify-center">
-        <span>AndyLiu</span>
-        <span>记忆最深处的是回忆</span>
-      </div>
-      <div class="nav">
-        <ul>
-          <li v-for="item in sideBarNevList" :class="route.params.cateId ==item.cateId ?'active':''" @click="handleTo(item)">
-            <span>{{item.title}}</span>
-            <van-icon name="arrow" size="28" />
-          </li>
-        </ul>
-      </div>
-    </div>
-    <div class="item right" @click="handleHide"></div>
+    </van-popup>
   </div>
 </template>
 
+<style lang="scss">
+.custom{
+  padding-top: $headerHeight + 160;
+}
+</style>
 <style lang="scss" scoped>
+
 .sideBar {
-  width: 100vw;
-  height: 100vh;
-  position: fixed;
-  top: $headerHeight;
-  display: flex;
-  justify-content: center;
-  overflow: hidden;
-  z-index: 1000000;
-  &.show {
-    transform: translateX(0);
-    transition:.2s transform cubic-bezier(0.55, 0.085, 0.68, 0.53);
-  }
-  &.hide {
-    transform: translateX(-100vw);
-    transition:.2s transform cubic-bezier(0.55, 0.085, 0.68, 0.53);
-  }
   .item {
     height: 100%;
   }
   .left {
-    flex: 1;
-    padding: 20px 10px;
-    background-color: #fff;
-    .sign{
+    padding: 0 20px;
+    .sign {
       padding-top: 20px;
       font-size: 32px;
       font-weight: bold;
@@ -82,18 +78,18 @@ defineExpose({
       flex-direction: column;
       justify-content: center;
       align-content: center;
-      span:first-child{
+      span:first-child {
         font-size: 28px;
         color: #999;
         padding: 10px 0;
       }
-      span{
+      span {
         text-align: center;
       }
     }
-    .nav{
+    .nav {
       padding-top: 30px;
-      li{
+      li {
         box-shadow: 0 8px 12px #ebedf0;
         padding: 20px;
         margin: 10px 0;
@@ -103,18 +99,13 @@ defineExpose({
         justify-content: space-between;
         align-items: center;
       }
-      .active{
+      .active {
         color: $theme-color;
-        .van-icon-arrow{
+        .van-icon-arrow {
           color: $theme-color !important;
         }
       }
     }
-  }
-  .right {
-    width: 40%;
-    background-color: #242424;
-    opacity: 0.8;
   }
 }
 </style>

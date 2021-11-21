@@ -2,6 +2,7 @@
 import { RouterView, useRoute} from 'vue-router'
 import { KeepAlive, watch,toRaw} from 'vue'
 import Header from '@src/components/Header.vue'
+
 const route = useRoute()
 watch(route,(to,from)=>{
   console.log(toRaw(to),toRaw(from))
@@ -12,9 +13,11 @@ watch(route,(to,from)=>{
   <Header></Header>
   <div class="main">
     <transition name="slide-left" mode="out-in">
-      <KeepAlive>
-        <router-view></router-view>
-      </KeepAlive>
+      <router-view v-slot="{ Component }">
+        <keep-alive>
+          <component :is="Component"/>
+        </keep-alive>
+      </router-view> 
     </transition>
   </div>
 </template>

@@ -10,12 +10,26 @@ const routes:RouteRecordRaw[] = [
     {
         path:"/articleDetail/:cateId/:articleId",
         name:"ArticleDetail",
+        meta: {
+            keepAlive: false //设置页面是否需要使用缓存
+        },
         component: ()=>import("@src/views/ArticleDetail.vue")
     },
     {
         path:"/articleCate/:cateId",
         name:"ArticleCate",
+        meta: {
+            keepAlive: true //设置页面是否需要使用缓存
+        },
         component: ()=>import("@src/views/ArticleCate.vue")
+    },
+    {
+        path:"/feedback/:cateId",
+        name:"FeedBack",
+        meta: {
+            keepAlive: true //设置页面是否需要使用缓存
+        },
+        component: ()=>import("@src/views/FeedBack.vue")
     }
 ]
 const history = createWebHashHistory()

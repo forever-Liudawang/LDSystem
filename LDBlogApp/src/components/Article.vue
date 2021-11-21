@@ -45,13 +45,13 @@ const handleToArticleDetail= ()=>{
 
 <style lang="scss" scoped>
 .article {
-  height: 160px;
+  height: 200px;
   background-color: #fff;
-  box-shadow: 2px 0px 17px #ebedf0;
+  box-shadow: 2px 10px 17px #ebedf0;
   padding: 12px;
   border-radius: 6px;
   display: flex;
-  margin-bottom: 30px;
+  margin-bottom: 40px;
   .avatar {
     height: 100%;
   }

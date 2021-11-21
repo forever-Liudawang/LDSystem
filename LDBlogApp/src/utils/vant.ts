@@ -1,4 +1,4 @@
-import {Button,NavBar,Icon,Search,Image,Toast,Tag} from "vant"
+import {Button,NavBar,Icon,Search,Image,Toast,Tag,Loading,Form,Field,CellGroup,Popup,NoticeBar,Dialog} from "vant"
 import { App } from 'vue';
 
 export default (app:App<Element>)=>{
@@ -8,4 +8,11 @@ export default (app:App<Element>)=>{
     app.use(Search)
     app.use(Toast)
     app.use(Tag)
+    app.use(Loading)
+    app.use(Form)
+    app.use(Field)
+    app.use(CellGroup)
+    app.use(NoticeBar)
+    app.use(Dialog)
+    app.use(Popup)
 }

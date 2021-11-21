@@ -14,13 +14,13 @@ onMounted(() => {
   initData()
 })
 const handleScroll = (pos: any) => {
-  console.log(`pos`, pos)
+  // console.log(`pos`, pos)
 }
 const handlePullingUp = () => {}
 </script>
 
 <template>
-  <BScroll @scroll="handleScroll" @pullingUp="handlePullingUp">
+  <BScroll @scroll="handleScroll" @pullingUp="handlePullingUp" >
     <div class="home">
       <div class="title">
         <span>Andy的Blog</span>
@@ -41,8 +41,9 @@ const handlePullingUp = () => {}
 <style lang="scss" scoped>
 .home {
   height: 100%;
+  padding-bottom: 50px;
   .title {
-    height: 480px;
+    height: 400px;
     width: 100%;
     text-align: center;
     white-space: nowrap;
@@ -69,8 +70,9 @@ const handlePullingUp = () => {}
       font-size: 40px;
       font-weight: bold;
       text-align: left;
-      color: #ff4c21;
+      color: $theme-color;
       padding: 40px 0;
+      text-shadow: 1px 1px 0 #fff,3px 3px 0 $theme-color, 4px 4px 0 $theme-color
     }
     .articleBox {
     }

@@ -48,3 +48,10 @@ export const getArticleById = async (params:object={})=>{
         params
     })
 }
+export const insertFeedback = async (data:object = {})=>{
+    return await request({
+        url:'/email/insert',
+        method: "post",
+        data
+    })
+}

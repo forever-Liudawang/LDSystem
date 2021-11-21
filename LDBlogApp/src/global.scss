@@ -10,3 +10,6 @@ $headerHeight:100px;
 .align-center{
     align-items: center;
 }
+:root{
+    --van-loading-text-color:$theme-color !important;
+}

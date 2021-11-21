@@ -81,11 +81,11 @@ class ArticleController extends BaseController {
                 tObj.data = data;
                 tObj.articleCateId = articleCateId
                 if(articleCateId == 1){
-                    tObj.articleCateName = "FrontEnd Technology"
+                    tObj.articleCateName = "FrontEnd"
                 }else if(articleCateId == 2){
-                    tObj.articleCateName = "BackEnd Technology"
+                    tObj.articleCateName = "BackEnd "
                 }else if(articleCateId == 3){
-                    tObj.articleCateName = "Interesting Things In Life"
+                    tObj.articleCateName = "Interesting Things"
                 }
                 respList.push(tObj)
             }

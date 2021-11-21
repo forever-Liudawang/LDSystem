@@ -19,16 +19,16 @@ const handleShowBar = () => {
 
 <template>
   <div class="header">
-    <div class="nav" @click="handleShowBar">
-      <van-icon name="apps-o" :color="showSearch?'#000':'#999'" size="24" />
+    <div class="search">
+      <van-icon name="search" color="#999" v-show="!showSearch" size="24" @click="handleShowSearch" />
+      <van-search :autofocus="showSearch" v-show="showSearch" v-model="searchKey" shape="round" @blur="handleBlur" placeholder="请输入搜索关键词" />
     </div>
     <div class="title" @click="router.push('/')">
       <img src="/me.svg" alt="" />
       <span>Andys'Blog</span>
     </div>
-    <div class="search">
-      <van-icon name="search" color="#999" v-show="!showSearch" size="24" @click="handleShowSearch" />
-      <van-search autofocus="true" v-show="showSearch" v-model="searchKey" shape="round" @blur="handleBlur" placeholder="请输入搜索关键词" />
+    <div class="nav" @click="handleShowBar">
+      <van-icon name="apps-o" :color="showSearch?'#000':'#999'" size="24" />
     </div>
   </div>
   <SideBar ref="sideRef"></SideBar>

@@ -19,6 +19,11 @@ const service = axios.create({
   timeout:2000
 })
 service.interceptors.request.use((config:AxiosRequestConfig)=>{
+  Toast.loading({
+    message: '加载中...',
+    forbidClick: true,
+    duration:600
+  });
   return config
 },(err:AxiosError)=>{
   return Promise.resolve(err || "出错啦")
@@ -30,6 +35,7 @@ service.interceptors.response.use((resp:AxiosResponse<IHttpResponse>)=>{
     }else{
       Toast.fail("请求出错啦！！")
     }
+    Toast.clear()
     return {
       success: false,
       data: null,

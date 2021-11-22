@@ -8,12 +8,12 @@ import toTop from "/toTop.png"
 interface IProps {
   probeType: number
   pullUpLoad: boolean
-  articleListSize: number
+  refreshFlag: number
 }
 const props = withDefaults(defineProps<IProps>(), {
   probeType: 3,
   pullUpLoad: false,
-  articleListSize: 0
+  refreshFlag: 0
 })
 const emit = defineEmits(['scroll', 'pullingUp'])
 let bs: BScrollConstructor<{}> | null = null
@@ -56,7 +56,7 @@ const scroll = () => {
   }, 1200)
 }
 watch(
-  () => props.articleListSize,
+  () => props.refreshFlag,
   (val) => {
     nextTick(() => {
       bs?.refresh()

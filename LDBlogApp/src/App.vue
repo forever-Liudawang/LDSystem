@@ -1,15 +1,12 @@
 <script setup lang="ts">
 import { RouterView, useRoute} from 'vue-router'
-import { KeepAlive, watch,toRaw} from 'vue'
+import { KeepAlive, watch,toRaw,onMounted,ref} from 'vue'
 import Header from '@src/components/Header.vue'
-
-const route = useRoute()
-watch(route,(to,from)=>{
-  console.log(toRaw(to),toRaw(from))
-})
+import Entry from './components/Entry.vue'
 </script>
 
 <template>
+  <Entry/>
   <Header></Header>
   <div class="main">
     <transition name="slide-left" mode="out-in">

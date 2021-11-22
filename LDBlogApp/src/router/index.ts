@@ -30,6 +30,14 @@ const routes:RouteRecordRaw[] = [
             keepAlive: true //设置页面是否需要使用缓存
         },
         component: ()=>import("@src/views/FeedBack.vue")
+    },
+    {
+        path:"/searchPage",
+        name:"SearchPage",
+        meta: {
+            keepAlive: false //设置页面是否需要使用缓存
+        },
+        component: ()=>import("@src/views/SearchPage.vue")
     }
 ]
 const history = createWebHashHistory()

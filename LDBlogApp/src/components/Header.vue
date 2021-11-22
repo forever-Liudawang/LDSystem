@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import SideBar from '@src/components/SideBar.vue'
-import { useRouter } from 'vue-router'
+import { useRouter,onBeforeRouteUpdate,useRoute} from 'vue-router'
 const searchKey = ref('')
 const sideRef = ref<any>(null)
 const showSearch = ref(false)
@@ -9,11 +9,20 @@ const router = useRouter()
 const handleShowSearch = () => {
   showSearch.value = true
 }
-const handleBlur = () => {
-  showSearch.value = false
-}
 const handleShowBar = () => {
   sideRef.value.handleSwitch()
+}
+onBeforeRouteUpdate((to)=>{
+  console.log(to,"to")
+})
+const onSearch = ()=>{
+  router.push({
+    path: "/searchPage",
+    query:{
+      searchKey:searchKey.value
+    }
+  })
+  showSearch.value = false
 }
 </script>
 
@@ -21,7 +30,9 @@ const handleShowBar = () => {
   <div class="header">
     <div class="search">
       <van-icon name="search" color="#999" v-show="!showSearch" size="24" @click="handleShowSearch" />
-      <van-search :autofocus="showSearch" v-show="showSearch" v-model="searchKey" shape="round" @blur="handleBlur" placeholder="请输入搜索关键词" />
+      <van-popup v-model:show="showSearch" position="top" :style="{ height: '10%' }">
+        <van-search autofocus="true" v-model="searchKey" shape="round" placeholder="请输入搜索关键词" @search="onSearch"/>
+      </van-popup>
     </div>
     <div class="title" @click="router.push('/')">
       <img src="/me.svg" alt="" />

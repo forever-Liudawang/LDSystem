@@ -48,10 +48,22 @@ export const getArticleById = async (params:object={})=>{
         params
     })
 }
+/**
+ * 反馈信息
+ * @param data 
+ * @returns 
+ */
 export const insertFeedback = async (data:object = {})=>{
     return await request({
         url:'/email/insert',
         method: "post",
         data
+    })
+}
+export const getSearchList = async (params:object = {})=>{
+    return await request({
+        url:'/article/getSearchList',
+        method: "get",
+        params
     })
 }

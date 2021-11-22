@@ -1,53 +1,57 @@
 <script setup lang="ts">
-import { getArticleById } from '@src/apis';
-import { useRoute } from 'vue-router';
-import {onMounted,ref,toRaw,watch} from "vue"
-import {IArticleModel} from "@src/utils/types"
+import { getArticleById } from '@src/apis'
+import { useRoute } from 'vue-router'
+import { onMounted, ref, toRaw, watch } from 'vue'
+import { IArticleModel } from '@src/utils/types'
+import BScroll from '@com/BScroll.vue'
+
 // 显式加载资源为一个 URL
 let route = useRoute()
 const articleModel = ref<IArticleModel>()
 console.log(`import.meta.env.DEV`, import.meta.env.DEV)
-const commentUrl = ref("/comment.html")
-if(!import.meta.env.DEV){
-  commentUrl.value = "/static/mobile/comment.html"
+const commentUrl = ref('/comment.html')
+if (!import.meta.env.DEV) {
+  commentUrl.value = '/static/mobile/comment.html'
 }
 const commentRef = ref()
-const initData =async ()=>{
-    const resp = await getArticleById({articleId:route.params.articleId});
-    if(resp && resp.success){
-      articleModel.value = resp.data?resp.data[0]:{}
-    }
-}
-const initIframe = ()=>{
-  commentRef.value.onload = function(){
-      commentRef.value.height = commentRef.value.contentDocument.body && commentRef.value.contentDocument.body.scrollHeight + 100
+const initData = async () => {
+  const resp = await getArticleById({ articleId: route.params.articleId })
+  if (resp && resp.success) {
+    articleModel.value = resp.data ? resp.data[0] : {}
   }
 }
-watch(()=>route.params.articleId,()=>{
-  initIframe()
-})
-onMounted(()=>{
+const initIframe = () => {
+  commentRef.value.onload = function () {
+    commentRef.value.height = commentRef.value.contentDocument.body && commentRef.value.contentDocument.body.scrollHeight + 100
+  }
+}
+watch(
+  () => route.params.articleId,
+  () => {
+    initIframe()
+  }
+)
+onMounted(() => {
   initData()
   initIframe()
 })
 </script>
 
-
 <template>
-  <div class="articleDetail">
-      <h2 style="text-align: center;">{{articleModel?.articleTitle}}</h2>
-      <div v-html="articleModel?.content">
-      </div>
-      <iframe ref="commentRef" style="width: 100%;min-height: 300px;" :src="`${commentUrl}?articleId=${route.params.articleId}`" frameborder="0"></iframe>
-  </div>
+  <BScroll :refreshFlag="commentRef?commentRef.height:6">
+    <div class="articleDetail">
+      <h2 style="text-align: center">{{ articleModel?.articleTitle }}</h2>
+      <div v-html="articleModel?.content"></div>
+      <iframe ref="commentRef" style="width: 100%; min-height: 300px" :src="`${commentUrl}?articleId=${route.params.articleId}`" frameborder="0"></iframe>
+    </div>
+  </BScroll>
 </template>
 
 <style lang="scss" scoped>
-.articleDetail{
+.articleDetail {
   padding: 40px;
-  img{
+  img {
     min-width: 50%;
   }
 }
-
 </style>

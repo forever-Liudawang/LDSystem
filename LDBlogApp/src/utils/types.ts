@@ -3,7 +3,8 @@ import { Method } from "axios";
 export interface IHttpResponse<T=Array<any>> {
     data: T,
     message:string,
-    success: boolean
+    success: boolean,
+    extend: any
 }
 export interface IHttpConfig {
     url:string,

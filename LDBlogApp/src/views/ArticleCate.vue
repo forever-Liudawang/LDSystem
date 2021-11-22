@@ -80,7 +80,7 @@ const handleSelect = (item:any)=>{
 </script>
 
 <template>
-  <BScroll @pullingUp="handlePullingUp"  :refresh="loading" :articleListSize="articleList.length">
+  <BScroll @pullingUp="handlePullingUp"  :refresh="loading" :refreshFlag="articleList.length">
     <div class="articleCate">
       <div class="title">
         {{ cateName }}

@@ -3,6 +3,8 @@ import { reactive, toRefs, ref, onMounted, nextTick, watch, onUpdated } from 'vu
 import BScroll from 'better-scroll'
 import { BScrollConstructor } from '@better-scroll/core/dist/types/BScroll'
 import { onBeforeRouteUpdate } from 'vue-router'
+import toTop from "/toTop.png"
+
 interface IProps {
   probeType: number
   pullUpLoad: boolean
@@ -76,7 +78,7 @@ onMounted(() => {
       <slot></slot>
     </div>
     <div :class="['toTop', showToTop ? 'show' : 'hide']" @click="handleToTop">
-      <van-image cover radius="4" src="/toTop.png" />
+      <van-image cover radius="4" :src="toTop" />
     </div>
   </div>
 </template>

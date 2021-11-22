@@ -21,6 +21,7 @@ const Content = (props:any)=>{
     }
     
     const handleToDetail = ()=>{
+        if(!latestArticle._id)return
         props.history.push({
             pathname:`/articleDetail/${latestArticle.articleCate}/${latestArticle._id}`,
             state:{

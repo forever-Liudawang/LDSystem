@@ -35,6 +35,7 @@ function FilterCateArticle(props:IProps) {
     }, [articleCateId])
     return (
         <div className="filterCateArticle">
+            <div onClick={()=>handleClick("")} className={!curSelect?"active":""}>全部</div>
             {
                 cateList.map((item:any)=>{
                     return <div onClick={()=>handleClick(item)} className={curSelect && curSelect._id===item._id?"active":""}>{item.articleTagName}</div>

@@ -1,0 +1,8 @@
+root123
+9399
+ mongo mongodb://127.0.0.1:9399
+ netstat -tlunp
+systemctl status mongod.service
+
+/usr/bin/mongod -f /etc/mongod.conf
+db.system.users.find().pretty()

@@ -62,6 +62,8 @@
 
 <script>
 import WangEditor from 'wangeditor'
+import 'highlight.js/styles/monokai-sublime.css'
+import hljs from 'highlight.js'
 export default {
   data() {
     return {
@@ -132,6 +134,7 @@ export default {
       const editor = new WangEditor(this.$refs.editorRef)
       editor.config.height = 1000
       editor.config.zIndex = 10
+      editor.highlight = hljs
       editor.config.customUploadImg = async(resultFiles, insertImgFn) => {
         const formData = new FormData()
         formData.append('file', resultFiles[0])

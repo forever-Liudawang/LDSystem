@@ -25,7 +25,7 @@ export const constantRoutes = [
   {
     path: '/',
     component: Layout,
-    // redirect: '/dashboard',
+    redirect: '/dashboard',
     meta: { title: '系统管理', icon: 'dashboard' },
     children: [{
       path: 'dashboard',

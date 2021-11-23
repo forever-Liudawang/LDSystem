@@ -1,15 +1,16 @@
 <script setup lang="ts">
-import { RouterView, useRoute} from 'vue-router'
+import { RouterView, useRoute,onBeforeRouteUpdate} from 'vue-router'
 import { KeepAlive, watch,toRaw,onMounted,ref} from 'vue'
 import Header from '@src/components/Header.vue'
 import Entry from './components/Entry.vue'
+import 'highlight.js/styles/monokai-sublime.css'
 </script>
 
 <template>
   <Entry/>
   <Header></Header>
   <div class="main">
-    <transition name="slide-left" mode="out-in">
+    <transition name="slide-left" mode="in-out">
       <router-view v-slot="{ Component }">
         <keep-alive>
           <component :is="Component"/>

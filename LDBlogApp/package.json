@@ -11,6 +11,7 @@
   "dependencies": {
     "axios": "^0.24.0",
     "better-scroll": "^2.4.2",
+    "highlight.js": "^11.3.1",
     "lib-flexible": "^0.3.2",
     "postcss-pxtorem": "^6.0.0",
     "sass": "^1.43.4",

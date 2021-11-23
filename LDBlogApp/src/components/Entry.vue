@@ -3,13 +3,12 @@ import { reactive, ref,onMounted} from 'vue'
 import {onBeforeRouteUpdate,useRoute} from "vue-router"
 const showEntry = ref(true)
 const route = useRoute()
-onBeforeRouteUpdate(()=>{
-  console.log(route)
+onBeforeRouteUpdate((to)=>{
 })
 onMounted(()=>{
   setTimeout(()=>{
     showEntry.value = false
-  },1000)
+  },800)
 })
 </script>
 
@@ -30,7 +29,7 @@ onMounted(()=>{
 .entryCover {
   width: 100vw;
   height: 100vh;
-  background-color: #fff;
+  background-color: #000;
   position: fixed;
   top: 0;
   left: 0;
@@ -108,6 +107,7 @@ onMounted(()=>{
       font-size: 48px;
       bottom: 40%;
       left: 50%;
+      color: #fff;
       transform: translateX(-50%);
   }
 }

@@ -45,7 +45,7 @@ module.exports = appInfo => {
   config.mongoose = {
     client: {
       // url: 'mongodb://localhost:27017/LDream',
-      url: 'mongodb://localhost:9399/LDBlog',
+      url: 'mongodb://110.42.186.20:9399/LDBlog',
       options: {
         useNewUrlParser: true,
         // useUnifiedTopology

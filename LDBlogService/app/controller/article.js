@@ -115,7 +115,7 @@ class ArticleController extends BaseController {
                 articleTags:{$all:[tag]}
             }
         }
-        const resp = await ctx.model.Article.find(filter,{created:-1}).limit(parseInt(+pageSize)).skip(pageIndex*pageSize).sort({"updated": -1})
+        const resp = await ctx.model.Article.find(filter).limit(parseInt(+pageSize)).skip(pageIndex*pageSize).sort({"updated": -1})
         ctx.body = this.success(resp)
     }
     /**

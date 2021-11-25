@@ -3,7 +3,7 @@ import { RouterView, useRoute,onBeforeRouteUpdate} from 'vue-router'
 import { KeepAlive, watch,toRaw,onMounted,ref} from 'vue'
 import Header from '@src/components/Header.vue'
 import Entry from './components/Entry.vue'
-import 'highlight.js/styles/monokai-sublime.css'
+const route = useRoute()
 </script>
 
 <template>
@@ -13,8 +13,9 @@ import 'highlight.js/styles/monokai-sublime.css'
     <transition name="slide-left" mode="in-out">
       <router-view v-slot="{ Component }">
         <keep-alive>
-          <component :is="Component"/>
+          <component :is="Component" v-if="$route.meta.keepAlive" :key="$route.name"/>
         </keep-alive>
+        <component :is="Component"  v-if="!$route.meta.keepAlive" :key="$route.name"/>
       </router-view> 
     </transition>
   </div>

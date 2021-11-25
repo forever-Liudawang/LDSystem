@@ -1,9 +1,12 @@
 /* eslint-disable react/no-danger-with-children */
-import React, { useEffect, useState, useRef,useMemo} from 'react'
+import React, { useEffect, useState, useRef} from 'react'
 import "./index.scss"
 import request from "../../utils/request"
 import Footer from "../../components/Footer/Footer"
+import 'highlight.js/styles/monokai-sublime.css'
 import { withRouter } from 'react-router'
+import hljs from 'highlight.js'
+
 const env = process.env.NODE_ENV;
 let iframeUrl = ""
 if(env === "development"){
@@ -15,12 +18,22 @@ function ArticleDetail(props: any) {
     const [articleData, setData] = useState<any>({})
     const [latestFive,setList] = useState([])
     const [articleId, setArticleId] = useState(()=>{
-        const { match:{params},location={}} = props
-        console.log('props :>> ', props);
+        const { match:{params}} = props
         const articleId =  params.articleId || ""
         return articleId
     })
     const comRef = useRef<any>()
+    const contentRef = useRef<any>()
+    /**
+     * 初始化代码高亮
+     */
+    const initCodeBlockHightLight = ()=>{
+        const el = contentRef.current;
+        const blocks = el.querySelectorAll('pre code');
+        blocks.forEach((block: any) => {
+            hljs.highlightBlock(block)
+        })
+    }
     const initData = async () => {
         const resp = await request({
             url: "/article/getArticleById",
@@ -30,6 +43,7 @@ function ArticleDetail(props: any) {
         if (resp && resp.success) {
             const data = resp.data && resp.data[0]
             setData(data || {})
+            initCodeBlockHightLight()
         }
     }
     const getLatestFive = async ()=>{
@@ -59,7 +73,7 @@ function ArticleDetail(props: any) {
         comRef.current.onload = function(){
             comRef.current.height = comRef.current.contentDocument.body && comRef.current.contentDocument.body.scrollHeight + 20
         }
-    }, [articleId])
+    }, [ articleId ])
     useEffect(()=>{
         getLatestFive()
     },[])
@@ -70,7 +84,7 @@ function ArticleDetail(props: any) {
                     <div className="title">
                         <h1>{articleData["articleTitle"]}</h1>
                     </div>
-                    <div className="article" dangerouslySetInnerHTML={{ __html: articleData["content"] }}>
+                    <div className="article" ref={contentRef} dangerouslySetInnerHTML={{ __html: articleData["content"] }}>
                     </div>
                     <div id="SOHUCS" ref={comRef}></div>
                     <iframe

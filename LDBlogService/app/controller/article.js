@@ -156,5 +156,18 @@ class ArticleController extends BaseController {
         await ctx.model.Article.updateOne({_id:articleId},{isMyRecommend:newState})
         ctx.body = this.success()
     }
+
+    async saveDraft (){
+        const {ctx} = this
+        const articleModel = ctx.request.body
+        await ctx.model.ArticleDraft.deleteMany();
+        const resp = await ctx.model.ArticleDraft.create(articleModel)
+        ctx.body = this.success()
+    }
+
+    async getDraft() {
+        const resp = await this.ctx.model.ArticleDraft.find()
+        this.ctx.body = this.success(resp)
+    }
 }
 module.exports = ArticleController;

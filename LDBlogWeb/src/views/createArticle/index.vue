@@ -48,7 +48,11 @@
                   <i v-else class="el-icon-plus avatar-uploader-icon" />
                 </el-upload>
               </el-form-item>
-              <el-button style="height:40px" type="primary" @click="submitForm('articleModel')">发布文章</el-button>
+              <div class="btns">
+                <el-button style="height:40px" type="primary" @click="submitForm('articleModel')">发布文章</el-button>
+                <el-button style="height:40px;margin:2px 0" type="primary" @click="resetForm('articleModel')">重置文章</el-button>
+                <el-button style="height:40px;" type="primary" @click="saveDraft('articleModel')">保存草稿</el-button>
+              </div>
             </div>
           </el-col>
         </el-row>
@@ -100,6 +104,7 @@ export default {
   },
   mounted() {
     this.initEditor()
+    this.getDraft()
   },
   methods: {
     submitForm(formName) {
@@ -128,7 +133,37 @@ export default {
       })
     },
     resetForm(formName) {
-      this.$refs[formName].resetFields()
+      this.$confirm('是否重置文章信息?', '提示', { callback: async(action) => {
+        if (action === 'confirm') {
+          this.$refs[formName].resetFields()
+        }
+      } })
+    },
+    async saveDraft(formName) {
+      this.$confirm('是否保存草稿?', '提示', { callback: async(action) => {
+        if (action === 'confirm') {
+          const content = this.editor.txt.html()
+          const resp = await this.$http({
+            url: '/article/saveDraft',
+            method: 'post',
+            data: { ...this.articleModel, content }
+          })
+          if (resp && resp.success) {
+            this.$message.success('保存成功')
+          }
+        }
+      } })
+    },
+    async getDraft() {
+      const resp = await this.$http({
+        url: '/article/getDraft',
+        method: 'get'
+      })
+      if (resp && resp.success) {
+        const data = resp.data ? resp.data[0] : {}
+        this.articleModel = data
+      }
+      console.log(resp)
     },
     initEditor() {
       const editor = new WangEditor(this.$refs.editorRef)
@@ -208,6 +243,10 @@ export default {
 }
 .tagSelect >>> .el-select{
   width: 81% !important;
+}
+.btns{
+  display: flex;
+  flex-direction: column;
 }
 </style>
 <style>

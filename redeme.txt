@@ -6,3 +6,6 @@ systemctl status mongod.service
 
 /usr/bin/mongod -f /etc/mongod.conf
 db.system.users.find().pretty()
+
+
+https://www.cnblogs.com/whiteBear/p/12722151.html

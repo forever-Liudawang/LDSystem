@@ -4,7 +4,10 @@ const routes:RouteRecordRaw[] = [
     {
         path: "/",
         name: "Home",
-        component:():Promise<typeof import("*.vue")> => import('@src/views/Home.vue')
+        component:():Promise<typeof import("*.vue")> => import('@src/views/Home.vue'),
+        meta: {
+            keepAlive: true //设置页面是否需要使用缓存
+        },
         // component: ()=>import("../components/HelloWorld.vue")
     },
     {

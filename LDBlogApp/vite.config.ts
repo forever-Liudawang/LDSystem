@@ -18,6 +18,11 @@ export default ({ command, mode }: ConfigEnv):UserConfigExport=>{
             libraryName:'vant',
             esModule: true,
             resolveComponent: (name:string):string=> `vant/es/${name}style`
+          },
+          {
+            libraryName:'vant',
+            esModule: true,
+            resolveStyle: (name) => `vant/es/${name}/style/less`
           }
         ]
       }),
@@ -42,7 +47,15 @@ export default ({ command, mode }: ConfigEnv):UserConfigExport=>{
       preprocessorOptions:{
         scss:{
           additionalData: `@import "@src/global.scss";`
-        }
+        },
+        less: {
+          javascriptEnabled: true,
+          // 覆盖样式变量
+          modifyVars: {
+            'text-color': '#111',
+            'border-color': '#eee',
+          },
+        },
       }
     },
     build:{

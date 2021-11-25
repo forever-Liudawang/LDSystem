@@ -21,6 +21,8 @@ module.exports = app => {
   router.get('/article/getLatestFive', controller.article.getLatestFive);
   router.get('/article/getSearchList', controller.article.getSearchList);
   router.post('/article/switchRecommendArticle', controller.article.switchRecommendArticle);
+  router.post('/article/saveDraft', controller.article.saveDraft);
+  router.get('/article/getDraft', controller.article.getDraft);
   
 
   //user

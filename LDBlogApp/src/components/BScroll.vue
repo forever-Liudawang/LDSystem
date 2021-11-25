@@ -34,7 +34,8 @@ const scroll = () => {
       pullDownRefresh: {
         threshold: 50,
         probeType: 3
-      }
+      },
+      mouseWheel: true
     })
     bs?.on('scroll', (option: any) => {
       if (Math.abs(option.y) > 600) {

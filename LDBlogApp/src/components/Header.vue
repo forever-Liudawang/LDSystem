@@ -30,7 +30,7 @@ const onSearch = ()=>{
   <div class="header">
     <div class="search">
       <van-icon name="search" color="#999" v-show="!showSearch" size="24" @click="handleShowSearch" />
-      <van-popup v-model:show="showSearch" position="top" :style="{ height: '10%' }">
+      <van-popup v-model:show="showSearch" position="top" :style="{ height: '16%' }">
         <van-search autofocus="true" v-model="searchKey" shape="round" placeholder="请输入搜索关键词" @search="onSearch"/>
       </van-popup>
     </div>

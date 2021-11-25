@@ -14,7 +14,7 @@ const routes:RouteRecordRaw[] = [
         path:"/articleDetail/:cateId/:articleId",
         name:"ArticleDetail",
         meta: {
-            keepAlive: false //设置页面是否需要使用缓存
+            keepAlive: false 
         },
         component: ()=>import("@src/views/ArticleDetail.vue")
     },
@@ -22,7 +22,7 @@ const routes:RouteRecordRaw[] = [
         path:"/articleCate/:cateId",
         name:"ArticleCate",
         meta: {
-            keepAlive: true //设置页面是否需要使用缓存
+            keepAlive: true 
         },
         component: ()=>import("@src/views/ArticleCate.vue")
     },
@@ -30,7 +30,7 @@ const routes:RouteRecordRaw[] = [
         path:"/feedback/:cateId",
         name:"FeedBack",
         meta: {
-            keepAlive: true //设置页面是否需要使用缓存
+            keepAlive: false 
         },
         component: ()=>import("@src/views/FeedBack.vue")
     },
@@ -38,7 +38,7 @@ const routes:RouteRecordRaw[] = [
         path:"/searchPage",
         name:"SearchPage",
         meta: {
-            keepAlive: false //设置页面是否需要使用缓存
+            keepAlive: false 
         },
         component: ()=>import("@src/views/SearchPage.vue")
     }

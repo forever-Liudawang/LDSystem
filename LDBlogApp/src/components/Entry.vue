@@ -20,7 +20,7 @@ onMounted(()=>{
       <span></span>
     </div>
     <div class="title">
-        嘿，您来了
+        始于平淡，归于坦然
     </div>
   </div>
 </template>
@@ -29,7 +29,7 @@ onMounted(()=>{
 .entryCover {
   width: 100vw;
   height: 100vh;
-  background-color: #000;
+  background-color: #343434;
   position: fixed;
   top: 0;
   left: 0;
@@ -107,6 +107,8 @@ onMounted(()=>{
       font-size: 48px;
       bottom: 40%;
       left: 50%;
+      width: 100%;
+      text-align: center;
       color: #fff;
       transform: translateX(-50%);
   }

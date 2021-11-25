@@ -28,6 +28,12 @@ const scroll = () => {
     bs = new BScroll(domRef.value, <any>{
       probeType: props.probeType,
       click: true,
+      scrollX:true,
+      //阻止浏览器默认行为，移动端无法滚动
+      preventDefault: false,
+      // preventDefaultException:{tagName: /^(INPUT|TEXTAREA|BUTTON|SELECT|AUDIO|CODE)$/},
+      tap: true,
+      mouseWheel: true,
       pullUpLoad: {
         threshold: -80
       },
@@ -35,7 +41,7 @@ const scroll = () => {
         threshold: 50,
         probeType: 3
       },
-      mouseWheel: true
+      // mouseWheel: true
     })
     bs?.on('scroll', (option: any) => {
       if (Math.abs(option.y) > 600) {

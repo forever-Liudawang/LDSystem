@@ -29,7 +29,7 @@ onMounted(() => {
       <div class="searchPage">
         <div>
           <h1 style="text-align: center">搜索结果</h1>
-          <h3 style="text-align: center;">一共{{total}}条</h3>
+          <h3 style="text-align: center;">共{{total}}条</h3>
         </div>
         <Article v-for="article in articleList" :articleModel="article" :refreshFlag="articleList.length" />
       </div>

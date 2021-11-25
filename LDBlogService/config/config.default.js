@@ -34,10 +34,10 @@ module.exports = appInfo => {
     ]
   };
   config.siteFile = {
-    "/app": fs.readFileSync(path.join(appInfo.baseDir,'app/public/app/index.html')),
+    "/web": fs.readFileSync(path.join(appInfo.baseDir,'app/public/web/index.html')),
     "/manage": fs.readFileSync(path.join(appInfo.baseDir,'app/public/manage/index.html')),
     "/Ldmusic": fs.readFileSync(path.join(appInfo.baseDir,'app/public/music/index.html')),
-    "/mobileApp": fs.readFileSync(path.join(appInfo.baseDir,'app/public/mobile/index.html'))
+    "/app": fs.readFileSync(path.join(appInfo.baseDir,'app/public/app/index.html'))
   }
   config.multipart = {
 

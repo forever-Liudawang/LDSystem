@@ -59,7 +59,7 @@ export default ({ command, mode }: ConfigEnv):UserConfigExport=>{
       }
     },
     build:{
-      base: "/static/mobile/"
+      base: "/static/app/"
     }
   })
 }

@@ -8,7 +8,6 @@ import BScroll from '@com/BScroll.vue'
 // 显式加载资源为一个 URL
 let route = useRoute()
 const articleModel = ref<IArticleModel>()
-console.log(`import.meta.env.DEV`, import.meta.env.DEV)
 const commentUrl = ref('/comment.html')
 if (!import.meta.env.DEV) {
   commentUrl.value = '/static/mobile/comment.html'
@@ -39,9 +38,9 @@ onMounted(() => {
 
 <template>
   <BScroll :refreshFlag="commentRef?commentRef.height:6">
-    <div class="articleDetail">
-      <h2 style="text-align: center">{{ articleModel?.articleTitle }}</h2>
-      <div v-html="articleModel?.content" v-highlight></div>
+    <div class="articleDetail" >
+      <h1 style="text-align: center">{{ articleModel?.articleTitle }}</h1>
+      <div class="content" v-html="articleModel?.content" v-highlight v-click></div>
       <iframe ref="commentRef" style="width: 100%; min-height: 300px" :src="`${commentUrl}?articleId=${route.params.articleId}`" frameborder="0"></iframe>
     </div>
   </BScroll>
@@ -49,10 +48,18 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 .articleDetail {
-  padding: 40px;
+  padding:20px;
+  .content{
+    background: rgb(252, 251, 251);
+    padding: 10px 30px;
+    border-radius: 8px;
+  }
   &:deep(img) {
     max-width: 100% !important;
     height: auto !important;
+  }
+  &:deep(p){
+    font-size: 32px;
   }
 }
 </style>

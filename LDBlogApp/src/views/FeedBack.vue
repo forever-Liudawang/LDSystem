@@ -2,21 +2,32 @@
 import { reactive, ref, toRefs } from 'vue'
 import { insertFeedback } from '@src/apis'
 import { Dialog, Toast } from 'vant'
+import { useRouter } from 'vue-router'
 const model = reactive({
   emailAddress: '',
   info: ''
 })
+const router = useRouter()
 const emailPattern = /^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/
 const onSubmit = (val: any) => {
   Dialog.confirm({
     title: '',
     message: '是否提交反馈信息？'
-  }).then(async () => {
-    const resp = await insertFeedback(val)
-    if (resp && resp.success) {
-      Toast('反馈成功，请注意查看垃圾邮件！')
-    }
-  }).catch(()=>{})
+  })
+    .then(async () => {
+      const resp = await insertFeedback(val)
+      if (resp && resp.success) {
+        Toast('反馈成功，请注意查看垃圾邮件！')
+        setTimeout(()=>{
+          router.push({
+            path: '/',
+          })
+        },900)
+      }else{
+        Toast("反馈失败")
+      }
+    })
+    .catch(() => {})
 }
 </script>
 

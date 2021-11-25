@@ -48,6 +48,8 @@ module.exports = appInfo => {
       url: 'mongodb://110.42.186.20:9399/LDBlog',
       options: {
         useNewUrlParser: true,
+        user: "admin",
+        pass: "19980719liuliu"
         // useUnifiedTopology
         // useUnifiedTopology:true
       },

@@ -132,6 +132,10 @@ export default {
         },
         curSongInfo () {
             return this.playList[this.playIndex]
+        },
+        isJayChou () {
+          console.log(this.$route, 'route')
+          return this.$route.path === '/jayChou'
         }
     },
     // 方法集合

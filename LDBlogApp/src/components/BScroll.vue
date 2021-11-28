@@ -94,6 +94,12 @@ onMounted(() => {
 .wrapper {
   height: 100%;
   overflow: hidden;
+  .content{
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+  }
   .toTop {
     position: fixed;
     right: 5%;

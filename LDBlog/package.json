@@ -32,7 +32,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "cross-env BUILD_PATH=web react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -55,6 +55,7 @@
     ]
   },
   "devDependencies": {
+    "cross-env": "^7.0.3",
     "sass-resources-loader": "^2.2.4"
   }
 }

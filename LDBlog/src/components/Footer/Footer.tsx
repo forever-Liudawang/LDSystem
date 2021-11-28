@@ -6,7 +6,7 @@ export default function Footer() {
             <div>Design By AndyLiu 🐂</div>
             <div>湘ICP备2021017961号</div>
             <div>
-                本网站内容仅供个人学习参考；
+                本网站内容仅供个人学习参考,无其他商业用途；
             </div>
         </div>
     )

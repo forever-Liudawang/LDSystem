@@ -7,6 +7,13 @@ declare module '*.vue' {
   const component: DefineComponent<{}, {}, any>
   export default component
 }
+declare module 'APlayer'{
+  export class APlayer{
+
+  }
+}
+declare class aPlayer {
+}
 interface ImportMetaEnv {
   VITE_APP_BASE_API: string;
 }

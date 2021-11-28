@@ -19,6 +19,7 @@ const route = useRoute()
       </router-view> 
     </transition>
   </div>
+  <Footer></Footer>
 </template>
 
 <style lang="scss" scoped>

@@ -4,13 +4,14 @@ import { useRoute } from 'vue-router'
 import { onMounted, ref, toRaw, watch } from 'vue'
 import { IArticleModel } from '@src/utils/types'
 import BScroll from '@com/BScroll.vue'
+import Footer from "@com/Footer.vue"
 
 // 显式加载资源为一个 URL
 let route = useRoute()
 const articleModel = ref<IArticleModel>()
 const commentUrl = ref('/comment.html')
 if (!import.meta.env.DEV) {
-  commentUrl.value = '/static/mobile/comment.html'
+  commentUrl.value = '/static/app/comment.html'
 }
 const commentRef = ref()
 const initData = async () => {
@@ -43,6 +44,7 @@ onMounted(() => {
       <div class="content" v-html="articleModel?.content" v-highlight v-click></div>
       <iframe ref="commentRef" style="width: 100%; min-height: 300px" :src="`${commentUrl}?articleId=${route.params.articleId}`" frameborder="0"></iframe>
     </div>
+      <Footer></Footer>
   </BScroll>
 </template>
 

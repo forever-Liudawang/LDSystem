@@ -6,11 +6,10 @@ import Footer from "../../components/Footer/Footer"
 import 'highlight.js/styles/monokai-sublime.css'
 import { withRouter } from 'react-router'
 import hljs from 'highlight.js'
-
 const env = process.env.NODE_ENV;
 let iframeUrl = ""
 if(env === "development"){
-    iframeUrl = "/comment.html"
+    iframeUrl = "./test.html"
 }else if(env === "production"){
     iframeUrl = "/static/comment.html"
 }

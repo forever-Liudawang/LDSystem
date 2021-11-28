@@ -38,12 +38,12 @@ defineExpose({
   <div class="sideBar">
     <van-popup v-model:show="show" position="left" class="custom" :style="{ width: '60%', height: '100%' ,}">
       <div class="item left">
-        <div class="d-flex justify-center avatar">
+        <div class="d-flex justify-center avatar" v-click>
           <van-image round width="100" height="100" :src="warriors" />
         </div>
         <div class="sign d-flex justify-center">
           <span>AndyLiu</span>
-          <span>本无恶意，随手一记</span>
+          <span>健康工作四十年</span>
         </div>
         <div class="nav">
           <ul>

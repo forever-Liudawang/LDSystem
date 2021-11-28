@@ -26,6 +26,19 @@ const mutations = {
     },
     setCurrentUserInfo (state, val = null) {
         state.currentUserInfo = val
+    },
+    setJayChouPlay (state, val = null) {
+      if (val != null) {
+        state.jayChouPlayStatus = val
+        return
+      }
+      state.jayChouPlayStatus = !state.jayChouPlayStatus
+    },
+    setJayChouPlayIndex (state, val = 0) {
+      state.jayChouPlayIndex = val
+    },
+    setJayChouList (state, val = []) {
+      state.jayChouList = val
     }
 }
 export default mutations

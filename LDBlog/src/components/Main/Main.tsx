@@ -8,6 +8,7 @@ import formatArticleName from "../../utils/articleIdFormat"
 import { withRouter } from 'react-router'
 import Footer from "../../components/Footer/Footer"
 import FeedBack from '../FeedBack/FeedBack'
+import FeedBackImg from "./feedback.svg"
 const Content = (props:any)=>{
     const [latestArticle={},setArticle] = useState<any>({})
     const initData = async ()=>{
@@ -41,7 +42,7 @@ const Content = (props:any)=>{
     return (
         <>
             <div className="feedbackBtn" title="点我反馈" onClick={handleFeedBack}>
-                <img src="/imgs/feedback.svg" className="w-full h-full" alt=""/>
+                <img src={FeedBackImg} className="w-full h-full" alt=""/>
             </div>
             <div className="mainShow">
                 <span className="mainText">life is a <br/><span style={{marginLeft:"100px"}}>fucking movie</span></span>

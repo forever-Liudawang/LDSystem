@@ -3,6 +3,7 @@ import "./header.scss"
 import {FcUnderlineBtn,Fc3DBtn} from "../../components/FcHocComponent"
 import {withRouter,useRouteMatch} from "react-router-dom"
 import {showHeaderCtx} from "../../App"
+import meSvg from "./me.svg"
 enum NavType {
     index,
     frontEndTec,
@@ -77,7 +78,7 @@ const Header = (props:any)=>{
         <div className={`header ${showHeader?"show":"hide"}`}>
             <div className="d-flex align-center" onClick={()=>handleNav(NavType.index)}>
                 <div className="logo">
-                    <img className="h-full w-full" src="/imgs/me.svg" alt=""/>
+                    <img className="h-full w-full" src={meSvg} alt=""/>
                 </div>
                 <div className="logText">
                     <span className="logText" style={{color:color(NavType.index)}}>AndyLiu </span>

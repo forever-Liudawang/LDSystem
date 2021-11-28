@@ -7,6 +7,7 @@ import AboutMe from './pages/Music/Music';
 import { animateScroll } from 'react-scroll';
 import Header from "./components/Header/Header"
 import ArticleSearch from "./pages/ArticleSearch/ArticleSearch"
+import toTopImg from "./assets/toTop.png"
 export const showHeaderCtx = createContext(true)
 let temp = true
 export default function App() {
@@ -46,7 +47,7 @@ export default function App() {
             </Switch>
           </Router>
           <div className={`toTop ${showHeader?"hide":"show"}`} onClick={toTop}>
-                <img src="/imgs/toTop.png" className="w-full h-full" alt=""/>
+                <img src={toTopImg} className="w-full h-full" alt=""/>
           </div>
     </div>
   );

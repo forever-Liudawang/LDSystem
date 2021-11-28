@@ -131,6 +131,9 @@ export default {
             }, {
                 name: '我的音乐',
                 path: '/my'
+            }, {
+                name: 'Jay Chou',
+                path: '/jayChou'
             }],
             isShowSearch: false
         }
@@ -272,7 +275,6 @@ export default {
             this.isShowSearch = false
         },
         selectMenu (item) {
-            console.log(`item`, item)
             if (this.isLogin || item.indexOf('/my') < 0) {
                 this.$router.push({
                     path: item

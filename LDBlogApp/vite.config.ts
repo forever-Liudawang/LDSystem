@@ -1,7 +1,6 @@
 import { ConfigEnv, defineConfig,loadEnv, UserConfigExport} from 'vite'
 import vue from '@vitejs/plugin-vue'
 import path from "path"
-
 import {viteVConsole} from "vite-plugin-vconsole"
 //按需加载
 import styleImport from "vite-plugin-style-import"
@@ -59,7 +58,8 @@ export default ({ command, mode }: ConfigEnv):UserConfigExport=>{
       }
     },
     build:{
-      base: "/static/app/"
+      // base: "/static/app/"
+      outDir:"app"
     }
   })
 }

@@ -35,15 +35,19 @@ const routes = [
         path: '/search', name: 'search', component: resolve => { require(['@views/search/index.vue'], resolve) }
     }, {
         path: '/video', name: 'video', component: resolve => { require(['@views/video/detail.vue'], resolve) }
-    }, 
-    // {
-    //     path: '/user', name: 'user', component: resolve => { require(['@views/user/index.vue'], resolve) }
-    // },
+    },
     {
-        path: '/user', 
+        path: '/user',
         name: 'user',
-        redirect:'/user/favorite',
-        children: [{ path: '/user/favorite', name: 'userFavorite', component: UserFavorite }, { path: '/user/playlist', name: 'userPlayList', component: UserPlaylist }], component: resolve => { require(['@views/user/index.vue'], resolve) }
+        redirect: '/user/favorite',
+        children: [{ path: '/user/favorite', name: 'userFavorite', component: UserFavorite }, { path: '/user/playlist', name: 'userPlayList', component: UserPlaylist }],
+        component: resolve => { require(['@views/user/index.vue'], resolve) }
+    },
+    {
+        path: '/jayChou', name: 'jayChou', component: resolve => { require(['@views/JayChou/index.vue'], resolve) }
+    },
+    {
+      path: '/jayChouDetail', name: 'jayChouDetail', component: resolve => { require(['@views/JayChou/detail.vue'], resolve) }
     }
 ]
 

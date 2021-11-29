@@ -15,10 +15,6 @@ const mutations = {
         console.log(state, 'state')
         if (val === true) {
             state.jayChouPlayStatus = false
-        } else {
-            if (state.jayChouList.length > 0) {
-                state.jayChouPlayStatus = true
-            }
         }
     },
     [types.SET_PLAYLIST] (state, val = null) {

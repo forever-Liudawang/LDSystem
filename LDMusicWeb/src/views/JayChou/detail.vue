@@ -14,7 +14,10 @@
             </div>
           </div>
         </div>
-        <div style="margin-top: 100px">
+        <div>
+          <canvas id="canvas" ref="canvas" width="300" height="100"></canvas>
+        </div>
+        <div>
           <progress-line
             style="margin-top: 20px"
             class="audioProgress"
@@ -53,14 +56,14 @@
       <div class="song-main">
         <h3 class="song-name">
           {{ curJayChouMusic.name }}
-        </h3>
-        <p>
+          <span>
           <router-link
             :to="{ path: '/singer', query: { id: '6452' } }"
             class="song-author"
             >周杰伦</router-link
           >
-        </p>
+        </span>
+        </h3>
         <!-- <p class="song-info">
                     <span>专辑：next one </span>
                     <span>发行时间：<em>2080年01月01日</em></span>
@@ -86,6 +89,7 @@
 import { mapMutations, mapActions, mapState, mapGetters } from 'vuex'
 import Lyrics from '@components/common/lyrics.vue'
 import ProgressLine from '@components/common/progress'
+import { DwebAudioView } from './dwebaudioview'
 export default {
   name: 'song-detail',
   props: {
@@ -111,11 +115,15 @@ export default {
       volumeNum: 0.5,
       oldVolume: 0,
       isMuted: false, // 是否禁音
-      canPlay: false
+      canPlay: false,
+      audioview: new DwebAudioView()
     }
   },
   mounted () {
     this.init()
+    this.$nextTick(() => {
+      this.initAudioCtx()
+    })
     // window.addEventListener('scroll', this.handleScroll, true)
   },
   // 监听属性 类似于data概念
@@ -181,6 +189,7 @@ export default {
     // 监听音频时间， 实时更新当前播放时间
     updateSongTime (e) {
       this.currentTime = e.target.currentTime
+      // this.audioview.startPlay(e.target.currentTime)
     },
     handlePlay () {
       if (!this.canPlay) return
@@ -208,76 +217,9 @@ export default {
       this.isMuted = this.$refs.audio.muted = params.val ? 0 : 1
     },
     initAudioCtx () {
-      window.AudioContext =
-        window.AudioContext ||
-        window.webkitAudioContext ||
-        window.mozAudioContext
-
-      window.onload = function () {
-        var audio = document.getElementById('audio')
-        var ctx = new AudioContext()
-        var analyser = ctx.createAnalyser()
-        var audioSrc = ctx.createMediaElementSource(audio)
-        // we have to connect the MediaElementSource with the analyser
-        audioSrc.connect(analyser)
-        analyser.connect(ctx.destination)
-        // we could configure the analyser: e.g. analyser.fftSize (for further infos read the spec)
-        // analyser.fftSize = 64;
-        // frequencyBinCount tells you how many values you'll receive from the analyser
-        var frequencyData = new Uint8Array(analyser.frequencyBinCount)
-
-        // we're ready to receive some data!
-        var canvas = document.getElementById('canvas')
-          var cwidth = canvas.width
-          var cheight = canvas.height - 2
-          var meterWidth = 10 // width of the meters in the spectrum
-          var gap = 2 // gap between meters
-          var capHeight = 2
-          var capStyle = '#fff'
-          var meterNum = 800 / (10 + 2) // count of the meters
-          var capYPositionArray = []; /// /store the vertical position of hte caps for the preivous frame
-        ctx = canvas.getContext('2d')
-        gradient = ctx.createLinearGradient(0, 0, 0, 300)
-        gradient.addColorStop(1, '#0f0')
-        gradient.addColorStop(0.5, '#ff0')
-        gradient.addColorStop(0, '#f00')
-        // loop
-        function renderFrame () {
-          var array = new Uint8Array(analyser.frequencyBinCount)
-          analyser.getByteFrequencyData(array)
-          var step = Math.round(array.length / meterNum) // sample limited data from the total array
-          ctx.clearRect(0, 0, cwidth, cheight)
-          for (var i = 0; i < meterNum; i++) {
-            var value = array[i * step]
-            if (capYPositionArray.length < Math.round(meterNum)) {
-              capYPositionArray.push(value)
-            }
-            ctx.fillStyle = capStyle
-            // draw the cap, with transition effect
-            if (value < capYPositionArray[i]) {
-              ctx.fillRect(
-                i * 12,
-                cheight - --capYPositionArray[i],
-                meterWidth,
-                capHeight
-              )
-            } else {
-              ctx.fillRect(i * 12, cheight - value, meterWidth, capHeight)
-              capYPositionArray[i] = value
-            }
-            ctx.fillStyle = gradient // set the filllStyle to gradient for a better look
-            ctx.fillRect(
-              i * 12 /* meterWidth+gap */,
-              cheight - value + capHeight,
-              meterWidth,
-              cheight
-            ) // the meter
-          }
-          requestAnimationFrame(renderFrame)
-        }
-        renderFrame()
-        audio.play()
-      }
+        const canvas = this.$refs.canvas
+        this.audioview.getCanvasCtx(canvas)
+        this.audioview.getFileArrayBuffer(this.curJayChouMusic.url)
     }
   },
   watch: {
@@ -296,7 +238,7 @@ export default {
   padding: 40px 0;
 
   .song-sidebar {
-    width: 310px;
+    width: 280px;
     .volume-main {
       flex: 1;
       padding: 10px 0;
@@ -508,11 +450,12 @@ export default {
 }
 
 .song-lyric {
-  margin: 30px 0 10px;
+  margin: 10px 0 10px;
   overflow-y: auto;
   border: 1px solid #f3f3f3;
   border-radius: 4px;
-  padding: 2px 60px;
+  padding: 4px 60px;
+  box-shadow: 2px 10px 17px #ebedf0;
 }
 
 .song-comments {

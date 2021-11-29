@@ -3,7 +3,9 @@
         <el-header style="height:auto"><my-header></my-header></el-header>
         <el-main>
             <div class="layout">
-                <router-view></router-view>
+                <keep-alive>
+                    <router-view></router-view>
+                </keep-alive>
             </div>
             <my-footer></my-footer>
             <el-backtop target=".el-main" :bottom="backBottom">

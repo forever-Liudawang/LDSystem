@@ -1,12 +1,12 @@
 <template>
     <div class="song-container">
-        <div style="display: flex;" >
+        <div style="display: flex;" v-if="isHaveMusic">
             <div class="song-sidebar">
                 <div class="sidebar" @click="handlePlay">
                     <div class="cover">
                         <div :class="['cover-img', jayChouPlayStatus?'active':'']">
                             <img src="@/assets/stylus.png" class="cover-stylus" />
-                            <el-image :src="musicModel.cover">
+                            <el-image :src="curJayChouMusic.cover">
                                 <div slot="placeholder" class="image-slot">
                                     <i class="iconfont icon-placeholder"></i>
                                 </div>
@@ -38,29 +38,32 @@
               @ended="endedSong"
               @error="errorSong"
               @timeupdate="updateSongTime"
-              :src="musicModel.url"></audio>
+              :src="curJayChouMusic.url"></audio>
             <div class="song-main">
                 <h3 class="song-name">
-                  {{musicModel.name}}
+                  {{curJayChouMusic.name}}
                 </h3>
                 <p><router-link :to="{ path: '/singer', query: { id: '6452' }}"  class="song-author" >周杰伦</router-link></p>
                 <p class="song-info">
-                    <span>专辑：暂无</span>
+                    <span>专辑：next one </span>
                     <span>发行时间：<em>2080年01月01日</em></span>
                 </p>
                 <div class="song-oper">
-                    <span class="play-btn play-all"><i :class="['iconfont', playFontIcon]"></i>立即播放</span>
+                    <!-- <span class="play-btn play-all"><i :class="['iconfont', playFontIcon]"></i>立即播放</span> -->
                 </div>
                 <div class="song-lyric">
-                    <Lyrics  local="page" :lrcUrl="musicModel.lrc"></Lyrics>
+                    <Lyrics :lrcUrl="curJayChouMusic.lrc" :currentTime="currentTime"></Lyrics>
                 </div>
             </div>
+        </div>
+        <div v-else>
+            <h2>暂无音乐播放</h2>
         </div>
     </div>
 </template>
 
 <script>
-import { mapMutations, mapActions, mapState } from 'vuex'
+import { mapMutations, mapActions, mapState, mapGetters } from 'vuex'
 import Lyrics from '@components/common/lyrics.vue'
 import ProgressLine from '@components/common/progress'
 export default {
@@ -84,7 +87,7 @@ export default {
             sId: '0',
             type: 0, // 0: 歌曲 1: mv 2: 歌单 3: 专辑  4: 电台 5: 视频 6: 动态
             simiSong: [],
-            currentTime: 0.1,
+            currentTime: 0,
             totalTime: 0,
             volumeNum: 0.5,
             oldVolume: 0,
@@ -98,8 +101,8 @@ export default {
     },
     // 监听属性 类似于data概念
     computed: {
-        // ...mapGetters(['isLogin', 'playList', 'playIndex', 'isPlayed']),
-        ...mapState(['jayChouPlayStatus']),
+        ...mapGetters(['curJayChouMusic','jayChouMusicSize']),
+        ...mapState(['jayChouPlayStatus', 'jayChouPlayIndex']),
         isCurSong () {
             return this.isPlayed && this.curSongInfo && this.curSongInfo.id === this.sId
         },
@@ -119,11 +122,14 @@ export default {
         // 是否静音
         mutedIcon () {
             return this.isMuted ? 'icon-volume-active' : 'icon-volume'
+        },
+        isHaveMusic () {
+            return Object.keys(this.curJayChouMusic).length > 0
         }
     },
     // 方法集合
     methods: {
-        ...mapMutations(['setJayChouPlay']),
+        ...mapMutations(['setJayChouPlay', 'setJayChouPlayIndex']),
         ...mapActions(['selectPlay', 'playAll']),
         async getSongDetail () {
         },
@@ -141,6 +147,11 @@ export default {
         },
         // 音频播放结束 自动播放下一首
         endedSong (e) {
+            if (this.jayChouPlayIndex >= this.jayChouMusicSize) {
+                this.setJayChouPlayIndex(0)
+            } else {
+                this.setJayChouPlayIndex(this.jayChouPlayIndex + 1)
+            }
         },
         // 音频加载失败
         errorSong (e) {
@@ -150,7 +161,7 @@ export default {
             this.currentTime = e.target.currentTime
         },
         handlePlay () {
-          if(!this.canPlay) return
+          if (!this.canPlay) return
           if (this.jayChouPlayStatus) {
             this.$refs.audio.pause()
           } else {
@@ -173,6 +184,15 @@ export default {
             this.oldVolume = params.val
             this.$refs.audio.volume = params.val
             this.isMuted = this.$refs.audio.muted = params.val ? 0 : 1
+        }
+    },
+    watch: {
+        jayChouPlayStatus (newVal, oldVal) {
+            if (newVal) {
+                this.$refs.audio.play()
+            } else {
+                this.$refs.audio.pause()
+            }
         }
     }
 }

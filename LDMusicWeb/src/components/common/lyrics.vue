@@ -108,6 +108,7 @@ export default {
       }
     },
     formartLyric (lrc) {
+      this.lyricObj = []
       const lrcReg = /^\[(\d{2}):(\d{2}.\d{2,})\]\s*(.+)$/
       if (!lrc) {
         this.lyric = true

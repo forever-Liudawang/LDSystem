@@ -22,5 +22,11 @@ export default {
     },
     playListTips (state) {
         return state.playListTips
+    },
+    curJayChouMusic (state) {
+        return state.jayChouList[state.jayChouPlayIndex] || {}
+    },
+    jayChouMusicSize (state) {
+        return state.jayChouList.length
     }
 }

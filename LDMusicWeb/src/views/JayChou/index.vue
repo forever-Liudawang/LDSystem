@@ -1,24 +1,24 @@
 <template>
   <div class="jayChou">
     <div class="title">
-      <h1>jayChou music</h1>
+      <h1>jayChou</h1>
     </div>
     <div class="main">
       <div style="padding-right: 20px;">
-        <el-table :data="tableData" stripe style="width: 100%">
+        <el-table :data="tableData" stripe style="width: 100%" :height="500">
         <el-table-column prop="artist" label="歌手" width="150"></el-table-column>
         <el-table-column prop="name" label="歌曲" width="150"></el-table-column>
         <el-table-column prop="cover" label="封面"  width="150">
           <template slot-scope="scope">
             <el-image
-              style="width: 50px;"
+              style="width: 40px;"
               :src="scope.row.cover"
               fit="cover"></el-image>
           </template>
         </el-table-column>
         <el-table-column prop="name" label="播放" width="180">
           <template slot-scope="scope">
-            <!-- <div class="columnIndex">
+            <div v-if="showPlaying(scope.row)">
                 <div class="audio-icon">
                     <div class="column" style="animation-delay: -1.2s;"></div>
                     <div class="column"></div>
@@ -26,14 +26,16 @@
                     <div class="column" style="animation-delay: -0.9s;"></div>
                     <div class="column" style="animation-delay: -0.6s;"></div>
                 </div>
-                <i :class="playIcon(scope)" @click="currentSong(item)"></i>
-            </div> -->
-            <el-button type="danger" icon="el-icon-video-play" circle @click="handlePlay(scope)"></el-button>
+                <!-- <i :class="playIcon(scope)" @click="currentSong(item)"></i> -->
+            </div>
+            <el-button v-else type="danger" icon="el-icon-video-play" circle @click="handlePlay(scope)"></el-button>
           </template>
         </el-table-column>
+        <div slot="append" v-if="!loadFinsh" class="loadMore" @click="handleLoadMore">点击加载更多</div>
+        <div slot="append" v-else class="loadMore">没有了</div>
       </el-table>
-      <el-pagination  @current-change="handlePageChange" :page-size="5" layout="prev, pager, next" :total="34">
-      </el-pagination>
+      <!-- <el-pagination  @current-change="handlePageChange" :page-size="5" layout="prev, pager, next" :total="34">
+      </el-pagination> -->
       </div>
       <div>
         <Detail :musicModel="musicModel"/>
@@ -45,16 +47,17 @@
 <script>
 import { jayZhouList, jayZhouPath } from '../../config'
 import Detail from './detail.vue'
-import { mapMutations, mapState } from 'vuex'
+import { mapMutations, mapState, mapGetters } from 'vuex'
 export default {
   data () {
     return {
       tableData: [],
       pagation: {
-        pageIndex: 0,
+        pageIndex: 1,
         pageSize: 5
       },
-      musicModel: {}
+      musicModel: {},
+      loadFinsh: false
     }
   },
   components: {
@@ -65,11 +68,17 @@ export default {
   },
   computed: {
     ...mapState(['jayChouList', 'jayChouPlayIndex', 'jayChouPlayStatus']),
+    ...mapGetters(['curJayChouMusic']),
     playIcon () {
         const self = this
         return (item) => {
             return ['iconfont', 'playicon', this.isPlajayChouPlayStatusyed && (item.url === self.musicModel.url) ? 'icon-pause' : 'icon-play']
         }
+    },
+    showPlaying () {
+      return function (curMusic) {
+        return curMusic.url === this.curJayChouMusic.url
+      }
     }
   },
   methods: {
@@ -78,11 +87,19 @@ export default {
       this.pagation.pageIndex = curPage
       this.initData()
     },
+    handleLoadMore () {
+      if (this.loadFinsh) return
+      this.pagation.pageIndex = this.pagation.pageIndex + 1
+      this.initData()
+    },
     initData () {
       const list1 = jayZhouList.slice(
-        this.pagation.pageIndex * 5,
-        this.pagation.pageIndex * 5 + 5
+        (this.pagation.pageIndex - 1) * 5,
+        (this.pagation.pageIndex - 1) * 5 + 5
       )
+      if (list1 < 5) {
+        this.loadFinsh = true
+      }
       const list = list1.map(item => {
         return {
           name: item,
@@ -92,11 +109,11 @@ export default {
           lrc: `${jayZhouPath}/${item}.lrc`
         }
       })
-      this.tableData = list
+      this.tableData = [...this.tableData, ...list]
+      this.setJayChouList(this.tableData)
     },
     handlePlay (item) {
-      this.musicModel = item.row
-      this.setJayChouList(this.tableData)
+      // this.musicModel = item.row
       this.setJayChouPlayIndex(item.$index)
     }
   }
@@ -115,6 +132,30 @@ export default {
   .main {
     display: flex;
     width: 100%;
+    .audio-icon{
+      display: flex;
+      .column{
+        width: 2px;
+        height: 100%;
+        margin-left: 2px;
+        background-color: #ff4c21;
+        -webkit-animation: music 0.9s linear infinite alternate;
+        animation: music 0.9s linear infinite alternate;
+      }
+      @-webkit-keyframes music {
+          0% {
+              transform: translateY(0);
+          }
+          to {
+              transform: translateY(75%);
+          }
+          }
+    }
+    .loadMore{
+      text-align: center;
+      cursor: pointer;
+      padding: 10px;
+    }
   }
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
     <div class='footer'>
         <div class="w1200" style="display:flex;justify-content:center">
-            <span>Design By Andy Liu 🐂 &nbsp;</span>
+            <span>Design By Andy Liu 🐂 &nbsp;&nbsp;&nbsp;&nbsp;</span>
             <span>仅供个人学习参考，无其他商业用途</span>
         </div>
     </div>

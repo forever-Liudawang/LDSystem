@@ -41,6 +41,9 @@ const mutations = {
         return
       }
       state.jayChouPlayStatus = !state.jayChouPlayStatus
+      if (state.jayChouPlayStatus) {
+        state.isPlayed = false
+      }
     },
     setJayChouPlayIndex (state, val = 0) {
       state.jayChouPlayIndex = val

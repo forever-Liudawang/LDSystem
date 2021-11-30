@@ -45,6 +45,7 @@
       </div>
       <audio
         ref="audio"
+        crossOrigin="anonymous"
         preload="auto"
         @canplay="canplaySong"
         @playing="playSong"
@@ -90,6 +91,7 @@ import { mapMutations, mapActions, mapState, mapGetters } from 'vuex'
 import Lyrics from '@components/common/lyrics.vue'
 import ProgressLine from '@components/common/progress'
 import { DwebAudioView } from './dwebaudioview'
+import initAudio from './t'
 export default {
   name: 'song-detail',
   props: {
@@ -116,12 +118,15 @@ export default {
       oldVolume: 0,
       isMuted: false, // 是否禁音
       canPlay: false,
-      audioview: null
+      audioview: null,
+      initAudio
     }
   },
   mounted () {
     this.init()
-    // this.initAudioCtx()
+    this.$nextTick(() => {
+      this.initAudioCtx()
+    })
     // window.addEventListener('scroll', this.handleScroll, true)
   },
   // 监听属性 类似于data概念
@@ -187,13 +192,13 @@ export default {
     // 监听音频时间， 实时更新当前播放时间
     updateSongTime (e) {
       this.currentTime = e.target.currentTime
-      this.audioview.startPlay(e.target.currentTime)
+      // this.audioview.startPlay(e.target.currentTime)
     },
     handlePlay () {
       if (!this.canPlay) return
       if (this.jayChouPlayStatus) {
         this.$refs.audio.pause()
-        this.audioview.stopPlay()
+        // this.audioview.stopPlay()
       } else {
         this.$refs.audio.play()
       }
@@ -216,12 +221,8 @@ export default {
       this.isMuted = this.$refs.audio.muted = params.val ? 0 : 1
     },
     initAudioCtx () {
-        this.audioview = new DwebAudioView()
-        console.log(this.audioview.getCanvasCtx, 'this.audioview.getCanvasCtx')
-        const canvas = this.$refs.canvas
-        console.log(canvas, 'canvas')
-        this.audioview.getCanvasCtx(canvas)
-        this.audioview.getFileArrayBuffer(this.curJayChouMusic.url)
+        this.audioview = new DwebAudioView(this.$refs.audio, this.$refs.canvas)
+        this.audioview.initAudio()
     }
   },
   watch: {
@@ -232,8 +233,8 @@ export default {
         this.$refs.audio.pause()
       }
     },
-    curJayChouMusic: () => {
-      this.initAudioCtx().call(this)
+    curJayChouMusic () {
+      // this.initAudioCtx()
     }
   }
 }

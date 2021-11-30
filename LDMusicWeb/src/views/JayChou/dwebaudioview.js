@@ -11,13 +11,24 @@ export class DwebAudioView {
   canvas
   canvasCtx
   drawVisual = 0
-
-  constructor () {
+  audio = null
+  constructor (audio, canvas) {
     this.audioCtx = new AudioContext()
-    this.gainNode = this.audioCtx.createGain() // 控制音量
-    console.log(this.audioCtx, 'this.audioCtx')
-    this.audioBufferSourceNode = this.audioCtx.createBufferSource()
+    this.audio = audio
+    this.canvas = canvas
+    this.canvasCtx = canvas.getContext('2d')
+  }
+
+  initAudio () {
+    var source = this.audioCtx.createMediaElementSource(this.audio)
+    var gainNode = this.audioCtx.createGain()
+    source.connect(gainNode)
+    gainNode.connect(this.audioCtx.destination)
     this.analyser = this.audioCtx.createAnalyser()
+    source.connect(this.analyser)
+    this.analyser.connect(this.audioCtx.destination)
+    this.analyser.fftSize = 32768 // 快速傅里叶变换, 必须为2的N次方。32768
+    this.draw()
   }
 
   /**
@@ -46,28 +57,11 @@ export class DwebAudioView {
    */
   startPlay (time) {
     this.gainNode.gain.value = 0
-    this.audioBufferSourceNode = this.audioCtx.createBufferSource()
-    this.audioBufferSourceNode.buffer = this.musicBuffer
+    this.audioBufferSourceNode = this.audioCtx.createMediaElementSource(this.audio)
     this.audioBufferSourceNode.connect(this.audioCtx.destination)
     this.audioBufferSourceNode.connect(this.analyser)
     this.audioBufferSourceNode.connect(this.gainNode)
     this.audioBufferSourceNode.start(0, time)
-  }
-
-  /**
-   * 停止播放
-   */
-  stopPlay () {
-    this.audioBufferSourceNode.stop()
-  }
-
-  /**
-   *
-   * @param canvas DOM节点于mounted获取 setup内无法获取DOM
-   */
-  getCanvasCtx (canvas) {
-    this.canvas = canvas
-    this.canvasCtx = canvas.getContext('2d')
   }
 
   /**
@@ -81,27 +75,36 @@ export class DwebAudioView {
     analyser.fftSize = 256
     const bufferLength = analyser.fftSize
     const dataArray = new Uint8Array(bufferLength)
-    this.drawVisual = requestAnimationFrame(this.draw)
+    requestAnimationFrame(this.draw)
     analyser.getByteTimeDomainData(dataArray)
     canvasCtx.fillStyle = 'rgb(255,255,255)'
     canvasCtx.fillRect(0, 0, canvas.width, canvas.height)
     canvasCtx.lineWidth = 2
     canvasCtx.strokeStyle = 'red'
-
     canvasCtx.beginPath()
-    var sliceWidth = canvas.width * 1.0 / bufferLength
-    var x = 0
+    // var sliceWidth = canvas.width * 1.0 / bufferLength
+    var barWidth = (500 - 2 * bufferLength) / bufferLength * 1.5
+    canvasCtx.fillRect(0, 0, 500, 180)
+    analyser.getByteFrequencyData(dataArray)
     for (var i = 0; i < bufferLength; i++) {
-      var v = dataArray[i] / 128.0
-      var y = v * canvas.height / 2
-      if (i === 0) {
-        canvasCtx.moveTo(x, y)
-      } else {
-        canvasCtx.lineTo(x, y)
-      }
-      x += sliceWidth
+      canvasCtx.beginPath()
+      canvasCtx.moveTo(4 + 4 * i * barWidth + barWidth / 2, 178 - barWidth / 2)
+      canvasCtx.lineTo(4 + 4 * i * barWidth + barWidth / 2, 178 - dataArray[i] * 0.65 - barWidth / 2)
+      canvasCtx.strokeStyle = '#ff4c21'
+      canvasCtx.stroke()
     }
-    canvasCtx.lineTo(canvas.width, canvas.height / 2)
-    canvasCtx.stroke()
+    // var x = 0
+    // for (var i = 0; i < bufferLength; i++) {
+    //   var v = dataArray[i] / 128.0
+    //   var y = v * canvas.height / 4
+    //   if (i === 0) {
+    //     canvasCtx.moveTo(x, y)
+    //   } else {
+    //     canvasCtx.lineTo(x, y)
+    //   }
+    //   x += sliceWidth
+    // }
+    // canvasCtx.lineTo(canvas.width, canvas.height / 4)
+    // canvasCtx.stroke()
   }
 }

@@ -116,14 +116,12 @@ export default {
       oldVolume: 0,
       isMuted: false, // 是否禁音
       canPlay: false,
-      audioview: new DwebAudioView()
+      audioview: null
     }
   },
   mounted () {
     this.init()
-    this.$nextTick(() => {
-      this.initAudioCtx()
-    })
+    // this.initAudioCtx()
     // window.addEventListener('scroll', this.handleScroll, true)
   },
   // 监听属性 类似于data概念
@@ -189,12 +187,13 @@ export default {
     // 监听音频时间， 实时更新当前播放时间
     updateSongTime (e) {
       this.currentTime = e.target.currentTime
-      // this.audioview.startPlay(e.target.currentTime)
+      this.audioview.startPlay(e.target.currentTime)
     },
     handlePlay () {
       if (!this.canPlay) return
       if (this.jayChouPlayStatus) {
         this.$refs.audio.pause()
+        this.audioview.stopPlay()
       } else {
         this.$refs.audio.play()
       }
@@ -217,7 +216,10 @@ export default {
       this.isMuted = this.$refs.audio.muted = params.val ? 0 : 1
     },
     initAudioCtx () {
+        this.audioview = new DwebAudioView()
+        console.log(this.audioview.getCanvasCtx, 'this.audioview.getCanvasCtx')
         const canvas = this.$refs.canvas
+        console.log(canvas, 'canvas')
         this.audioview.getCanvasCtx(canvas)
         this.audioview.getFileArrayBuffer(this.curJayChouMusic.url)
     }
@@ -229,6 +231,9 @@ export default {
       } else {
         this.$refs.audio.pause()
       }
+    },
+    curJayChouMusic: () => {
+      this.initAudioCtx().call(this)
     }
   }
 }

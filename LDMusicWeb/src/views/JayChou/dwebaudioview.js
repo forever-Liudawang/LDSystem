@@ -7,14 +7,14 @@ export class DwebAudioView {
   audioBufferSourceNode = null
   analyser = null
   musicBuffer = null
-
+  gainNode = null
   canvas
   canvasCtx
   drawVisual = 0
 
   constructor () {
     this.audioCtx = new AudioContext()
-    this.audioCtx.volume = 0
+    this.gainNode = this.audioCtx.createGain() // 控制音量
     console.log(this.audioCtx, 'this.audioCtx')
     this.audioBufferSourceNode = this.audioCtx.createBufferSource()
     this.analyser = this.audioCtx.createAnalyser()
@@ -45,10 +45,12 @@ export class DwebAudioView {
    * @param time 精度为0.1秒的数字 定时器用
    */
   startPlay (time) {
+    this.gainNode.gain.value = 0
     this.audioBufferSourceNode = this.audioCtx.createBufferSource()
     this.audioBufferSourceNode.buffer = this.musicBuffer
     this.audioBufferSourceNode.connect(this.audioCtx.destination)
     this.audioBufferSourceNode.connect(this.analyser)
+    this.audioBufferSourceNode.connect(this.gainNode)
     this.audioBufferSourceNode.start(0, time)
   }
 

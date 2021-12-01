@@ -23,10 +23,13 @@
                     </div>
                 </el-tab-pane>
                 <el-tab-pane label="二维码登陆" name="qRcodeLogin" style="">
-                    <el-image
-                    style="width: 200px; height: 200px"
-                    :src="codeUrl"
-                    :fit="fit"></el-image>
+                    <div style="display:flex;flex-direction:column">
+                        <el-image
+                            style="width: 200px; height: 200px"
+                            :src="codeUrl"
+                            :fit="fit"></el-image>
+                        <div style="text-align:center">请使用网易云客户端扫码登录</div>
+                    </div>
                 </el-tab-pane>
             </el-tabs>
         </el-dialog>

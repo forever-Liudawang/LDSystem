@@ -13,7 +13,7 @@ export class DwebAudioView {
   drawVisual = 0
   audio = null
   constructor (audio, canvas) {
-    this.audioCtx = new AudioContext()
+    this.audioCtx = new (window.AudioContext || window.webkitAudioContext)()
     this.audio = audio
     this.canvas = canvas
     this.canvasCtx = canvas.getContext('2d')
@@ -82,29 +82,29 @@ export class DwebAudioView {
     canvasCtx.lineWidth = 2
     canvasCtx.strokeStyle = 'red'
     canvasCtx.beginPath()
-    // var sliceWidth = canvas.width * 1.0 / bufferLength
-    var barWidth = (500 - 2 * bufferLength) / bufferLength * 1.5
-    canvasCtx.fillRect(0, 0, 500, 180)
-    analyser.getByteFrequencyData(dataArray)
-    for (var i = 0; i < bufferLength; i++) {
-      canvasCtx.beginPath()
-      canvasCtx.moveTo(4 + 4 * i * barWidth + barWidth / 2, 178 - barWidth / 2)
-      canvasCtx.lineTo(4 + 4 * i * barWidth + barWidth / 2, 178 - dataArray[i] * 0.65 - barWidth / 2)
-      canvasCtx.strokeStyle = '#ff4c21'
-      canvasCtx.stroke()
-    }
-    // var x = 0
+    var sliceWidth = canvas.width * 1.0 / bufferLength
+    // var barWidth = (500 - 2 * bufferLength) / bufferLength * 1.5
+    // canvasCtx.fillRect(0, 0, 500, 180)
+    // analyser.getByteFrequencyData(dataArray)
     // for (var i = 0; i < bufferLength; i++) {
-    //   var v = dataArray[i] / 128.0
-    //   var y = v * canvas.height / 4
-    //   if (i === 0) {
-    //     canvasCtx.moveTo(x, y)
-    //   } else {
-    //     canvasCtx.lineTo(x, y)
-    //   }
-    //   x += sliceWidth
+    //   canvasCtx.beginPath()
+    //   canvasCtx.moveTo(4 + 4 * i * barWidth + barWidth / 2, 178 - barWidth / 2)
+    //   canvasCtx.lineTo(4 + 4 * i * barWidth + barWidth / 2, 178 - dataArray[i] * 0.65 - barWidth / 2)
+    //   canvasCtx.strokeStyle = '#ff4c21'
+    //   canvasCtx.stroke()
     // }
-    // canvasCtx.lineTo(canvas.width, canvas.height / 4)
-    // canvasCtx.stroke()
+    var x = 0
+    for (var i = 0; i < bufferLength; i++) {
+      var v = dataArray[i] / 128.0
+      var y = v * canvas.height / 4
+      if (i === 0) {
+        canvasCtx.moveTo(x, y)
+      } else {
+        canvasCtx.lineTo(x, y)
+      }
+      x += sliceWidth
+    }
+    canvasCtx.lineTo(canvas.width, canvas.height / 4)
+    canvasCtx.stroke()
   }
 }

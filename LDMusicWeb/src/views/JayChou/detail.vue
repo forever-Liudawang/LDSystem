@@ -188,20 +188,23 @@ export default {
       }
     },
     // 音频加载失败
-    errorSong (e) {},
+    errorSong (e) {
+      console.log(e, 'error')
+    },
     // 监听音频时间， 实时更新当前播放时间
     updateSongTime (e) {
+      console.log(e.target.currentTime, 'e.target.currentTime')
       this.currentTime = e.target.currentTime
-      // this.audioview.startPlay(e.target.currentTime)
     },
     handlePlay () {
-      if (!this.canPlay) return
-      if (this.jayChouPlayStatus) {
-        this.$refs.audio.pause()
-        // this.audioview.stopPlay()
-      } else {
-        this.$refs.audio.play()
-      }
+      // if (!this.canPlay) return
+      // if (this.jayChouPlayStatus) {
+      //   this.$refs.audio.pause()
+      //   // this.audioview.stopPlay()
+      // } else {
+      //   this.$refs.audio.play()
+      // }
+      this.$refs.audio.play()
       this.setJayChouPlay()
     },
     setAudioProgress (e) {

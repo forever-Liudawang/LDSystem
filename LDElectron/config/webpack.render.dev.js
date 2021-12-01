@@ -22,7 +22,7 @@ const devConfig = {
     },
     compress: true,
     host: '127.0.0.1', // webpack-dev-server启动时要指定ip，不能直接通过localhost启动，不指定会报错
-    port: 8082, // 启动端口为 7001 的服务
+    port: 8009, // 启动端口为 7001 的服务
     hot: true,
   },
   plugins: [

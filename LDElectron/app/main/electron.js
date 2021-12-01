@@ -22,7 +22,7 @@ function createWindow() {
         },
     });
     if (IsDev) {
-        mainWindow.loadURL('http://127.0.0.1:8082')
+        mainWindow.loadURL('http://localhost:8009')
     } else {
         // mainWindow.loadFile('index.html');
         mainWindow.loadURL(`file://${path.join(__dirname, '../../dist/index.html')}`);

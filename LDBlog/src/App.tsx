@@ -42,9 +42,9 @@ export default function App() {
                 <Route path="/articleDetail/:articleCateId/:articleId" exact component={ArticleDetail}></Route>
                 <Route path="/music" exact component={AboutMe}></Route>
                 <Route path="/articleSearch" exact component={ArticleSearch}></Route>
-                {/* <Redirect exact={true} strict={true} from="/" to="/app"/> */}
               </showHeaderCtx.Provider>
             </Switch>
+            <Redirect exact={true} strict={true} from="/" to="/app"/>
           </Router>
           <div className={`toTop ${showHeader?"hide":"show"}`} onClick={toTop}>
                 <img src={toTopImg} className="w-full h-full" alt=""/>

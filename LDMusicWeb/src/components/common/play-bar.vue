@@ -272,7 +272,7 @@ export default {
                 clearTimeout(self.timer)
                 self.timer = setTimeout(() => {
                     self.lockName = self.isLock ? 'active' : ''
-                }, 3000)
+                }, 500)
             }
         },
         lockBar () {

@@ -24,7 +24,7 @@ export default {
 </script>
 <style scoped lang="less">
 .footer {
-    line-height: 40px;
+    line-height: 60px;
     background: #06060b;
     color: #60606d;
 }

@@ -15,7 +15,7 @@
           </div>
         </div>
         <div>
-          <canvas id="canvas" ref="canvas" width="300" height="100"></canvas>
+          <canvas id="canvas" ref="canvas" width="300" height="146"></canvas>
         </div>
         <div>
           <progress-line
@@ -55,7 +55,7 @@
         :src="curJayChouMusic.url"
       ></audio>
       <div class="song-main">
-        <h3 class="song-name">
+        <h1 class="song-name">
           {{ curJayChouMusic.name }}
           <span>
           <router-link
@@ -64,7 +64,7 @@
             >周杰伦</router-link
           >
         </span>
-        </h3>
+        </h1>
         <!-- <p class="song-info">
                     <span>专辑：next one </span>
                     <span>发行时间：<em>2080年01月01日</em></span>
@@ -236,13 +236,14 @@ export default {
     curJayChouMusic () {
       // this.initAudioCtx()
     }
+  },
+  beforeRouteLeave (to, from, next) {
+    next()
   }
 }
 </script>
 <style scoped lang="less">
 .song-container {
-  padding: 40px 0;
-
   .song-sidebar {
     width: 280px;
     .volume-main {
@@ -456,7 +457,7 @@ export default {
 }
 
 .song-lyric {
-  margin: 10px 0 10px;
+  margin: 30px 0 0 0;
   overflow-y: auto;
   border: 1px solid #f3f3f3;
   border-radius: 4px;

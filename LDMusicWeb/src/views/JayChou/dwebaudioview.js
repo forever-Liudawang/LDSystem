@@ -75,36 +75,26 @@ export class DwebAudioView {
     analyser.fftSize = 256
     const bufferLength = analyser.fftSize
     const dataArray = new Uint8Array(bufferLength)
-    requestAnimationFrame(this.draw)
+    this.drawVisual = requestAnimationFrame(this.draw)
     analyser.getByteTimeDomainData(dataArray)
     canvasCtx.fillStyle = 'rgb(255,255,255)'
     canvasCtx.fillRect(0, 0, canvas.width, canvas.height)
     canvasCtx.lineWidth = 2
     canvasCtx.strokeStyle = 'red'
     canvasCtx.beginPath()
-    // var sliceWidth = canvas.width * 1.0 / bufferLength
-    var barWidth = (500 - 2 * bufferLength) / bufferLength * 1.5
-    canvasCtx.fillRect(0, 0, 500, 180)
-    analyser.getByteFrequencyData(dataArray)
+    var sliceWidth = canvas.width * 1.0 / bufferLength
+    var x = 0
     for (var i = 0; i < bufferLength; i++) {
-      canvasCtx.beginPath()
-      canvasCtx.moveTo(4 + 4 * i * barWidth + barWidth / 2, 178 - barWidth / 2)
-      canvasCtx.lineTo(4 + 4 * i * barWidth + barWidth / 2, 178 - dataArray[i] * 0.65 - barWidth / 2)
-      canvasCtx.strokeStyle = '#ff4c21'
-      canvasCtx.stroke()
+      var v = dataArray[i] / 128.0
+      var y = v * canvas.height / 2
+      if (i === 0) {
+        canvasCtx.moveTo(x, y)
+      } else {
+        canvasCtx.lineTo(x, y)
+      }
+      x += sliceWidth
     }
-    // var x = 0
-    // for (var i = 0; i < bufferLength; i++) {
-    //   var v = dataArray[i] / 128.0
-    //   var y = v * canvas.height / 4
-    //   if (i === 0) {
-    //     canvasCtx.moveTo(x, y)
-    //   } else {
-    //     canvasCtx.lineTo(x, y)
-    //   }
-    //   x += sliceWidth
-    // }
-    // canvasCtx.lineTo(canvas.width, canvas.height / 4)
-    // canvasCtx.stroke()
+    canvasCtx.lineTo(canvas.width, canvas.height / 2)
+    canvasCtx.stroke()
   }
 }

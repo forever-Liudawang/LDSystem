@@ -12,7 +12,7 @@ export const ROUTER_KEY = {
 // 入口模块，TS 定义类型必须为 TSRouter.Item
 export const ROUTER_ENTRY: TSRouter.Item[] = [
   {
-    url: 'https://github.com/PDKSophia/visResumeMook',
+    url: 'http://andy.lmytest.top/web#/app',
     key: 'intro',
     text: '介绍',
   },

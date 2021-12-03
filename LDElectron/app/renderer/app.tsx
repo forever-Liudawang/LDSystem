@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Router from './page/Home';
+import Router from './router';
 import './common.less';
 function App() {
   return <Router />;

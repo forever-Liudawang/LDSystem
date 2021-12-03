@@ -1,13 +1,13 @@
 import React from 'react';
-import { RouteChildrenProps, useHistory } from 'react-router';
+import { RouteComponentProps, useHistory } from 'react-router';
 import Logo from '@assets/me.svg';
 import './index.less';
 export default function Home(props: any) {
-  console.log('props :>> ', props);
+  const history = useHistory();
   const handleNav = (text: string) => {
     if (text === '简历') {
       console.log('跳转到简历页面');
-      props.history.push('/resume');
+      history.push('/resume');
     } else {
       console.log('进入到 github ');
     }

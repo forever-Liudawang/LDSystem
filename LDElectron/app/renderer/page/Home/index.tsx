@@ -1,16 +1,13 @@
 import React from 'react';
+import { shell } from 'electron';
 import { RouteComponentProps, useHistory } from 'react-router';
+import { ROUTER_ENTRY } from '@app/common/router';
 import Logo from '@assets/me.svg';
 import './index.less';
 export default function Home(props: any) {
   const history = useHistory();
-  const handleNav = (text: string) => {
-    if (text === '简历') {
-      console.log('跳转到简历页面');
-      history.push('/resume');
-    } else {
-      console.log('进入到 github ');
-    }
+  const handleNav = (router: TSRouter.Item) => {
+    
   };
   return (
     <div styleName="root">
@@ -19,10 +16,10 @@ export default function Home(props: any) {
         <div styleName="title">AndyLiuMook</div>
         <div styleName="tips">一个模板简历制作平台, 让你的简历更加出众 ~</div>
         <div styleName="action">
-          {['介绍', '简历', '源码'].map((text, index) => {
+          {ROUTER_ENTRY.map((router: TSRouter.Item, index) => {
             return (
-              <div key={index} styleName="item" onClick={() => handleNav(text)}>
-                {text}
+              <div key={router.key} styleName="item" onClick={() => handleNav(router)}>
+                {router.text}
               </div>
             );
           })}

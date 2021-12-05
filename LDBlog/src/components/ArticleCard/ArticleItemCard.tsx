@@ -3,6 +3,7 @@ import { withRouter } from 'react-router'
 import { FcDblWarpBtn } from '../FcHocComponent'
 import {dateDistance} from "../../utils/time"
 import formatArticleName from "../../utils/articleIdFormat"
+import moment from 'moment'
 function ArticleItemCard(props:any) {
     const {articleData,articleCateName} = props
     const handleClickToDetali = ()=>{   
@@ -40,12 +41,11 @@ function ArticleItemCard(props:any) {
             <div className="imgBox">
                 <img src={articleData.coverImg} alt=""/>
             </div>
-            <div className="p10 time">
-                {dateDistance(articleData.created)}前 by {articleData.userName} 发布于 <span className="cate" onClick={(e)=>handleToCate(e)}>{formatArticleName(articleData.articleCate)}</span>
+            <div className="p10 time text-center">
+                {moment(articleData.created).format('YYYY-MM-DD hh:mm:ss')} by {articleData.userName} 发布于 <span className="cate">{formatArticleName(articleData.articleCate)}</span>
             </div>
             <div className="content">
                 {articleData.articleDesc}
-                
             </div>
         </div>
     )

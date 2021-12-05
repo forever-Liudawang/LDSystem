@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted, watch, reactive } from 'vue'
+import { ref, onMounted, watch, reactive, toRaw } from 'vue'
 import { useRoute, onBeforeRouteUpdate } from 'vue-router'
 import { getArticleListByCateId, getTags } from '@src/apis'
 import Article from '@src/components/Article.vue'
@@ -18,15 +18,8 @@ const isEnd = ref(false)
 const tag = ref("")
 let cateName = ref(formatCate(<string>route.params.cateId))
 
-function color16() {
-  //十六进制颜色随机
-  var r = Math.floor(Math.random() * 256)
-  var g = Math.floor(Math.random() * 256)
-  var b = Math.floor(Math.random() * 256)
-  var color = '#' + r.toString(16) + g.toString(16) + b.toString(16)
-  return color
-}
 const initData = async () => {
+  console.log(toRaw(articleList.value),'articleList')
   const resp = await getArticleListByCateId({ articleCateId: route.params.cateId,tag:tag.value,...pagation})
   if (resp && resp.success) {
     if(!resp.data || resp.data.length==0){
@@ -36,6 +29,7 @@ const initData = async () => {
     }
     loading.value = false;
   }
+  console.log(toRaw(articleList.value),'articleList')
 }
 const getTagList = async () => {
   const resp = await getTags()
@@ -46,7 +40,10 @@ const getTagList = async () => {
   }
 }
 watch(route,()=>{
-    cateName.value = formatCate(<string>route.params.cateId)
+  console.log(route,'route===>>>>')
+  tagList.value = []
+  articleList.value = []
+  cateName.value = formatCate(<string>route.params.cateId)
 })
 onBeforeRouteUpdate((to) => {
   route = to
@@ -58,6 +55,7 @@ onBeforeRouteUpdate((to) => {
   getTagList()
 })
 onMounted(() => {
+  console.log("mounted====>>>>>")
   initData()
   getTagList()
 })
@@ -68,9 +66,11 @@ const handlePullingUp = ()=>{
   }
   pagation.pageIndex += 1;
   loading.value = true;
+  console.log('handlePullingUp')
   initData()
 }
 const handleSelect = (item:any)=>{
+  console.log(item,'item===>>>')
   pagation.pageIndex = 0
   tag.value = item.articleTagName || ''
   articleList.value = []

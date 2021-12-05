@@ -23,10 +23,13 @@
                     </div>
                 </el-tab-pane>
                 <el-tab-pane label="二维码登陆" name="qRcodeLogin" style="">
-                    <el-image
-                    style="width: 200px; height: 200px"
-                    :src="codeUrl"
-                    :fit="fit"></el-image>
+                    <div style="display:flex;flex-direction:column">
+                        <el-image
+                            style="width: 200px; height: 200px"
+                            :src="codeUrl"
+                            :fit="fit"></el-image>
+                        <div style="text-align:center;color:#ff4c21;">请使用网易云客户端扫码登录</div>
+                    </div>
                 </el-tab-pane>
             </el-tabs>
         </el-dialog>
@@ -95,6 +98,7 @@ export default {
         },
         async getQrCode () {
             const resp = await this.$http.loginByQrCodeGetKey()
+            console.log(resp,'resp===.....')
             if (!resp.data && resp.data.code !== 200) {
                 this.$msg.error('登陆失败')
             } else {
@@ -104,7 +108,7 @@ export default {
                 if (this.checkTimer)clearInterval(this.checkTimer)
                 this.handleCheckLogin()
                 if (res && res.data) {
-                    if (res.data.code == 200) {
+                    if (res.data.code === 200) {
                         this.codeUrl = res.data.data && res.data.data.qrimg
                         console.log('this.codeUrl', this.codeUrl)
                     } else {
@@ -116,25 +120,30 @@ export default {
             }
         },
         handleClick (tab) {
-            console.log('this.qrimg', this.codeUrl)
-            if (this.activeName == 'qRcodeLogin' && !this.codeUrl) {
+            if (this.activeName === 'qRcodeLogin' && !this.codeUrl) {
                 this.getQrCode()
             }
         },
         async handleCheckLogin () {
             this.checkTimer = setInterval(async () => {
                 const resp = await this.$http.loginByQrCodeCheck(this.loginKey, Date.now())
+                console.log(resp, 'resp===....')
                 if (resp && resp.data) {
-                    if (resp.data.code == 803) {
+                    if (resp.data.code === 803) {
                         const resp = await this.$http.loginSuccess(Date.now())
                         console.log('resp', resp)
-                        if (resp.data && (resp.data.data && resp.data.data.code == 200)) {
+                        if (resp.data && (resp.data.data && resp.data.data.code === 200)) {
                             this.getUserInfo(resp.data.data.profile.userId)
                             window.sessionStorage.setItem('isLogin', true)
                             this.setLoginDialog(false)
                             clearInterval(this.checkTimer)
                             this.$msg.success('登陆成功！')
+                        } else {
+                          this.$msg.error('登陆失败！')
                         }
+                    } else if (resp.data.code === 800) {
+                        this.$msg.error(resp.data.message)
+                        if (this.checkTimer)clearInterval(this.checkTimer)
                     }
                 }
             }, 3000)

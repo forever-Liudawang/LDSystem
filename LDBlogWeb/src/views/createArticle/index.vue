@@ -51,7 +51,7 @@
               <div class="btns">
                 <el-button style="height:40px" type="primary" @click="submitForm('articleModel')">发布文章</el-button>
                 <el-button style="height:40px;margin:2px 0" type="primary" @click="resetForm('articleModel')">重置文章</el-button>
-                <el-button style="height:40px;" type="primary" @click="saveDraft('articleModel')">保存草稿</el-button>
+                <el-button style="height:40px;margin-left:0" type="primary" @click="saveDraft('articleModel')">保存草稿</el-button>
               </div>
             </div>
           </el-col>
@@ -78,7 +78,7 @@ export default {
       rules: {
         articleTitle: [
           { required: true, message: '请选择文章标题', trigger: 'blur' },
-          { min: 5, max: 20, message: '长度在 5 到 20 个字符', trigger: 'blur' }
+          { min: 5, max: 30, message: '长度在 5 到 30 个字符', trigger: 'blur' }
         ],
         articleCate: [
           { required: true, message: '请选择文章分类', trigger: 'blur' }
@@ -136,6 +136,7 @@ export default {
       this.$confirm('是否重置文章信息?', '提示', { callback: async(action) => {
         if (action === 'confirm') {
           this.$refs[formName].resetFields()
+          this.articleModel = {}
         }
       } })
     },
@@ -161,9 +162,12 @@ export default {
       })
       if (resp && resp.success) {
         const data = resp.data ? resp.data[0] : {}
-        this.articleModel = data
+        const { _id, ...newData } = data
+        this.articleModel = newData
+        this.$nextTick(() => {
+          this.editor.txt.html(this.articleModel.content)
+        })
       }
-      console.log(resp)
     },
     initEditor() {
       const editor = new WangEditor(this.$refs.editorRef)
@@ -197,10 +201,6 @@ export default {
       console.log(`file`, file)
     },
     async handleGetTags(articleCateId) {
-      if (articleCateId > 2) {
-        this.articleTagsSelect = []
-        return
-      }
       const resp = await this.$http({
         url: '/articleTag/getTags',
         method: 'get'

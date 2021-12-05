@@ -4,7 +4,7 @@ import { Message } from 'element-ui'
 
 const instance = axios.create({
     time: 1000 * 60,
-    withCredentials: true,
+    // withCredentials: true,
     baseURL: process.env.VUE_APP_BASE_API
 })
 instance.defaults.withCredentials = true

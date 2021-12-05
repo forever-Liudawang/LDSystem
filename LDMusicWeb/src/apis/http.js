@@ -156,6 +156,7 @@ const getNewMv = ({ limit = 30, area = '' }) => { return api.get(`/mv/first?limi
 const loginByQrCodeGetKey = () => api.get('/login/qr/key')
 const loginByQrCodeGetImg = (key = '') => api.get(`/login/qr/create?key=${key}&qrimg=''`)
 const loginByQrCodeCheck = (key = '', timerstamp = 123) => api.get(`/login/qr/check?key=${key}&timerstamp=${timerstamp}`)
+const loginRefresh = () => api.get('/login/refresh')
 const loginSuccess = (timerstamp = 12) => api.get(`/login/status?timerstamp=${timerstamp}`)
 
 // 关注用户
@@ -227,6 +228,7 @@ export {
     loginByQrCodeGetKey,
     loginByQrCodeGetImg,
     loginByQrCodeCheck,
+    loginRefresh,
     loginSuccess,
     followUser,
     getPlayList

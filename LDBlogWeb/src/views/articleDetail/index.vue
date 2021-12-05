@@ -155,17 +155,15 @@ export default {
       editor.create()
       this.editor = editor
     },
-    handleAvatarSuccess() {
-
+    handleAvatarSuccess(res) {
+      if (res && res.success) {
+        this.articleModel.coverImg = res.data
+      }
     },
     beforeAvatarUpload() {
 
     },
     async handleGetTags(articleCateId) {
-      if (articleCateId > 2) {
-        this.articleTagsSelect = []
-        return
-      }
       const resp = await this.$http({
         url: '/articleTag/getTags',
         method: 'get'

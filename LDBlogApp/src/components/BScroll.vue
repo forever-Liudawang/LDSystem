@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { reactive, toRefs, ref, onMounted, nextTick, watch, onUpdated } from 'vue'
 import BScroll,{BScrollInstance} from 'better-scroll'
-import { onBeforeRouteUpdate } from 'vue-router'
+import { onBeforeRouteUpdate, useRoute} from 'vue-router'
 import toTop from "/toTop.png"
-
+let route = useRoute()
 interface IProps {
   probeType: number
   pullUpLoad: boolean
@@ -23,7 +23,10 @@ const handleToTop = ()=>{
   bs?.scrollTo(0,0,800)
 }
 const scroll = () => {
-  
+  if(bs){
+    bs?.refresh()
+    return
+  }
   timer.value = setTimeout(() => {
     bs = new BScroll(domRef.value, <any>{
       probeType: props.probeType,
@@ -58,7 +61,7 @@ const scroll = () => {
       console.log('down')
     })
     bs?.on('refresh', () => {
-      console.log('refresh')
+      // console.log('refresh')
     })
   }, 1200)
 }
@@ -70,6 +73,12 @@ watch(
     })
   }
 )
+watch(route,()=>{
+  console.log(route,'route===>>>>')
+  nextTick(() => {
+      bs?.refresh()
+  })
+})
 onBeforeRouteUpdate((to) => {
   scroll()
 })

@@ -9,6 +9,7 @@ import { withRouter } from 'react-router'
 import Footer from "../../components/Footer/Footer"
 import FeedBack from '../FeedBack/FeedBack'
 import FeedBackImg from "./feedback.svg"
+import moment from 'moment'
 const Content = (props:any)=>{
     const [latestArticle={},setArticle] = useState<any>({})
     const initData = async ()=>{
@@ -69,7 +70,7 @@ const Content = (props:any)=>{
                     {latestArticle.articleDesc}
                 </div>
                 <div className="footer">
-                    本篇文章位于： {formatArticleName(latestArticle.articleCate)} 类目； 由 AndyLiu 创建，发布于： {latestArticle.created}
+                    本篇文章位于： {formatArticleName(latestArticle.articleCate)} 类目； 由 AndyLiu 创建，发布于： {moment(latestArticle.created).format('YYYY-MM-DD, hh:mm:ss')}
                 </div>
             </div>
         </>

@@ -1,7 +1,8 @@
+/* eslint-disable eqeqeq */
 <template>
   <div style="padding:10px">
     <el-row :gutter="20">
-      <el-col :span="12">
+      <el-col :span="8">
         <el-card class="box-card">
           <div slot="header" class="clearfix">
             <h3>前端</h3>
@@ -20,7 +21,7 @@
           </div>
         </el-card>
       </el-col>
-      <el-col :span="12">
+      <el-col :span="8">
         <el-card class="box-card">
           <div slot="header" class="clearfix">
             <h3>后端</h3>
@@ -39,6 +40,26 @@
           </div>
         </el-card>
       </el-col>
+      <el-col :span="8">
+        <el-card class="box-card">
+          <div slot="header" class="clearfix">
+            <h3>生活</h3>
+            <el-button style="float: right;" type="primary"  @click="handleAddTag('life')">添加标签</el-button>
+          </div>
+          <div class="tag">
+            <el-tag
+              v-for="tag in lifeTags"
+              :key="tag._id"
+              closable
+              type="info"
+              @close="handleDeleteTag(tag)"
+            >
+              {{ tag.articleTagName }}
+            </el-tag>
+          </div>
+        </el-card>
+      </el-col>
+
     </el-row>
   </div>
 </template>
@@ -55,7 +76,8 @@ export default {
         { name: '标签五', type: 'danger' }
       ],
       frontTags: [],
-      backEndTags: []
+      backEndTags: [],
+      lifeTags: []
     }
   },
   mounted() {
@@ -85,6 +107,8 @@ export default {
       let articleCateId = 1
       if (type === 'backEnd') {
         articleCateId = 2
+      } else if (type === 'life') {
+        articleCateId = 3
       }
       this.$prompt('请输入标签', '提示', {
         confirmButtonText: '确定',
@@ -114,7 +138,6 @@ export default {
         method: 'get'
       })
       if (resp && resp.success) {
-        // this.tags = resp.data
         this.filterTag(resp.data)
       } else {
         this.$message.error(resp.error)
@@ -123,16 +146,21 @@ export default {
     filterTag(tags) {
       const frontTags = []
       const backEndTags = []
+      const lifeTags = []
       tags.forEach(item => {
         // eslint-disable-next-line eqeqeq
         if (item.articleCateId == 1) {
           frontTags.push(item)
-        } else {
+        // eslint-disable-next-line eqeqeq
+        } else if (item.articleCateId == 2) {
           backEndTags.push(item)
+        } else {
+          lifeTags.push(item)
         }
       })
       this.frontTags = frontTags
       this.backEndTags = backEndTags
+      this.lifeTags = lifeTags
     }
   }
 }

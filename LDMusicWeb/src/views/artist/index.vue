@@ -1,6 +1,6 @@
 <template>
     <div class='artist'>
-        <div class="w1200">
+        <div >
             <div class="filter">
                 <div class="filter-item">
                     <span v-for="(item, index) in initial" :key="index" :class=" index === initialIndex ? 'active' : ''" @click="selectType('initial', index)">{{item.label}}</span>

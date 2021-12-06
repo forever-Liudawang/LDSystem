@@ -1,7 +1,7 @@
 <template>
     <div class='search'>
         <div class="search-hd">
-            <div class="w1200">
+            <div >
                 <div class="search-box">
                     <el-popover
                         ref="popover"
@@ -46,7 +46,7 @@
                 </div>
             </div>
         </div>
-        <div class="w1200">
+        <div >
             <div class="search-main">
                 <div class="search-tab">
                     <h2>搜索结果<em>({{searchInfo}})</em></h2>

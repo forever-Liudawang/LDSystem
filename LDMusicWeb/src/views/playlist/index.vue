@@ -1,6 +1,6 @@
 <template>
     <div class='playlist'>
-        <div class="w1200">
+        <div >
             <div class="filter">
                 <div class="filter-item" v-for="(item, index) in categories" :key="index">
                     <div class="filter-title">{{ item.name }}</div>

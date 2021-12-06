@@ -1,6 +1,6 @@
 <template>
     <div class='detail'>
-        <div class="w1200">
+        <div >
             <div class="detail-container">
                 <div class="detail-main">
                     <div class="cover">

@@ -50,7 +50,7 @@ export default {
     .faceImg {
         display: block;
         position: relative;
-        height: 216px;
+        height: 195px;
 
         &::after, &::before {
             content: "";

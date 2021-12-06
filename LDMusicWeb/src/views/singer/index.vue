@@ -1,6 +1,6 @@
 <template>
     <div class='singer'>
-        <div class="w1200">
+        <div >
             <div class="singer-info">
                 <div class="singer-avatar">
                     <el-image :src="artist.img1v1Url">
@@ -20,7 +20,7 @@
             </div>
         </div>
         <div class="singer-main">
-            <div class="w1200">
+            <div >
                 <div class="singer-hd">
                     <em>作品集</em>
                     <div class="singer-tab">

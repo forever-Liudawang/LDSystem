@@ -1,6 +1,6 @@
 <template>
     <div class='list'>
-        <div class="w1200">
+        <div >
             <div class="h_title">
                 <h3>推荐歌单</h3>
                 <span v-for="(item, index) in tags" :key="item.id" :class="index == curIndex ? 'active' : ''" @click="chooseTag(index)">{{item.name}}</span>

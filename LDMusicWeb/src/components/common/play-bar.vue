@@ -8,7 +8,7 @@
         <progress-line class="audioProgress"
             :progressWidth="audioProgressWidth"
             @setProgressLine="setAudioProgress"></progress-line>
-        <div class="w1200">
+        <div>
             <audio
             ref="audio"
             preload="auto"
@@ -72,7 +72,7 @@
                                     <span>播放列表<em>(共{{playList.length}}首)</em></span>
                                     <div class="delSonglist" @click="clearSonglist"><i class="iconfont icon-del" title="清空列表"></i>清空列表</div>
                                 </h3>
-                                <song-list :songList="playList" :isScroll="true" :height="400" :typeSize="'mini'" :isShowTips="false"></song-list>
+                                <song-list :songList="playList" :isScroll="true" :height="320" :typeSize="'mini'" :isShowTips="false"></song-list>
                             </div>
                         </div>
                     </div>
@@ -340,7 +340,7 @@ export default {
     box-shadow: 0 5px 40px -1px rgba(2,10,18,.1);
     transition: all .4s ease-out;
     transform: translateY(100%);
-
+    // padding: 0 10%;
     &.active {
         transform: translateY(0);
     }
@@ -379,7 +379,7 @@ export default {
 .play-bar-inside {
     font-size: 0;
     line-height: 0;
-
+    padding: 0 10%;
     .bar-l {
         display: flex;
         padding: 10px 0;
@@ -471,12 +471,12 @@ export default {
         display: flex;
         font-size: 0;
         line-height: 50px;
-        padding-left: 30px;
+        // padding-left: 30px;
         align-items: center;
         justify-content: center;
 
         .iconfont {
-            margin-left: 20px;
+            // margin-left: 20px;
             font-size: 24px;
             cursor: pointer;
         }
@@ -488,8 +488,7 @@ export default {
 
     .lyric {
         display: inline-block;
-        padding: 26px 3px;
-        margin-left: 20px;
+        padding: 26px 20px;
         font-size: 18px;
         line-height: 18px;
         vertical-align: top;
@@ -585,7 +584,7 @@ export default {
 }
 .playlist-container {
     position: absolute;
-    left: -250px;
+    left: -327px;
     bottom: 75px;
     width: 500px;
     padding: 20px;

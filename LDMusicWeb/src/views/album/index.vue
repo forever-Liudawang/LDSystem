@@ -1,6 +1,6 @@
 <template>
     <div class='album' v-if="details">
-        <div class="w1200">
+        <div >
             <div class="album-cover">
                 <div class="album-img">
                     <el-image :src="details.picUrl">

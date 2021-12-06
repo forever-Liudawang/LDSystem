@@ -1,6 +1,6 @@
 <template>
     <div class='rank'>
-        <div class="w1200">
+        <div >
             <div class="rank-container">
                 <div class="rank-aside">
                     <div class="rank-type">

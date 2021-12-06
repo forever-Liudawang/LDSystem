@@ -1,6 +1,6 @@
 <template>
     <div class='top'>
-        <div class="w1200">
+        <div >
             <router-link to="/song" v-for="item in hotList" :key="item.id" class="item">{{item.name}}</router-link>
             <router-link to="/song" class="more">更多</router-link>
         </div>

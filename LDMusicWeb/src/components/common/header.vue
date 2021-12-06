@@ -1,6 +1,6 @@
 <template>
     <div class='header'>
-        <div class="w1200">
+        <div>
             <el-row class="wrapper">
                 <el-col :span="4" style="text-align:center;height:60px">
                         <router-link to="/" class="logo">
@@ -11,13 +11,6 @@
                 <el-col :span="12">
                     <ul class="nav">
                         <li :class="[menuActive.indexOf(item.path) === 0 ? 'is-active' : '']" v-for="item in menuList" :key="item.path" @click="selectMenu(item.path)"><span>{{item.name}}</span></li>
-                        <!-- <li index="/index"><span>首页</span></li>
-                        <li index="/rank"><span>排行榜</span></li>
-                        <li index="/playlist"><span>歌单</span></li>
-                        <li index="/djlist"><router-link to="/djlist">电台</router-link></li>
-                        <li index="/mvlist"><span>MV</span></li>
-                        <li index="/artist"><span>歌手</span></li>
-                        <li index="/my"><span>我的音乐</span></li> -->
                     </ul>
                 </el-col>
                 <el-col :span="6">

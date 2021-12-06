@@ -1,7 +1,7 @@
 <template>
     <div class='mv-detail'>
         <div class="mv-video" :class="[isNight ? 'active' : '']">
-            <div class="w1200">
+            <div >
                 <div class="video-main">
                     <video-player
                         v-if="videoOptions.sources[0].src"
@@ -29,7 +29,7 @@
                 </div>
             </div>
         </div>
-        <div class="w1200">
+        <div >
             <div class="mv-container">
                 <div class="mv-main">
                     <Comments :type="type" :id="mId"></Comments>

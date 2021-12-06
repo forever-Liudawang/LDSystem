@@ -1,6 +1,6 @@
 <template>
     <div v-if="info" class="song-container">
-        <div class="w1200">
+        <div >
             <div class="song-sidebar">
                 <div class="sidebar">
                     <div class="cover">

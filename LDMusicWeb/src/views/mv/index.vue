@@ -1,6 +1,6 @@
 <template>
     <div class='mv'>
-        <div class="w1200">
+        <div >
             <div class="filter">
                 <div class="filter-item">
                     <span>区域</span>

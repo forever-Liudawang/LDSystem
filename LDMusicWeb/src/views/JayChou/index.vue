@@ -6,9 +6,9 @@
     <div class="main">
       <div style="padding-right: 20px;">
         <el-table :data="tableData" size="small" stripe style="width: 100%" :height="500">
-          <el-table-column prop="artist" label="歌手" width="150"></el-table-column>
-          <el-table-column prop="name" label="歌曲" width="150"></el-table-column>
-          <el-table-column prop="cover" label="封面"  width="150">
+          <el-table-column prop="artist" label="歌手" width="100"></el-table-column>
+          <el-table-column prop="name" label="歌曲" width="120"></el-table-column>
+          <el-table-column prop="cover" label="封面"  width="80">
             <template slot-scope="scope">
               <el-image
                 style="width: 20px;"
@@ -16,7 +16,7 @@
                 fit="cover"></el-image>
             </template>
           </el-table-column>
-          <el-table-column prop="name" label="播放" width="180">
+          <el-table-column prop="name" label="播放" width="80">
             <template slot-scope="scope">
               <div v-if="showPlaying(scope.row)">
                   <div class="audio-icon">
@@ -34,8 +34,6 @@
           <div slot="append" v-if="!loadFinsh" class="loadMore" @click="handleLoadMore">点击加载更多</div>
           <div slot="append" v-else class="loadMore">没有了</div>
         </el-table>
-      <!-- <el-pagination  @current-change="handlePageChange" :page-size="5" layout="prev, pager, next" :total="34">
-      </el-pagination> -->
       </div>
       <div>
         <Detail :musicModel="musicModel"/>
@@ -122,16 +120,19 @@ export default {
 
 <style lang="less" scoped>
 .jayChou {
-  padding: 0 6%;
+  // padding: 0 6%;
+  // position: fixed;
+  // width: 100vw;
   .title {
     font-size: 30px;
-    padding: 20px 0;
+    padding: 6px 0;
     font-weight: bold;
     text-align: center;
   }
   .main {
     display: flex;
     width: 100%;
+    // padding-top: 4%;
     .audio-icon{
       display: flex;
       .column{

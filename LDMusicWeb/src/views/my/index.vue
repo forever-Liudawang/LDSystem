@@ -1,6 +1,6 @@
 <template>
     <div class='my'>
-        <div class="w1200">
+        <div >
             <div class="my-container">
                 <div class="my-aside">
                     <h3 class="my-favorite active" @click="jump">我收藏的歌手 <i class="iconfont icon-arrow"></i></h3>

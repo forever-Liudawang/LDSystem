@@ -1,6 +1,6 @@
 <template>
     <div class='banner'>
-        <div class="w1200">
+        <div>
             <swiper class="banner_wrap" :options="swiperOption" v-if="bannerInit" ref="mySwiper">
                 <swiper-slide v-for="item of banners" :key="item.imageUrl">
                     <el-image :src="item.imageUrl" :alt="item.typeTitle" class="banner_img" @click="pathHandler(item)">

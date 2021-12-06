@@ -1,6 +1,6 @@
 <template>
     <div class='user'>
-        <div class="w1200">
+        <div >
             <div class="user-container">
                 <div class="user-aside">
                     <h3 class="user-favorite active" @click="jump">他最近听的 <i class="iconfont icon-arrow"></i></h3>
@@ -111,7 +111,7 @@ export default {
     },
     watch: {
         $route () {
-            
+
         }
     }
 }

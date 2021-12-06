@@ -1,6 +1,6 @@
 <template>
     <div class='home'>
-        <div class="w1200">
+        <div >
             <my-banner></my-banner>
             <div class='recom_list'>
                 <div class="h_title">
@@ -35,7 +35,7 @@
                                 <div class="songitem" v-for="(songItem, index) in songList[item.id]" :key="songItem.id">
                                     <div class="songnum">{{index + 1}}</div>
                                     <div class="songinfo">
-                                        <router-link :to="{ path: '/song', query: { id: item.id }}" class="song_title">{{songItem.name}} - </router-link>
+                                        <router-link :to="{ path: '/song', query: { id: item.id }}" class="song_title">{{songItem.name}}</router-link>
                                         <div class="song_author">
                                             <router-link :to="{ path: '/singer', query: { id: author.id }}" class="song_name" v-for="(author, k) in songItem.ar" :key="k">{{ k !== 0 ? '/ ' + author.name : author.name }}</router-link>
                                         </div>
@@ -315,8 +315,9 @@ export default {
 }
 
 .toplist_wrapper {
-    padding: 30px 40px;
-    height: 380px;
+    padding: 8px 20px;
+    // height: 380px;
+    font-size: 12px;
     .toplist_hd {
         position: relative;
         font-size: 24px;
@@ -327,7 +328,7 @@ export default {
             display: inline-block;
             content: '';
             position: absolute;
-            bottom: -30px;
+            bottom: -20px;
             left: 0;
             right: 0;
             width: 30px;
@@ -338,12 +339,12 @@ export default {
     }
 
     .toplist_songlist {
-        padding-top: 80px;
+        padding-top: 30px;
     }
 
     .songitem {
         display: flex;
-        padding-bottom: 20px;
+        padding-bottom: 6px;
         color: #fff;
 
         .songnum {
@@ -351,8 +352,9 @@ export default {
             font-size: 18px;
         }
         .songinfo{
-            display: flex;
-            align-items: center;
+          width: 100%;
+            // display: flex;
+            // align-items: center;
         }
         .song_title {
             line-height: 24px;
@@ -376,11 +378,11 @@ export default {
             -webkit-line-clamp: 1;
             -webkit-box-orient: vertical;
             word-break: break-all;
-            margin-left: 10px;
+            margin-left: 5%;
             a {
                 display: inline-block;
                 line-height: 20px;
-                font-size: 14px;
+                font-size: 12px;
                 color: #fff;
             }
         }

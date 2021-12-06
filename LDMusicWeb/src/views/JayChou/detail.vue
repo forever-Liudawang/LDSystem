@@ -65,12 +65,7 @@
           >
         </span>
         </h1>
-        <!-- <p class="song-info">
-                    <span>专辑：next one </span>
-                    <span>发行时间：<em>2080年01月01日</em></span>
-                </p> -->
         <div class="song-oper">
-          <!-- <span class="play-btn play-all"><i :class="['iconfont', playFontIcon]"></i>立即播放</span> -->
         </div>
         <div class="song-lyric">
           <Lyrics
@@ -264,7 +259,7 @@ export default {
 
   .song-main {
     position: relative;
-    margin-left: 100px;
+    margin-left: 10%;
   }
 }
 
@@ -385,7 +380,7 @@ export default {
 
 .song-name {
   font-size: 30px;
-  line-height: 60px;
+  // line-height: 60px;
   padding-bottom: 10px;
 
   .iconfont {
@@ -465,12 +460,13 @@ export default {
 }
 
 .song-lyric {
-  margin: 30px 0 0 0;
+  margin: 5px 0 0 0;
   overflow-y: auto;
   border: 1px solid #f3f3f3;
   border-radius: 4px;
-  padding: 4px 60px;
+  padding: 4px 20px;
   box-shadow: 2px 10px 17px #ebedf0;
+  position: fixed;
 }
 
 .song-comments {

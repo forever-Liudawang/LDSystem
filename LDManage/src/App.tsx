@@ -49,28 +49,31 @@ import UseQueryTest from './study1/LHook/useQueryTest';
 //   );
 // }
 
-function App(props:React.PropsWithChildren<any>){
-  return <div>
-    {/* <ModalIndex/> */}
-    {/* <IndexHook/> */}
-    <UseQueryTest/>
-    <Router>
-        <Switch >
-          {/*
-          <Route path='/router/component'   component={RouteComponent}   /> Route Component形式 
-          <Route path='/router/render'  render={(props)=> <RouterRender { ...props }  /> }  {...mes}  />  Render形式 
-          <Route path='/router/children'  >  chilren形式 
-              <RouterChildren  {...mes} />
-          </Route>
-          <Route path="/router/renderProps"  >
-               (props)=> <RouterRenderProps {...props} {...mes}  /> } renderProps形式
-          </Route>
-          */}
-          <Route path="/demo1" component={Demo1}/>
-          <Route path="/demo2" component={Demo2}/>
-          {/* <Redirect to="/demo2"/> */}
-        </Switch>
-    </Router>
-  </div>
+// function App(props:React.PropsWithChildren<any>){
+//   return <div>
+//     {/* <ModalIndex/> */}
+//     {/* <IndexHook/> */}
+//     <UseQueryTest/>
+//     <Router>
+//         <Switch >
+//           {/*
+//           <Route path='/router/component'   component={RouteComponent}   /> Route Component形式 
+//           <Route path='/router/render'  render={(props)=> <RouterRender { ...props }  /> }  {...mes}  />  Render形式 
+//           <Route path='/router/children'  >  chilren形式 
+//               <RouterChildren  {...mes} />
+//           </Route>
+//           <Route path="/router/renderProps"  >
+//                (props)=> <RouterRenderProps {...props} {...mes}  /> } renderProps形式
+//           </Route>
+//           */}
+//           <Route path="/demo1" component={Demo1}/>
+//           <Route path="/demo2" component={Demo2}/>
+//           {/* <Redirect to="/demo2"/> */}
+//         </Switch>
+//     </Router>
+//   </div>
+// }
+function App () {
+  return <div>12</div>
 }
 export default App;

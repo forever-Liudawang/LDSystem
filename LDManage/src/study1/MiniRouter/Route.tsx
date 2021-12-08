@@ -21,7 +21,6 @@ export default function Route(props:any) {
             renderChildren = render(newProps)
         }
     }
-    console.log('renderChildren :>> ', renderChildren);
     return (
         <RouterContext.Provider value={newProps}>
             {renderChildren}

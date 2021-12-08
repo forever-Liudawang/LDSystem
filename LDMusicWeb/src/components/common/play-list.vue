@@ -1,6 +1,6 @@
 <template>
     <div class='playlist'>
-        <div class="item" v-for="item in playList" :key="item.id">
+        <div class="item" v-for="item in playList" :key="item.id + ((new Date()).getTime())">
             <router-link :to="{ path: 'playlist/detail', query: { id: item.id }}" class="faceImg">
                 <el-image :src="item.coverImgUrl" lazy>
                     <div slot="placeholder" class="image-slot">

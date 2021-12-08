@@ -13,6 +13,7 @@ import {
 } from 'swiper/core'
 import infiniteScroll from 'vue-infinite-scroll'
 import getAwesomeSwiper from 'vue-awesome-swiper/dist/exporter'
+import CollapseTransition from 'element-ui/lib/transitions/collapse-transition'
 
 import '@assets/css/global.css'
 import '@assets/fonts/font.css'
@@ -28,6 +29,7 @@ SwiperClass.use([Pagination, Mousewheel, Autoplay])
 Vue.use(less)
 Vue.use(infiniteScroll)
 Vue.use(getAwesomeSwiper(SwiperClass))
+Vue.component(CollapseTransition.name, CollapseTransition)
 
 Vue.config.productionTip = false
 Vue.prototype.$http = getApi

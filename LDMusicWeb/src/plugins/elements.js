@@ -32,7 +32,6 @@ import {
   Autocomplete,
   Tabs,
   TabPane
-  
 } from 'element-ui'
 
 Vue.use(Container)

@@ -1,6 +1,6 @@
 <template>
     <div class='login'>
-        <el-dialog :visible.sync="loginDialogVisible" width="28%" :before-close="handleClose" class="login-dialog">
+        <el-dialog :visible.sync="loginDialogVisible" width="500px" :before-close="handleClose" class="login-dialog">
             <el-tabs v-model="activeName" @tab-click="handleClick">
                 <el-tab-pane label="账号密码登陆" name="psdLogin">
                     <div class="login-wrapper">

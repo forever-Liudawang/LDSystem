@@ -2,8 +2,8 @@ import React from 'react';
 import { shell } from 'electron';
 import { RouteComponentProps, useHistory } from 'react-router';
 import { ROUTER_ENTRY } from '@app/common/router';
-import Logo from '@assets/me.svg';
-import { isHttpOrHttpsUrl } from '@app/utils/index';
+import Logo from '@assets/logo.png';
+import { isHttpOrHttpsUrl } from '@app/utils/router';
 import './index.less';
 export default function Home(props: any) {
   const history = useHistory();

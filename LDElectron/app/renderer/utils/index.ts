@@ -1,8 +1,28 @@
+// 创建uid
+export function createUID() {
+  return 'xxxxxxxxxxxx4xxxyxxxxxxxxxxxxxxx'
+    .replace(/[xy]/g, (c) => {
+      let r = (Math.random() * 16) | 0;
+      let v = c === 'x' ? r : (r & 3) | 8;
+      return v.toString(16);
+    })
+    .toUpperCase();
+}
+
 /**
- * @desc 判断是否属于外部连接
- * @param {string} url - 链接
+ * 将字符串数字转成整型数字
+ * @param {string} value
+ * @returns {number}
  */
-export function isHttpOrHttpsUrl(url: string): boolean {
-  let regRule = /(http|https):\/\/([\w.]+\/?)\S*/;
-  return regRule.test(url.toLowerCase());
+export function transformStringToNumber(value: string): number {
+  return Number(value);
+}
+
+/**
+ * 剔除px
+ */
+export function reducePX(value: string | number | undefined): string {
+  if (!value) return '';
+  const _value = String(value);
+  return _value.replace('px', '');
 }

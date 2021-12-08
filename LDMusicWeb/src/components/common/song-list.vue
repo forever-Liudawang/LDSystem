@@ -299,7 +299,7 @@ export default {
     overflow: hidden;
 }
 .columnAlbum {
-    width: 200px;
+    // width: 200px;
 }
 .columnTime {
     width: 140px;

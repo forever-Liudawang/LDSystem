@@ -1,8 +1,9 @@
 <template>
-    <div class='home'>
+    <div class='home' @click="showNav = false">
         <div >
             <my-banner></my-banner>
-            <div class='recom_list'>
+            <div class='recom_list' >
+                <a name="recom_list"></a>
                 <div class="h_title">
                     <h3>热门歌单</h3>
                     <span v-for="(item, index) in playlist_tags" :key="item.id" :class="index == playlist_index ? 'active' : ''" @click="choosePlayListType(index)">{{item.name}}</span>
@@ -11,7 +12,8 @@
                     <play-list :playList="playlist_list"></play-list>
                 </div>
             </div>
-            <div class='album_list'>
+            <div class='album_list' name="album_list">
+                <a name="album_list"></a>
                 <div class="h_title">
                     <h3>新碟上架</h3>
                     <span v-for="(item, index) in album_area" :key="item.id" :class="index == album_index ? 'active' : ''" @click="chooseAlbumType(index)">{{item.name}}</span>
@@ -21,6 +23,7 @@
                 </div>
             </div>
             <div class='top_list'>
+                <a name="top_list"></a>
                 <div class="h_title">
                     <h3>排行榜</h3>
                 </div>
@@ -47,6 +50,7 @@
                 </el-row>
             </div>
             <div class='mv_list'>
+                <a name="mv_list"></a>
                 <div class="h_title">
                     <h3>最新MV</h3>
                     <span v-for="(item, index) in mv_area" :key="item.id" :class="index == mv_index ? 'active' : ''" @click="chooseMvType(index)">{{item}}</span>
@@ -56,6 +60,7 @@
                 </div>
             </div>
             <div class='artists_list'>
+                <a name="artists_list"></a>
                 <div class="h_title">
                     <h3>热门歌手</h3>
                 </div>
@@ -75,6 +80,20 @@
                     </router-link>
                 </div>
             </div>
+        </div>
+        <div class="nav" @mouseenter="showNav = !showNav">
+            <i class="el-icon-s-promotion" style="color:#fff"></i>
+        </div>
+        <div class="navBox">
+            <el-collapse-transition>
+                <div v-show="showNav" >
+                    <div v-for="(item,index) in navList" :key="index" style="margin-bottom:4px">
+                        <el-button size="mini" round>
+                            <a :href="`#${item.nav}`">to {{item.name}}</a>
+                        </el-button>
+                    </div>
+                </div>
+            </el-collapse-transition>
         </div>
     </div>
 </template>
@@ -127,7 +146,15 @@ export default {
             mv_index: 0,
             mv_params: { limit: 10 },
             artists_list: [],
-            artists_params: { limit: 9 }
+            artists_params: { limit: 9 },
+            navList: [
+                { name: '热门歌单', nav: 'recom_list' },
+                { name: '新碟商家', nav: 'album_list' },
+                { name: '排 行 榜', nav: 'top_list' },
+                { name: '最新 MV', nav: 'mv_list' },
+                { name: '热门歌手', nav: 'artists_list' }
+            ],
+            showNav: false
         }
     },
     // 监听属性 类似于data概念
@@ -233,6 +260,33 @@ export default {
 }
 </script>
 <style scoped lang="less">
+.home{
+    .nav{
+        cursor: pointer;
+        width:44px;
+        height: 50px;
+        background: #ff4c21;
+        position: fixed;
+        right: -20px;
+        top:30%;
+        z-index: 10000;
+        border-top-left-radius: 8px;
+        border-bottom-left-radius: 8px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: all .2s;
+        &:hover{
+            right: 1px;
+        }
+    }
+    .navBox{
+            position: fixed;
+            right: 5px;
+            top:40%;
+            z-index: 10000;
+    }
+}
 .h_title {
     padding: 20px 0 0;
     text-align: center;

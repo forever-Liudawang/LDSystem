@@ -4,7 +4,6 @@ export const LogContext = createContext({})
 export default function UseLog() {
     const message = useContext(LogContext)
     const reportMessage = useCallback((data,type)=>{
-        console.log('message :>> ', message);
         if(type === "pv"){
             console.log("组件pv上报","pv")
         }else if(type === "click"){
@@ -12,7 +11,6 @@ export default function UseLog() {
         }
     },[message])
     const listenDom = useRef<any>(null)
-    console.log(message,"ms===>>>")
     useEffect(()=>{
         const handleClick = (e:any)=>{
             if(e && e.target.tagName === "BUTTON"){

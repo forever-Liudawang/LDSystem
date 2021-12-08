@@ -76,7 +76,7 @@ export default {
   height: 100%;
 }
 .layout {
-  padding: 0 12%;
+  padding: 0 10%;
   /* min-height: calc(100vh - 80px - 40px); */
 }
 </style>

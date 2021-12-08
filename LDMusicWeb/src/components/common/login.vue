@@ -98,7 +98,6 @@ export default {
         },
         async getQrCode () {
             const resp = await this.$http.loginByQrCodeGetKey()
-            console.log(resp,'resp===.....')
             if (!resp.data && resp.data.code !== 200) {
                 this.$msg.error('登陆失败')
             } else {
@@ -126,12 +125,10 @@ export default {
         },
         async handleCheckLogin () {
             this.checkTimer = setInterval(async () => {
-                const resp = await this.$http.loginByQrCodeCheck(this.loginKey, Date.now())
-                console.log(resp, 'resp===....')
-                if (resp && resp.data) {
-                    if (resp.data.code === 803) {
-                        const resp = await this.$http.loginSuccess(Date.now())
-                        console.log('resp', resp)
+                const res = await this.$http.loginByQrCodeCheck(this.loginKey, Date.now())
+                if (res && res.data) {
+                    if (res.data.code === 803) {
+                        const resp = await this.$http.loginSuccess(Date.now(), { headers: res.data.cookie })
                         if (resp.data && (resp.data.data && resp.data.data.code === 200)) {
                             this.getUserInfo(resp.data.data.profile.userId)
                             window.sessionStorage.setItem('isLogin', true)
@@ -141,8 +138,8 @@ export default {
                         } else {
                           this.$msg.error('登陆失败！')
                         }
-                    } else if (resp.data.code === 800) {
-                        this.$msg.error(resp.data.message)
+                    } else if (res.data.code === 800) {
+                        this.$msg.error(res.data.message)
                         if (this.checkTimer)clearInterval(this.checkTimer)
                     }
                 }

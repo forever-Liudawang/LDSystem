@@ -4,7 +4,7 @@ import { Message } from 'element-ui'
 
 const instance = axios.create({
     time: 1000 * 60,
-    // withCredentials: true,
+    withCredentials: true,
     baseURL: process.env.VUE_APP_BASE_API
 })
 instance.defaults.withCredentials = true
@@ -39,23 +39,23 @@ instance.interceptors.response.use(function (response) {
     // 对请求错误做些什么
     return Promise.reject(error)
 })
-
 const ajaxMethod = ['get', 'post']
 const api = {}
 ajaxMethod.forEach(method => {
     // 数组取值的两种方式
     api[method] = function (uri, data, config) {
-    return new Promise(function (resolve, reject) {
-        instance[method](uri, data, config)
-        .then(response => {
-            if (response.status === 200) {
-                resolve(response)
-            }
-        })
-        .catch(error => {
-            reject(error)
-        })
-    })
+      console.log(config, 'config')
+      return new Promise(function (resolve, reject) {
+          instance[method](uri, data, config)
+          .then(response => {
+              if (response.status === 200) {
+                  resolve(response)
+              }
+          })
+          .catch(error => {
+              reject(error)
+          })
+      })
     }
 })
 

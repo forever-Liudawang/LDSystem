@@ -3,7 +3,7 @@ const path = require('path')
 module.exports = {
     // 此网站部署于LDBlogService public目录下
     // publicPath: '/static/music',
-    publicPath: '/static/music',
+    publicPath: '/',
     chainWebpack: (config) => {
         config.resolve.alias
         .set('@assets', path.join(__dirname, './src/assets'))

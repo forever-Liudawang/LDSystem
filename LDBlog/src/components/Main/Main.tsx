@@ -61,13 +61,21 @@ const Content = (props:any)=>{
                 </div>
                 <div className="contentTitle">
                     <h2 className=" p10"> 
-                        <FcDblWarpBtn style={{height:"40px","--color":"#000"}}>
+                        {/* <FcDblWarpBtn style={{height:"40px","--color":"#000"}}>
                             {latestArticle.articleTitle}
-                        </FcDblWarpBtn>
+                        </FcDblWarpBtn> */}
+                        <div>
+                            {latestArticle.articleTitle}
+                        </div>
                     </h2>
                 </div>
-                <div className="main  p10">
-                    {latestArticle.articleDesc}
+                <div className="main  p10 d-flex">
+                    <div>
+                        <img src={latestArticle.coverImg} style={{width:"200px",height:"120px",objectFit: "cover",borderRadius:"4px"}} alt=""/>
+                    </div>
+                    <div>
+                        {latestArticle.articleDesc}
+                    </div>
                 </div>
                 <div className="footer">
                     本篇文章位于： {formatArticleName(latestArticle.articleCate)} 类目； 由 AndyLiu 创建，发布于： {moment(latestArticle.created).format('YYYY-MM-DD, hh:mm:ss')}

@@ -12,13 +12,14 @@ export default function AboutMe() {
             });
         } else {
             iframeObj.onload = function(){
+                
                 Mask.hidden()
             };
         }
     })
     return (
         <div className="music">
-            <iframe ref={iframeRef} src="http://andy.lmytest.top/Ldmusic#/index" ></iframe>
+            <iframe ref={iframeRef} src="http://andy.lmytest.top/Ldmusic#/index" title="音乐" ></iframe>
         </div>
     )
 }

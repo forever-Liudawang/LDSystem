@@ -41,6 +41,7 @@ export default {
     flex-wrap: wrap;
     justify-content: space-between;
     font-size: 0;
+    width: 100%;
 }
 .item {
     width: 18%;

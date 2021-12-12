@@ -35,7 +35,7 @@
           <div slot="append" v-else class="loadMore">没有了</div>
         </el-table>
       </div>
-      <div>
+      <div style="flex: 1;">
         <Detail :musicModel="musicModel"/>
       </div>
     </div>
@@ -132,6 +132,7 @@ export default {
   .main {
     display: flex;
     width: 100%;
+    justify-content: space-around;
     // padding-top: 4%;
     .audio-icon{
       display: flex;

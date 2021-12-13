@@ -44,7 +44,6 @@ const api = {}
 ajaxMethod.forEach(method => {
     // 数组取值的两种方式
     api[method] = function (uri, data, config) {
-      console.log(config, 'config')
       return new Promise(function (resolve, reject) {
           instance[method](uri, data, config)
           .then(response => {

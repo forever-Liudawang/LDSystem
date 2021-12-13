@@ -151,6 +151,7 @@ export default {
         }
     },
     mounted () {
+      console.log(this.songList, 'songList')
         this.scrollCurSong(this.curSongInfo)
     },
     // 方法集合
@@ -288,18 +289,20 @@ export default {
 }
 .columnSong {
     display: flex;
-    flex: 1.5;
+    flex: 1;
+    min-width: 150px;
     padding-right: 10px;
     overflow: hidden;
     align-items: center;
 }
 .columnSinger {
-    flex: 2;
+    flex: 1;
+    min-width: 130px;
     padding-right: 10px;
     overflow: hidden;
 }
 .columnAlbum {
-    // width: 200px;
+    width: 120px;
 }
 .columnTime {
     width: 140px;
@@ -365,7 +368,8 @@ export default {
 
     .songlist-singer, .songlist-album {
         display: inline-block;
-        max-width: 100%;
+        // max-width: 100%;
+        // width: 200px;
         line-height: 50px;
         overflow: hidden;
         white-space: nowrap;
@@ -453,7 +457,7 @@ export default {
 
     .songlist-singer {
         display: inline-block;
-        width: 100px;
+        width: 120px;
         height: 23px;
         overflow: hidden;
         white-space: nowrap;
@@ -461,8 +465,7 @@ export default {
     }
 
     .songlist-name {
-        width: 210px;
-
+        width: 200px;
         a {
             display: inline-block;
             max-width: 185px;

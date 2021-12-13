@@ -5,9 +5,9 @@
     </el-header>
     <el-main>
       <div class="layout">
-        <keep-alive>
+        <!-- <keep-alive> -->
           <router-view></router-view>
-        </keep-alive>
+        <!-- </keep-alive> -->
       </div>
       <!-- <my-footer></my-footer> -->
       <el-backtop target=".el-main" :bottom="backBottom">

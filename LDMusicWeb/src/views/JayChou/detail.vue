@@ -257,7 +257,7 @@ export default {
 
   .song-main {
     position: relative;
-    // margin-left: 10%;
+    margin-left: 24px;
   }
 }
 

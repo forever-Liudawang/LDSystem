@@ -125,7 +125,7 @@ export default {
   // width: 100vw;
   .title {
     font-size: 30px;
-    padding: 6px 0;
+    padding: 10px 0;
     font-weight: bold;
     text-align: center;
   }

@@ -199,9 +199,10 @@ export default {
 .rank-aside {
     width: 300px;
     padding: 0 20px 100px 0;
-
     .rank-type {
         box-shadow: 0 0 20px 0 rgba(65,67,70,.05);
+        position: sticky;
+        top: 10px;
     }
 }
 .rank-main {

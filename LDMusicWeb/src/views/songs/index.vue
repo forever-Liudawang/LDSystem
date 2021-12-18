@@ -239,7 +239,8 @@ export default {
         position: fixed;
         width: 330px;
         height: 82% ;
-        overflow: auto;
+        overflow-y: auto;
+        overflow-x: hidden;
         .sidebar{
           height: 100%;
 

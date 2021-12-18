@@ -39,8 +39,9 @@ const playlistdetail = ({ id = '', s = 8 }) => { return api.get(`/playlist/detai
 const playlistSCollect = ({ id = '', limit = 20, offset = 0 }) => { return api.get(`/playlist/subscribers?id=${id}&limit=${limit}&offset=${offset}`, {}) }
 // 相关歌单推荐
 const playlistRelated = ({ id = '' }) => { return api.get(`/related/playlist?id=${id}`, {}) }
-// 歌单评论
+// 获取歌单评论
 const playlistComment = ({ id = '', limit = 20, offset = 0, before = 0 }) => { return api.get(`/comment/playlist?id=${id}&limit=${limit}&offset=${offset}&before=${before}`, {}) }
+
 // 收藏、取消歌单 1：收藏 2取消
 const subPlayList = ({ t = 1, id = '' }) => { return api.get(`/playlist/subscribe?t=${t}&id=${id}`, {}) }
 // 获取用户歌单

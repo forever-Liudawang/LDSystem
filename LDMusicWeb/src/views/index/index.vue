@@ -95,6 +95,7 @@
                 </div>
             </el-collapse-transition>
         </div>
+        <Back/>
     </div>
 </template>
 
@@ -103,7 +104,7 @@ import myBanner from '@components/common/banner.vue'
 import playList from '@components/common/play-list'
 import albumList from '@components/common/album-list'
 import mvList from '@components/common/mv-list'
-
+import Back from '@components/common/back'
 export default {
     name: 'home',
     components: {
@@ -111,7 +112,8 @@ export default {
         // list,
         playList,
         albumList,
-        mvList
+        mvList,
+        Back
     },
     data () {
         // 这里存放数据

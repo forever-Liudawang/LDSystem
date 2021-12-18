@@ -21,12 +21,13 @@ function createWindow() {
     },
   });
   console.log(IsDev(), process.env.NODE_ENV, 'IsDev()');
-  if (IsDev()) {
-    mainWindow.loadURL('http://localhost:8080/static/music/#/index');
-  } else {
-    // mainWindow.loadFile('index.html');
-    mainWindow.loadURL(`file://${path.join(__dirname, '../../dist/index.html')}`);
-  }
+  mainWindow.loadURL('http://localhost:8080/static/music/#/index');
+  // if (IsDev()) {
+  //   mainWindow.loadURL('http://localhost:8080/static/music/#/index');
+  // } else {
+  //   // mainWindow.loadFile('index.html');
+  //   mainWindow.loadURL(`file://${path.join(__dirname, '../../dist/index.html')}`);
+  // }
 }
 
 app.whenReady().then(() => {

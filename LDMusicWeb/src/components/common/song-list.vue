@@ -151,7 +151,6 @@ export default {
         }
     },
     mounted () {
-      console.log(this.songList, 'songList')
         this.scrollCurSong(this.curSongInfo)
     },
     // 方法集合

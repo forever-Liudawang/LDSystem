@@ -1,0 +1,12 @@
+directories:
+  output: dist
+  buildResources: build
+appId: LDMusic
+productName: electron
+copyright: Copyright © 2019 ${author}
+files:
+  - filter:
+      - dist/**/*
+      - package.json
+      - node_modules/
+electronVersion: 16.0.4

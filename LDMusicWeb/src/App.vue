@@ -5,9 +5,10 @@
     </el-header>
     <el-main>
       <div class="layout">
-        <!-- <keep-alive> -->
+        <keep-alive include="home">
           <router-view></router-view>
-        <!-- </keep-alive> -->
+        </keep-alive>
+        <Back/>
       </div>
       <!-- <my-footer></my-footer> -->
       <el-backtop target=".el-main" :bottom="backBottom">
@@ -21,17 +22,19 @@
 
 <script>
 import myHeader from '@components/common/header.vue'
-import myFooter from '@components/common/footer.vue'
+// import myFooter from '@components/common/footer.vue'
 import playBar from '@components/common/play-bar.vue'
 import Login from '@components/common/login.vue'
 import { mapGetters } from 'vuex'
+import Back from '@components/common/back'
 export default {
   name: 'app',
   components: {
     myHeader,
-    myFooter,
+    // myFooter,
     Login,
-    playBar
+    playBar,
+    Back
   },
   data () {
     // 这里存放数据

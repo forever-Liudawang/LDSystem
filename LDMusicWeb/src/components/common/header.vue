@@ -125,6 +125,9 @@ export default {
                 name: '我的音乐',
                 path: '/my'
             }, {
+              name: '反馈',
+              path: '/feedback'
+            }, {
                 name: 'Jay Chou',
                 path: '/jayChou'
             }],
@@ -331,7 +334,7 @@ export default {
     }
 
     span {
-        padding: 0 20px;
+        padding: 0 15px;
         display: block;
         font-size: 14px;
         text-decoration: none;

@@ -10,17 +10,20 @@ import ArticleSearch from "./pages/ArticleSearch/ArticleSearch"
 import toTopImg from "./assets/toTop.png"
 export const showHeaderCtx = createContext(true)
 let temp = true
+let prevTop = 0;
 export default function App() {
   const [showHeader, setShowHeader] = useState(true)
   const onScroll = (e:Event)=>{
       const top = window.pageYOffset || 0;
-      if(top>=620){
+      console.log(top,prevTop,"top")
+      if(top>=prevTop){
           setShowHeader(false)
           temp = true
       }else{
-          if(!temp || showHeader)return
+          // if(!temp || showHeader)return
           setShowHeader(true)
       }
+      prevTop = top;
   }
   const toTop = ()=>{
       animateScroll.scrollToTop()

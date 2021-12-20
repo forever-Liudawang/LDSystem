@@ -1,6 +1,6 @@
 <template>
   <div class="song-container">
-    <div style="display: flex" v-if="isHaveMusic">
+    <div style="display: flex;justify-content: space-around;" v-if="isHaveMusic">
       <div class="song-sidebar">
         <div class="sidebar" @click="handlePlay">
           <div class="cover">
@@ -86,7 +86,6 @@ import { mapMutations, mapActions, mapState, mapGetters } from 'vuex'
 import Lyrics from '@components/common/lyrics.vue'
 import ProgressLine from '@components/common/progress'
 import { DwebAudioView } from './dwebaudioview'
-import initAudio from './t'
 export default {
   name: 'song-detail',
   props: {
@@ -113,8 +112,7 @@ export default {
       oldVolume: 0,
       isMuted: false, // 是否禁音
       canPlay: false,
-      audioview: null,
-      initAudio
+      audioview: null
     }
   },
   mounted () {
@@ -259,7 +257,7 @@ export default {
 
   .song-main {
     position: relative;
-    margin-left: 10%;
+    margin-left: 24px;
   }
 }
 
@@ -466,7 +464,10 @@ export default {
   border-radius: 4px;
   padding: 4px 20px;
   box-shadow: 2px 10px 17px #ebedf0;
-  position: fixed;
+  /deep/ .lyrics-main{
+     max-height: 420px !important;
+  }
+  // position: fixed;
 }
 
 .song-comments {

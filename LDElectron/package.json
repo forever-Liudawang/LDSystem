@@ -6,11 +6,13 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start:main": "set NODE_ENV=development && webpack --config ./config/webpack.main.dev.js && electron ./dist/electron.js",
+    "build:main": "webpack --config ./config/webpack.main.prod.js",
+    "pack": "electron-builder",
     "start:render": "set NODE_ENV=development && webpack-dev-server --config ./config/webpack.render.dev.js",
     "install:electron": "ELECTRON_MIRROR=https://cdn.npm.taobao.org/dist/electron/ npm install electron"
   },
   "keywords": [],
-  "author": "",
+  "author": "andyLiu",
   "license": "ISC",
   "devDependencies": {
     "@babel/cli": "^7.16.0",
@@ -33,6 +35,8 @@
     "babel-plugin-react-css-modules": "^5.2.6",
     "clean-webpack-plugin": "^4.0.0",
     "css-loader": "^3.0.0",
+    "electron": "^16.0.3",
+    "electron-builder": "^22.14.5",
     "eslint": "^7.26.0",
     "eslint-config-alloy": "^4.1.0",
     "eslint-config-prettier": "^8.3.0",
@@ -57,7 +61,6 @@
   "dependencies": {
     "@babel/polyfill": "^7.12.1",
     "classnames": "^2.3.1",
-    "electron": "^16.0.3",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-redux": "^7.2.6",
@@ -65,5 +68,40 @@
     "react-router-dom": "^5.3.0",
     "redux": "^4.1.2",
     "typescript": "^4.5.2"
+  },
+  "build": {
+    "appId": "LDMusic",
+    "productName": "LDMusic",
+    "copyright": "Copyright © 2019 ${author}",
+    "files": [
+      "dist/**/*",
+      "package.json",
+      "node_modules/"
+    ],
+    "extraMetadata":{
+      "main": "dist/electron.js"
+    },
+    "mac": {
+      "icon": "./assets/me.ico"
+    },
+    "win": {
+      "icon": "./assets/me.ico"
+    },
+    "linux": {
+      "icon": "./assets/me.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "guid": "LDMusic",
+      "perMachine": true,
+      "allowElevation": true,
+      "allowToChangeInstallationDirectory": true,
+      "installerIcon": "./assets/me.ico",
+      "uninstallerIcon": "./assets/me.ico",
+      "installerHeaderIcon": "./assets/me.ico",
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "LDMusic"
+    }
   }
 }

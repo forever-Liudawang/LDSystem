@@ -48,6 +48,9 @@ const routes = [
     },
     {
       path: '/jayChouDetail', name: 'jayChouDetail', component: resolve => { require(['@views/JayChou/detail.vue'], resolve) }
+    },
+    {
+      path: '/feedback', name: 'feedback', component: resolve => { require(['@views/feedback/index.vue'], resolve) }
     }
 ]
 

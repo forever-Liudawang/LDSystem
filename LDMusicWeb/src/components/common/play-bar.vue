@@ -331,7 +331,7 @@ export default {
 <style scoped lang="less">
 .play-bar {
     position: fixed;
-    bottom: 4px;
+    bottom: 1px;
     left: 0;
     z-index: 5;
     width: 100%;

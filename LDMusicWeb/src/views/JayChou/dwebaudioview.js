@@ -96,7 +96,7 @@ export class DwebAudioView {
     var x = 0
     for (var i = 0; i < bufferLength; i++) {
       var v = dataArray[i] / 128.0
-      var y = v * canvas.height / 4
+      var y = v * canvas.height / 2
       if (i === 0) {
         canvasCtx.moveTo(x, y)
       } else {
@@ -104,7 +104,7 @@ export class DwebAudioView {
       }
       x += sliceWidth
     }
-    canvasCtx.lineTo(canvas.width, canvas.height / 4)
+    canvasCtx.lineTo(canvas.width, canvas.height / 2)
     canvasCtx.stroke()
   }
 }

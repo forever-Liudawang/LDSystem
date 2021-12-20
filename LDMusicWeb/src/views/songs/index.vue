@@ -237,7 +237,17 @@ export default {
 
     .song-sidebar {
         position: fixed;
-        width: 310px;
+        width: 330px;
+        height: 82% ;
+        overflow-y: auto;
+        overflow-x: hidden;
+        .sidebar{
+          height: 100%;
+
+        }
+        .cover{
+          height: 100%;
+        }
     }
 
     .song-main {
@@ -251,7 +261,7 @@ export default {
 }
 .cover-img {
     position: relative;
-    width: 190px;
+    width: 200px;
     padding: 40px;
     font-size: 0;
     background: url('../../assets/disc.png') no-repeat;
@@ -334,9 +344,12 @@ export default {
 }
 
 .simi-song {
+  height: 50%;
+  margin-top: 10px;
+  overflow: auto;
     h6 {
-        margin-top: 20px;
-        margin-bottom: 10px;
+        margin-top: 10px;
+        margin-bottom: 5px;
         font-size: 14px;
         height: 30px;
         line-height: 30px;

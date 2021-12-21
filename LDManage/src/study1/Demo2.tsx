@@ -1,9 +1,9 @@
 //react-router
 import React,{useContext,useState} from 'react'   
 import { RouterProps,useLocation} from 'react-router'
-import { NavLink } from 'react-router-dom'
 import {useHistory} from "./MiniRouter/routerHook"
 import WithRouter from './MiniRouter/WithRouter';
+import NavLink from './MiniRouter/NavLink'
 const NumContext = React.createContext(10);
 function Son(props:any){
     console.log('props :>> ', props);
@@ -26,8 +26,7 @@ export default function Demo2(props:RouterProps) {
                 <Son/>
             </NumContext.Provider>
             {/* <button onClick={()=>{setNum(num+1);history.push("/demo1")}}>+</button> */}
-            <h2 onClick={()=>history?.push("/demo1")}>to demo1</h2>
-            {/* <NavLink to="/demo1"> to demo1 </NavLink> */}
+            <NavLink to="/demo1"> to demo1 </NavLink>
         </div>
     )
 }

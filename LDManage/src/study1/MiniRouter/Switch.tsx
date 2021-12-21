@@ -4,7 +4,7 @@ import {RouterContext} from "./Router"
 export default function Switch(props:any) {
     const routerContext:any= useContext(RouterContext)
     const location = routerContext.location || props.location
-    console.log('routerContext :>> ', routerContext);
+    console.log('routerContext :>> ', routerContext,props);
     let children:any,match: any;
     React.Children.forEach(props.children,(child:any)=>{
         if(!match && React.isValidElement(child)){

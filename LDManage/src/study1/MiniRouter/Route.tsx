@@ -2,6 +2,7 @@ import React,{useContext} from 'react'
 import { matchPath } from 'react-router'
 import {RouterContext} from "./Router"
 export default function Route(props:any) {
+    console.log(props,'props')
     const context:any= useContext(RouterContext)
     //Route 也可传locatin属性
     const location = props.location || context.location

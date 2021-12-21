@@ -1,7 +1,7 @@
 import React,{memo} from 'react'
 import "./home.scss"
 import Main from "../../components/Main/Main"
-import bgImg from "../../assets/bg.jpeg"
+import bgImg from "../../assets/bg1.jpeg"
 function Home(props:any) {
     return (
         <div className="home">

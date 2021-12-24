@@ -51,6 +51,9 @@ const routes = [
     },
     {
       path: '/feedback', name: 'feedback', component: resolve => { require(['@views/feedback/index.vue'], resolve) }
+    },
+    {
+        path: '/christmas', name: 'christmas', component: resolve => { require(['@views/christmas/christmas.vue'], resolve) }
     }
 ]
 

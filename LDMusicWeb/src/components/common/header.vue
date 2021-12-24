@@ -130,8 +130,10 @@ export default {
             }, {
                 name: 'Jay Chou',
                 path: '/jayChou'
-            }],
-            isShowSearch: false
+            }, {
+                name: '圣诞',
+                path: '/christmas'
+            }]
         }
     },
     // 监听属性 类似于data概念

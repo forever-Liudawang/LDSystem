@@ -130,9 +130,6 @@ export default {
             }, {
                 name: 'Jay Chou',
                 path: '/jayChou'
-            }, {
-                name: '圣诞',
-                path: '/christmas'
             }]
         }
     },

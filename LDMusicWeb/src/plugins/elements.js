@@ -31,7 +31,8 @@ import {
   MessageBox,
   Autocomplete,
   Tabs,
-  TabPane
+  TabPane,
+  Radio
 } from 'element-ui'
 
 Vue.use(Container)
@@ -63,5 +64,6 @@ Vue.use(Container)
   .use(Autocomplete)
   .use(Tabs)
   .use(TabPane)
+  .use(Radio)
 Vue.prototype.$msg = Message
 Vue.prototype.$msgBox = MessageBox

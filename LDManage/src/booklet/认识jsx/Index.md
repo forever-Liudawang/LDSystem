@@ -1,9 +1,9 @@
 ## react api
-1. `React.Children.toArray`
+1. `React.Children.toArray (扁平化)`
 ```javascript
 React.Children.toArray(children)
 ```
-2. ` React.cloneElement `
+2. ` React.cloneElement (属性浅层合并)`
 ``` javascript
 React.cloneElement(reactElement,{style:{color:'red'}},...newChildren)
 ```

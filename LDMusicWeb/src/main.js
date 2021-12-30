@@ -14,7 +14,7 @@ import {
 import infiniteScroll from 'vue-infinite-scroll'
 import getAwesomeSwiper from 'vue-awesome-swiper/dist/exporter'
 import CollapseTransition from 'element-ui/lib/transitions/collapse-transition'
-
+import '@utils/cookie'
 import '@assets/css/global.css'
 import '@assets/fonts/font.css'
 import 'swiper/swiper-bundle.css'

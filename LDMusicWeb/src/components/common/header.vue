@@ -100,6 +100,7 @@ export default {
             profile: {},
             serachHot: [],
             suggestInfo: {},
+            isShowSearch: false,
             listType: {
                 songs: '单曲',
                 artists: '歌手',

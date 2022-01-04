@@ -173,7 +173,8 @@ export default {
             }
 
             this.$msg.success('退出成功')
-            window.sessionStorage.removeItem('isLogin')
+            // window.sessionStorage.removeItem('isLogin')
+            window.sessionStorage.setItem('isLogin', false)
             window.sessionStorage.removeItem('token')
             window.sessionStorage.removeItem('cookie')
             window.sessionStorage.removeItem('userInfo')

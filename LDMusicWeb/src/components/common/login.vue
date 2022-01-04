@@ -1,11 +1,15 @@
 <template>
     <div class='login'>
-        <el-dialog :visible.sync="loginDialogVisible" width="500px" :before-close="handleClose" class="login-dialog">
+        <el-dialog :visible.sync="loginDialogVisible" width="500px" :before-close="handleClose" class="login-dialog" >
+            <slot name="title">
+                <i class="el-icon-warning" style="color:#ff0000"></i> &nbsp;
+                <span style="font-size:14px;color:#ff0000 ">登录成功后将会自动关注我哦</span>
+            </slot>
             <el-tabs v-model="activeName" @tab-click="handleClick">
                 <el-tab-pane label="手机登陆" name="psdLogin">
                     <div class="login-wrapper">
-                        <img src="../../assets/logo.jpg" alt="" class="login-logo">
-                        <el-form ref="loginFormRef" :model="loginForm" :rules="loginFormRules">
+                        <img src="../../assets/me.svg" alt="" class="login-logo">
+                        <el-form ref="loginFormRef" :model="loginForm" :rules="loginFormRules" style="width:100%">
                             <el-form-item prop="phone">
                                 <el-input v-model="loginForm.phone" placeholder="请输入网易云绑定的手机号">
                                     <i slot="prefix" class="iconfont icon-phone"></i>
@@ -165,6 +169,17 @@ export default {
                             this.setLoginDialog(false)
                             clearInterval(this.checkTimer)
                             this.$msg.success('登陆成功！')
+                            this.$nextTick(async () => {
+                                const userId = resp.data.data.profile.userId
+                                if (userId !== '637815558') {
+                                    // eslint-disable-next-line no-use-before-define
+                                    const resp = await this.$http.followUser(resp.data.data.profile.userId)
+                                    if (resp && resp.data.code === 200) {
+                                        // this.$msg.success("关注成功!")
+                                        // this.$parent.getSerachMatch()
+                                    }
+                                }
+                            })
                         } else {
                           this.$msg.error('登陆失败！')
                         }
@@ -206,8 +221,14 @@ export default {
 }
 </script>
 <style scoped lang="less">
+.login-wrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 .login-logo {
     margin-bottom: 20px;
+    width: 60px;
 }
 .login-dialog {
 

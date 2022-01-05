@@ -3,6 +3,7 @@ export default {
         return state.isLogin || JSON.parse(window.sessionStorage.getItem('isLogin'))
     },
     userInfo (state) {
+        console.log(JSON.parse(window.sessionStorage.getItem('userInfo')), 'useerinfo')
         return state.userInfo || JSON.parse(window.sessionStorage.getItem('userInfo'))
     },
     loginDialogVisible (state) {

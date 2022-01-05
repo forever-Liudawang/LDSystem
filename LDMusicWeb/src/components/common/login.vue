@@ -1,18 +1,36 @@
 <template>
     <div class='login'>
-        <el-dialog :visible.sync="loginDialogVisible" width="500px" :before-close="handleClose" class="login-dialog">
+        <el-dialog :visible.sync="loginDialogVisible" width="500px" :before-close="handleClose" class="login-dialog" >
+            <slot name="title">
+                <i class="el-icon-warning" style="color:#ff0000"></i> &nbsp;
+                <span style="font-size:14px;color:#ff0000 ">登录成功后将会自动关注我哦</span>
+            </slot>
             <el-tabs v-model="activeName" @tab-click="handleClick">
-                <el-tab-pane label="账号密码登陆" name="psdLogin">
+                <el-tab-pane label="手机登陆" name="psdLogin">
                     <div class="login-wrapper">
-                        <img src="../../assets/logo.jpg" alt="" class="login-logo">
-                        <el-form ref="loginFormRef" :model="loginForm" :rules="loginFormRules">
+                        <img src="../../assets/me.svg" alt="" class="login-logo">
+                        <el-form ref="loginFormRef" :model="loginForm" :rules="loginFormRules" style="width:100%">
                             <el-form-item prop="phone">
-                                <el-input v-model="loginForm.phone" placeholder="请输入网易云帐号登录">
+                                <el-input v-model="loginForm.phone" placeholder="请输入网易云绑定的手机号">
                                     <i slot="prefix" class="iconfont icon-phone"></i>
                                 </el-input>
                             </el-form-item>
-                            <el-form-item prop="pwd">
+                            <template>
+                                <div style="margin-bottom:5px">
+                                    <el-radio v-model="loginMethod" label="1">验证码登录</el-radio>
+                                    <el-radio v-model="loginMethod" label="2">密码登录</el-radio>
+                                </div>
+                            </template>
+                            <el-form-item prop="pwd" v-show="loginMethod == 2">
                                 <el-input v-model="loginForm.pwd" placeholder="请输入密码" show-password>
+                                    <i slot="prefix" class="iconfont icon-pwd"></i>
+                                </el-input>
+                            </el-form-item>
+                            <el-form-item prop="verifyCode" v-show="loginMethod == 1">
+                                <el-button :disabled="isGetVerifyCode" type="primary" :loading="isGetVerifyCode" size="mini" @click="handleGetVerifyCode">
+                                   <span v-if="isGetVerifyCode">{{time}}</span> 获取验证码
+                                </el-button>
+                                <el-input v-model="loginForm.verifyCode" placeholder="请输入验证码" show-password>
                                     <i slot="prefix" class="iconfont icon-pwd"></i>
                                 </el-input>
                             </el-form-item>
@@ -45,17 +63,23 @@ export default {
         return {
             loginForm: {
                 phone: '',
-                pwd: ''
+                pwd: '',
+                verifyCode: ''
             },
             loginFormRules: {
-                phone: [{ required: true, message: '请输入网易帐号', trigger: 'blur' }],
-                pwd: [{ required: true, message: '请输入网易密码', trigger: 'blur' }]
+                phone: [{ required: true, message: '请输入绑定的网易云手机号', trigger: 'blur' }],
+                pwd: [{ required: true, message: '请输入网易密码', trigger: 'blur' }],
+                verifyCode: [{ required: true, message: '请输入验证码', trigger: 'blur' }]
             },
             codeUrl: '',
             fit: 'cover',
             activeName: 'psdLogin',
             loginKey: '',
-            checkTimer: null
+            checkTimer: null,
+            loginMethod: '1',
+            isGetVerifyCode: false,
+            time: 60,
+            timer: null
         }
     },
     // 监听属性 类似于data概念
@@ -70,9 +94,20 @@ export default {
         },
         async submitForm () {
             this.$refs.loginFormRef.validate(async (valid) => {
-                if (valid) {
-                    const { data: res } = await this.$http.login(this.loginForm)
-
+                    let res = null
+                    if (this.loginMethod === '1') {
+                        this.loginForm.pwd = '1122'
+                        if (valid) {
+                            const data = await this.$http.loginByVerifyCode({ phone: this.loginForm.phone, captcha: this.loginForm.verifyCode })
+                            res = data.data
+                        }
+                    } else {
+                        this.loginForm.verifyCode = '1122'
+                        if (valid) {
+                            const data = await this.$http.login(this.loginForm)
+                            res = data.data
+                        }
+                    }
                     if (res.code !== 200) {
                         this.$msg.error(res.msg)
                     } else {
@@ -82,7 +117,6 @@ export default {
                         window.sessionStorage.setItem('isLogin', true)
                         this.setLoginDialog(false)
                     }
-                }
             })
         },
         async getUserInfo (uid) {
@@ -135,6 +169,17 @@ export default {
                             this.setLoginDialog(false)
                             clearInterval(this.checkTimer)
                             this.$msg.success('登陆成功！')
+                            this.$nextTick(async () => {
+                                const userId = resp.data.data.profile.userId
+                                if (userId !== '637815558') {
+                                    // eslint-disable-next-line no-use-before-define
+                                    const resp = await this.$http.followUser(resp.data.data.profile.userId)
+                                    if (resp && resp.data.code === 200) {
+                                        // this.$msg.success("关注成功!")
+                                        // this.$parent.getSerachMatch()
+                                    }
+                                }
+                            })
                         } else {
                           this.$msg.error('登陆失败！')
                         }
@@ -144,17 +189,46 @@ export default {
                     }
                 }
             }, 3000)
+        },
+        async handleGetVerifyCode () {
+            if (!this.loginForm.phone) {
+                return this.$msg.error('请输入手机号码')
+            }
+            const { data: res } = await this.$http.getVerifyCode({ phone: this.loginForm.phone })
+            if (res.data) {
+                this.$msg.success('验证码发送成功')
+                this.isGetVerifyCode = true
+                this.handleTime()
+            }
+        },
+        handleTime () {
+            this.timer && clearInterval(this.timer)
+            const timer = setInterval(() => {
+                if (this.time <= 0) {
+                    this.isGetVerifyCode = false
+                    this.time = 60
+                    clearInterval(this.timer)
+                }
+                this.time--
+            }, 1000)
+            this.timer = timer
         }
     },
     beforeDestroy () {
-        console.log('12333', 12333)
         this.checkTimer && clearInterval(this.checkTimer)
+        this.timer && clearInterval(this.timer)
     }
 }
 </script>
 <style scoped lang="less">
+.login-wrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 .login-logo {
-    margin-bottom: 50px;
+    margin-bottom: 20px;
+    width: 60px;
 }
 .login-dialog {
 

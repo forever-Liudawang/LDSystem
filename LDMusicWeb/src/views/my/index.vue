@@ -141,7 +141,9 @@ export default {
     border-radius: 4px;
     overflow-y: auto;
     box-shadow: 0 0 20px 0 rgba(65,67,70,.05);
-
+    position: sticky;
+    height: calc(100vh - 150px);
+    top:20px;
     h3 {
         display: flex;
         padding: 0 20px;

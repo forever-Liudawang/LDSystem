@@ -1,7 +1,7 @@
 <template>
     <div class='comments'>
         <div class="comment_hd">
-            <h2>反馈<em>共{{total}}条反馈</em></h2>
+            <h2>反馈<em>共{{total}}条反馈评论</em></h2>
             <div class="userInfo" v-if="userInfo">
                 <span>{{userInfo.nickname}}</span>
                 <el-image :src="userInfo.avatarUrl" class="avatar">
@@ -14,7 +14,7 @@
         <el-form class="comment_box">
             <div class="comment_textarea">
                 <div class="pre">{{msg}}</div>
-                <textarea class="J_inpBox inp-paragraph" name="leave_msg" id="leave_msg" placeholder="期待你的神评论……" v-model="msg"></textarea>
+                <textarea class="J_inpBox inp-paragraph" name="leave_msg" id="leave_msg" placeholder="期待你的反馈……" v-model="msg"></textarea>
             </div>
             <div class="comment_box_footer">
                 <el-button type="primary" size="mini" @click="subComment">反馈</el-button>
@@ -88,7 +88,7 @@ export default {
         return {
             msg: '',
             maxLen: 140,
-            curId: this.id,
+            curId: '986847103',
             limit: 20,
             offset: 0,
             before: 0,

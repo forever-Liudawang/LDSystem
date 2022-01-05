@@ -13,6 +13,7 @@ const serachSuggest = ({ keywords = '' }) => { return api.get(`/search/suggest?k
 const serachMatch = ({ keywords = '' }) => { return api.get(`/search/multimatch?keywords=${keywords}`, {}) }
 // 登录
 const login = ({ phone = '', pwd = '' }) => { return api.get(`/login/cellphone?phone=${phone}&password=${pwd}`, {}) }
+const loginByVerifyCode = ({ phone = '', captcha = '' }) => { return api.get(`/login/cellphone?phone=${phone}&captcha=${captcha}`, {}) }
 // 退出登录
 const logout = () => { return api.get('/logout', {}) }
 // 获取用户详情
@@ -169,6 +170,8 @@ const followUser = (id = '', t = 1) => api.get(`/follow/?id=${id}&t=${t}`)
 
 // 用户播放列表
 const getPlayList = (uid = '', type = 1) => api.get(`/user/record?uid=${uid}&type=${1}`)
+
+const getVerifyCode = ({ phone = '' }) => api.get(`/captcha/sent?phone=${phone}`)
 export {
     getBanner,
     search,
@@ -235,5 +238,7 @@ export {
     loginRefresh,
     loginSuccess,
     followUser,
-    getPlayList
+    getPlayList,
+    getVerifyCode,
+    loginByVerifyCode
 }

@@ -100,6 +100,7 @@ export default {
             profile: {},
             serachHot: [],
             suggestInfo: {},
+            isShowSearch: false,
             listType: {
                 songs: '单曲',
                 artists: '歌手',
@@ -130,9 +131,6 @@ export default {
             }, {
                 name: 'Jay Chou',
                 path: '/jayChou'
-            }, {
-                name: '圣诞',
-                path: '/christmas'
             }]
         }
     },
@@ -175,7 +173,8 @@ export default {
             }
 
             this.$msg.success('退出成功')
-            window.sessionStorage.removeItem('isLogin')
+            // window.sessionStorage.removeItem('isLogin')
+            window.sessionStorage.setItem('isLogin', false)
             window.sessionStorage.removeItem('token')
             window.sessionStorage.removeItem('cookie')
             window.sessionStorage.removeItem('userInfo')

@@ -1,5 +1,5 @@
 <template>
-    <div class="users-list-main"> 
+    <div class="users-list-main">
         <div class="list-header flex">
             <div class="columnIndex">序号</div>
             <div class="columnName">歌手名字</div>
@@ -31,14 +31,14 @@
                 </div>
             </div>
         </div>
-        
+
     </div>
 </template>
 
 <script>
-import {mapMutations} from "vuex"
+import { mapMutations } from 'vuex'
 export default {
-  name: "userList",
+  name: 'userList',
   props: {
     userList: {
       type: Array,
@@ -62,67 +62,66 @@ export default {
     //   offset(){
     //   }
   },
-  created() {
-    console.log(`this.offset`, this.offset);
+  created () {
+    console.log('this.offset', this.offset)
   },
-  data() {
-    return {};
+  data () {
+    return {}
   },
   methods: {
     ...mapMutations(['setCurrentUserInfo']),
-    getIndex(index) {
-      return this.offset + index + 1;
+    getIndex (index) {
+      return this.offset + index + 1
     },
-    //关注或取消关注
-    handleFollow(type, item) {
-      console.log(type);
+    // 关注或取消关注
+    handleFollow (type, item) {
+      console.log(type)
       if (!this.$store.state.isLogin) {
-        this.$msg.warning("请先登录!");
+        this.$msg.warning('请先登录!')
       } else {
         if (type == 1) {
           this.$msgBox
-            .confirm("是否关注该用户?", "提示", {
-              confirmButtonText: "确定",
-              cancelButtonText: "取消",
+            .confirm('是否关注该用户?', '提示', {
+              confirmButtonText: '确定',
+              cancelButtonText: '取消',
               center: true
             })
             .then(async () => {
                 const resp = await this.$http.followUser(item.userId)
-                console.log(resp,"resp==>>>>")
-                if(resp && resp.data.code == 200){
-                    this.$msg.success("关注成功!")
+                console.log(resp, 'resp==>>>>')
+                if (resp && resp.data.code == 200) {
+                    this.$msg.success('关注成功!')
                     this.$parent.getSerachMatch()
                 }
             })
-            .catch(() => {});
-        }else{
+            .catch(() => {})
+        } else {
             this.$msgBox
-            .confirm("是否取消关注", "提示", {
-              confirmButtonText: "确定",
-              cancelButtonText: "取消",
+            .confirm('是否取消关注', '提示', {
+              confirmButtonText: '确定',
+              cancelButtonText: '取消',
               center: true
             })
             .then(async () => {
-                const resp = await this.$http.followUser(item.userId,0)
-                if(resp && resp.data.code == 200){
-                    this.$msg.success("取消成功!")
+                const resp = await this.$http.followUser(item.userId, 0)
+                if (resp && resp.data.code == 200) {
+                    this.$msg.success('取消成功!')
                     this.$parent.getSerachMatch()
                 }
             })
             .catch((err) => {
                     this.$msg.error(err)
-            });
+            })
         }
       }
     },
-    handleToUserDetail(userInfo) {
+    handleToUserDetail (userInfo) {
       this.setCurrentUserInfo(userInfo)
-      this.$router.push({ path: '/user'})
+      this.$router.push({ path: '/user' })
     }
   }
-};
+}
 </script>
-
 
 <style lang="less" scoped>
 .list-header {
@@ -180,7 +179,7 @@ export default {
       padding-left: 20px;
       font-size: 16px;
       font-weight: 600;
-      
+
     }
     &:hover {
         color: @color-theme;

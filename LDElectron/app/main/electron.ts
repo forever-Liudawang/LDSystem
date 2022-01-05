@@ -27,7 +27,7 @@ function createWindow() {
     mainWindow.loadURL('http://localhost:8080/static/music/#/index');
   } else {
     // mainWindow.loadFile('index.html');
-    mainWindow.loadURL('http://andy.lmytest.top/web#/app');
+    mainWindow.loadURL('http://andy.lmytest.top/Ldmusic#/index');
   }
 }
 

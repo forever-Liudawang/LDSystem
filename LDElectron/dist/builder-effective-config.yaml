@@ -2,11 +2,31 @@ directories:
   output: dist
   buildResources: build
 appId: LDMusic
-productName: electron
+productName: LDMusic
 copyright: Copyright © 2019 ${author}
 files:
   - filter:
       - dist/**/*
       - package.json
       - node_modules/
+extraMetadata:
+  main: dist/electron.js
+mac:
+  icon: ./assets/me.ico
+win:
+  icon: ./assets/me.ico
+linux:
+  icon: ./assets/me.ico
+nsis:
+  oneClick: false
+  guid: LDMusic
+  perMachine: true
+  allowElevation: true
+  allowToChangeInstallationDirectory: true
+  installerIcon: ./assets/me.ico
+  uninstallerIcon: ./assets/me.ico
+  installerHeaderIcon: ./assets/me.ico
+  createDesktopShortcut: true
+  createStartMenuShortcut: true
+  shortcutName: LDMusic
 electronVersion: 16.0.4

@@ -27,3 +27,8 @@ function Index(){
     return <Father { ...indexProps }  />
 }
 ```
+
+# 隐式注入props
+```javascript
+    React.cloneElement(child,{...child.props,onChange:(e: any=>handleChange(e,child.props.name)})
+```

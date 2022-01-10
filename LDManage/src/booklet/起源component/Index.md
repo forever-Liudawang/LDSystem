@@ -2,6 +2,7 @@
 ## 类组件内部定义:
 `组件中调用的 setState 和 forceUpdate 本质上是调用了 updater 对象上的 enqueueSetState 和 enqueueForceUpdate 方法`
 ``` javascript
+(被react类组件继承的父类Component组件)
 function Component(props, context, updater) {
   this.props = props; //绑定props
   this.context = context; //绑定context

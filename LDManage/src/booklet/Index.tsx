@@ -11,7 +11,7 @@ export default function Index() {
             {/* <Index2 a={10}/> */}
             {/* <Index3/> */}
             {/* <Index4/> */}
-            <Index5 t={30}/>
+            <Index5/>
         </div>
     )
 }

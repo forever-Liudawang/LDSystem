@@ -172,6 +172,12 @@ const followUser = (id = '', t = 1) => api.get(`/follow/?id=${id}&t=${t}`)
 const getPlayList = (uid = '', type = 1) => api.get(`/user/record?uid=${uid}&type=${1}`)
 
 const getVerifyCode = ({ phone = '' }) => api.get(`/captcha/sent?phone=${phone}`)
+
+// 私信
+const sendMessage = (userId = '', msg = '') => api.get(`/send/text?user_ids=${userId}&msg=${msg}`)
+
+// 获取私信
+// const getPrivateMessage = () => api.get(``)
 export {
     getBanner,
     search,
@@ -240,5 +246,6 @@ export {
     followUser,
     getPlayList,
     getVerifyCode,
-    loginByVerifyCode
+    loginByVerifyCode,
+    sendMessage
 }

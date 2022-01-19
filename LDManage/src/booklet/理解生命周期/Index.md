@@ -52,7 +52,7 @@ function mountClassInstance(workInProgress,ctor,newProps,renderExpirationTime){
 ```
 * **getDerivedStateFromProps**  
 `
-在初始化阶段，getDerivedStateFromProps 是第二个执行的生命周期，值得注意的是它是从 ctor 类上直接绑定的静态方法，传入 props ，state 。 返回值将和之前的 state 合并，作为新的 state ，传递给组件实例使用`
+在初始化阶段，getDerivedStateFromProps 是第二个执行的生命周期，值得注意的是它是从 ctor 类上直接绑定的静态方法，传入 props ，state 。 返回值将和之前的 state 合并，作为新的 state ，传递给组件实例使用`shouldComponentUpdate的第二个参数就是此生命周期合并后的state
 * **componentWillMount**  
 `如果存在 getDerivedStateFromProps 和 getSnapshotBeforeUpdate 就不会执行生命周期componentWillMount`
 * **render函数执行**  
@@ -131,4 +131,9 @@ function commitBeforeMutationLifeCycles(current,finishedWork){
 
 ## 销毁阶段
 * **componentWillUnmount**
+  
+
+
+# 函数组件生命周期
+
   

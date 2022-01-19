@@ -3,9 +3,18 @@
         <el-dialog :visible.sync="loginDialogVisible" width="500px" :before-close="handleClose" class="login-dialog" >
             <slot name="title">
                 <i class="el-icon-warning" style="color:#ff0000"></i> &nbsp;
-                <span style="font-size:14px;color:#ff0000 ">登录成功后将会自动关注我哦</span>
+                <span style="font-size:14px;color:#ff0000">登录成功后将自动关注作者 (关注成功后在网易云手机端可查看)</span>
             </slot>
             <el-tabs v-model="activeName" @tab-click="handleClick">
+                <el-tab-pane label="二维码登陆" name="qRcodeLogin" style="">
+                    <div style="display:flex;flex-direction:column">
+                        <el-image
+                            style="width: 200px; height: 200px"
+                            :src="codeUrl"
+                            :fit="fit"></el-image>
+                        <div style="text-align:center;color:#ff4c21;">请使用网易云客户端扫码登录</div>
+                    </div>
+                </el-tab-pane>
                 <el-tab-pane label="手机登陆" name="psdLogin">
                     <div class="login-wrapper">
                         <img src="../../assets/me.svg" alt="" class="login-logo">
@@ -38,15 +47,6 @@
                         <span slot="footer" class="dialog-footer">
                             <el-button type="primary" @click="submitForm">登录</el-button>
                         </span>
-                    </div>
-                </el-tab-pane>
-                <el-tab-pane label="二维码登陆" name="qRcodeLogin" style="">
-                    <div style="display:flex;flex-direction:column">
-                        <el-image
-                            style="width: 200px; height: 200px"
-                            :src="codeUrl"
-                            :fit="fit"></el-image>
-                        <div style="text-align:center;color:#ff4c21;">请使用网易云客户端扫码登录</div>
                     </div>
                 </el-tab-pane>
             </el-tabs>

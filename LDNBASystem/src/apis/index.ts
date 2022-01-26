@@ -11,7 +11,7 @@ import axios,{ AxiosPromise } from "axios"
 //     position: "All" || "G" || "F" || "C",  位置 === 全部 后卫  前锋  中锋 
 //     qualified: false,
 //     season: "2002",  赛季 === 2002-2003
-//     seasonType: 2,  赛季 1 || 2 || 4 季前赛 常规赛  季后赛
+//     seasonType: 2,  赛季 1 || 2 || 4 季前赛  常规赛  季后赛
 //     split: "All Team",
 //     statType: "points", rebounds  assists blocks steals fouls turnovers mins efficiency tppct ftpct
     // 得分 篮板 助攻 盖帽 抢断 犯规 失误 时间 效率 三分 罚球

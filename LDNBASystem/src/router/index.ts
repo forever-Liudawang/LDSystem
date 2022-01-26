@@ -1,17 +1,20 @@
-import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
-import Home from '../views/Home.vue'
+import {createWebHashHistory,RouteRecordRaw,createRouter} from "vue-router"
 
-const routes: Array<RouteRecordRaw> = [
-  {
-    path: '/',
-    name: 'Home',
-    component: Home
-  },
+const routes:RouteRecordRaw[] = [
+    {
+        path: "/",
+        name: "Home",
+        component:():Promise<typeof import("*.vue")> => import('@src/views/Home.vue'),
+        meta: {
+            keepAlive: true //设置页面是否需要使用缓存
+        },
+        // component: ()=>import("../components/HelloWorld.vue")
+    },
 ]
-
+const history = createWebHashHistory()
 const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
-  routes
+    history,
+    scrollBehavior:()=>({top:0}),
+    routes 
 })
-
 export default router

@@ -1,55 +1,38 @@
 {
-  "name": "test1",
-  "version": "0.1.0",
-  "private": true,
+  "name": "nbaSystem",
+  "version": "1.0.0",
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "dev": "vite --host",
+    "build": "vite build  --base=/static/app/",
+    "lint:eslint": "eslint src --fix --ext .ts,.tsx,.vue ",
+    "serve": "vite preview",
+    "lint:prettier": "prettier --write  \"src/**/*.{js,json,ts,tsx,css,less,scss,vue,html,md}\""
   },
   "dependencies": {
-    "@jiaminghi/data-view": "^2.10.0",
-    "axios": "^0.25.0",
-    "core-js": "^3.6.5",
-    "echarts": "^5.2.2",
-    "element-plus": "^1.3.0-beta.5",
-    "vue": "^3.0.0",
-    "vue-router": "^4.0.0-0"
+    "@antv/g2": "^4.1.41",
+    "aplayer": "^1.10.1",
+    "axios": "^0.24.0",
+    "better-scroll": "^2.4.2",
+    "element-plus": "^1.3.0-beta.9",
+    "esbuild-windows-64": "^0.13.15",
+    "lib-flexible": "^0.3.2",
+    "postcss-pxtorem": "^6.0.0",
+    "sass": "^1.43.4",
+    "vite-plugin-vconsole": "^1.1.0",
+    "vue": "^3.2.16",
+    "vue-router": "^4.0.12"
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^4.18.0",
-    "@typescript-eslint/parser": "^4.18.0",
-    "@vue/cli-plugin-babel": "~4.5.0",
-    "@vue/cli-plugin-eslint": "~4.5.0",
-    "@vue/cli-plugin-router": "~4.5.0",
-    "@vue/cli-plugin-typescript": "~4.5.0",
-    "@vue/cli-service": "~4.5.0",
-    "@vue/compiler-sfc": "^3.0.0",
-    "@vue/eslint-config-typescript": "^7.0.0",
-    "eslint": "^6.7.2",
-    "eslint-plugin-vue": "^7.0.0",
-    "sass": "^1.26.5",
-    "sass-loader": "^8.0.2",
-    "typescript": "~4.1.5"
-  },
-  "eslintConfig": {
-    "root": true,
-    "env": {
-      "node": true
-    },
-    "extends": [
-      "plugin:vue/vue3-essential",
-      "eslint:recommended",
-      "@vue/typescript/recommended"
-    ],
-    "parserOptions": {
-      "ecmaVersion": 2020
-    },
-    "rules": {}
-  },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not dead"
-  ]
+    "@types/node": "^16.11.7",
+    "@vitejs/plugin-vue": "^1.9.3",
+    "eslint": "^8.2.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-vue": "^8.0.3",
+    "lint-staged": "^12.0.2",
+    "prettier": "^2.4.1",
+    "typescript": "^4.3.5",
+    "vite": "^2.6.4",
+    "vite-plugin-style-import": "^1.3.0",
+    "vue-tsc": "^0.3.0"
+  }
 }

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="SOHUCS" sid="请将此处替换为配置SourceID的语句"></div>
+    <script id="changyan_mobile_js" charset="utf-8" type="text/javascript"
+        src="https://cy-cdn.kuaizhan.com/upload/mobile/wap-js/changyan_mobile.js?client_id=cyvJ24s07&conf=prod_9e2c4aa575da023b7ba312f1b098bc48">
+    </script>
+    <script type="text/javascript">
+        const search = location.search
+        const aId = search.split("=")[1]
+        const ele = document.getElementById("SOHUCS")
+        // const cyReward = document.getElementById("cyReward")
+        console.log('aId :>> ', aId);
+        ele.setAttribute("sid",aId)
+        // cyReward.setAttribute("sid",aId)
+        window.changyan.api.config({
+            appid: 'cyvJ24s07',
+            conf: 'prod_9e2c4aa575da023b7ba312f1b098bc48'
+        });
+    </script>
+</body>
+
+</html>

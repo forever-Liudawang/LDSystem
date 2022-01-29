@@ -1,0 +1,38 @@
+{
+  "name": "nbaSystem",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "vite --host",
+    "build": "vite build  --base=/static/app/",
+    "lint:eslint": "eslint src --fix --ext .ts,.tsx,.vue ",
+    "serve": "vite preview",
+    "lint:prettier": "prettier --write  \"src/**/*.{js,json,ts,tsx,css,less,scss,vue,html,md}\""
+  },
+  "dependencies": {
+    "@antv/g2": "^4.1.41",
+    "aplayer": "^1.10.1",
+    "axios": "^0.24.0",
+    "better-scroll": "^2.4.2",
+    "element-plus": "^1.3.0-beta.9",
+    "esbuild-windows-64": "^0.13.15",
+    "lib-flexible": "^0.3.2",
+    "postcss-pxtorem": "^6.0.0",
+    "sass": "^1.43.4",
+    "vite-plugin-vconsole": "^1.1.0",
+    "vue": "^3.2.16",
+    "vue-router": "^4.0.12"
+  },
+  "devDependencies": {
+    "@types/node": "^16.11.7",
+    "@vitejs/plugin-vue": "^1.9.3",
+    "eslint": "^8.2.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-vue": "^8.0.3",
+    "lint-staged": "^12.0.2",
+    "prettier": "^2.4.1",
+    "typescript": "^4.3.5",
+    "vite": "^2.6.4",
+    "vite-plugin-style-import": "^1.3.0",
+    "vue-tsc": "^0.3.0"
+  }
+}

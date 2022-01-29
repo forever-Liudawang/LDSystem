@@ -1,0 +1,24 @@
+//全局变量配置
+$theme-color:#ff4c21;
+$headerHeight:100px;
+.d-flex{
+    display: flex;
+}
+.justify-center{
+    justify-content: center;
+}
+.align-center{
+    align-items: center;
+}
+:root{
+    --van-loading-text-color:$theme-color !important;
+}
+code{
+    border-radius: 6px;
+}
+.w-full{
+    width: 100%;
+}
+.h-full{
+    height: 100%;
+}

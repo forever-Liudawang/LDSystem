@@ -1,7 +1,7 @@
 import request from "../utils/request"
 import {IHttpResponse} from "@src/utils/types"
 import axios,{ AxiosPromise } from "axios"
-
+import {matchApi} from "@src/config"
 // const params = {
 //     conference: "All", western eastern  === 西部 东部 
 //     country: "All",
@@ -48,6 +48,12 @@ export const test = async () =>{
             team: "warriors",
             total: "perGame",
         }
+    })
+}
+export const getMathchProcess  = async () => {
+    return await request({
+        url: matchApi,
+        method: "get"
     })
 }
 

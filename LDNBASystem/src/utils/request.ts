@@ -16,7 +16,7 @@ const codeMessage: Record<number, string> = {
 }
 const service = axios.create({
   baseURL: import.meta.env.VITE_APP_BASE_API,
-  timeout:2000
+  timeout:2000,
 })
 service.interceptors.request.use((config:AxiosRequestConfig)=>{
   return config
@@ -43,13 +43,14 @@ service.interceptors.response.use((resp:AxiosResponse<IHttpResponse>)=>{
 })
 const request = (config:IHttpConfig)=>{
   const {url,method="post",data,params} =config
-  return new Promise<IHttpResponse>(async (resolve,reject)=>{
+  return new Promise<any>(async (resolve,reject)=>{
       const resp:any= await service({url,method,data,params})
-      if(resp && resp.success){
-          resolve(resp)
-      }else{
-          reject(resp.error)
-      }
+      resolve(resp)
+      // if(resp && resp.success){
+      //     resolve(resp)
+      // }else{
+      //     reject(resp.error)
+      // }
   })
 }
 export default request

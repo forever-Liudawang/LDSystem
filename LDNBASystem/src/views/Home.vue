@@ -1,52 +1,173 @@
 <script setup lang="ts">
-import { onMounted, ref, getCurrentInstance } from 'vue'
-import { getRecommendArticle,test} from '@src/apis/index'
-const G2 = getCurrentInstance()?.appContext.config.globalProperties.$G2
-const currentDate = ref(new Date())
-const resp = await test()
-console.log(resp,'resp')
-onMounted(() => {
-//   const data = [
-//     { genre: 'Sports', sold: 275 },
-//     { genre: 'Strategy', sold: 115 },
-//     { genre: 'Action', sold: 120 },
-//     { genre: 'Shooter', sold: 350 },
-//     { genre: 'Other', sold: 150 }
-//   ] // G2 对数据源格式的要求，仅仅是 JSON 数组，数组的每个元素是一个标准 JSON 对象。
-//   // Step 1: 创建 Chart 对象
-//   const chart = new G2.Chart({
-//     container: 'c1', // 指定图表容器 ID
-//     width: 600, // 指定图表宽度
-//     height: 300 // 指定图表高度
-//   })
-//   console.log(chart, 'chart')
-//   // Step 2: 载入数据源
-//   chart.source(data)
-//   // Step 3：创建图形语法，绘制柱状图，由 genre 和 sold 两个属性决定图形位置，genre 映射至 x 轴，sold 映射至 y 轴
-//   chart.interval().position('genre*sold').color('genre')
-//   // Step 4: 渲染图表
-//   chart.render()
+import { reactive, ref, toRefs,onMounted} from 'vue'
+import { getMathchProcess } from '@src/apis/index'
+import MatchList from '../components/MatchList.vue';
+const matchList = ref([])
+
+onMounted(async () =>{
+  const resp = await getMathchProcess()
+  if(resp && resp.payload){
+    const list = resp.payload.dates || []
+    matchList.value = list;
+  }
+  console.log(resp,"resp==")
 })
 </script>
 
 <template>
-  <!-- <div id="c1" :style="{ boxShadow: `var(--el-box-shadow-light)` }"></div> -->
-  <div>
-    <el-row>
-      <el-col v-for="(o, index) in 2" :key="o" :span="8" :offset="index > 0 ? 2 : 0">
-        <el-card :body-style="{ padding: '0px' }" shadow="always">
-          <img src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png" class="image w-full" />
-          <div style="padding: 14px">
-            <span>Yummy hamburger</span>
-            <div class="bottom">
-              <time class="time">{{ currentDate }}</time>
-              <el-button type="text" class="button">Operating</el-button>
-            </div>
-          </div>
-        </el-card>
-      </el-col>
-    </el-row>
+  <div style="height: 100vh; width: 100vw" class="home">
+    <div class="card">
+      <div class="title">unstopable</div>
+      <video controls="controls"  src="/src/assets/bg.mp4" poster="/src/assets/bg.jpg" style="width: 100%;margin-top: 20px;border-radius: 2px;" autoplay loop></video>
+    </div>
+    
+    <div class="btn">
+      <button class="learn-more">
+        <span class="circle" aria-hidden="true">
+          <span class="icon arrow"></span>
+        </span>
+        <h1 class="button-text">go chart</h1>
+      </button>
+    </div>
+    <div class="match">
+      <span>赛程</span>
+      <MatchList/>
+    </div>
+    <!-- <img style="width: 100%; height: 100%" src="/src/assets/bg.jpg" alt="" /> -->
   </div>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.home {
+  position: relative;
+  background-color: #ececec;
+  display: flex;
+  justify-content: ce;
+  .card {
+    position: absolute;
+    left: 10%;
+    top: 18%;
+    width: 25%;
+    height: 50%;
+    border-radius: 30px;
+    background: #e0e0e0;
+    box-shadow: 15px 15px 30px #bebebe, -15px -15px 30px #ffffff;
+    .title {
+      border-radius: 30px;
+      padding: 40px 0;
+      /* box-shadow: 15px 15px 30px #bebebe, -15px -15px 30px #ffffff; */
+      font-size: 42px;
+      text-align: center;
+      font-weight: bold;
+      text-transform: uppercase;
+      position: relative;
+      /* background-color: #333;  */
+      /* color: #fefefe; */
+      text-shadow: 0px 1px 0px #c0c0c0, 0px 2px 0px #b0b0b0, 0px 3px 0px #a0a0a0, 0px 4px 0px #909090, 0px 5px 10px rgba(180, 180, 180, 0.6);
+    }
+  }
+  .btn {
+    position: absolute;
+    left: 39%;
+    top: 35%;
+    button {
+      position: relative;
+      display: inline-block;
+      cursor: pointer;
+      outline: none;
+      border: 0;
+      vertical-align: middle;
+      text-decoration: none;
+      background: transparent;
+      padding: 0;
+      font-size: inherit;
+      font-family: inherit;
+    }
+
+    button.learn-more {
+      width: 6rem;
+      height: auto;
+    }
+
+    button.learn-more .circle {
+      transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+      position: relative;
+      display: block;
+      margin: 0;
+      width: 2rem;
+      height: 2rem;
+      background: #282936;
+      border-radius: 1.625rem;
+    }
+
+    button.learn-more .circle .icon {
+      transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      margin: auto;
+      background: #fff;
+    }
+
+    button.learn-more .circle .icon.arrow {
+      transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+      left: 0.225rem;
+      width: 1.125rem;
+      height: 0.125rem;
+      background: none;
+    }
+
+    button.learn-more .circle .icon.arrow::before {
+      position: absolute;
+      content: '';
+      top: -0.29rem;
+      right: 0.0625rem;
+      width: 0.625rem;
+      height: 0.625rem;
+      border-top: 0.125rem solid #fff;
+      border-right: 0.125rem solid #fff;
+      transform: rotate(45deg);
+    }
+
+    button.learn-more .button-text {
+      transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: 0.75rem 0;
+      margin: 0 0 0 1.85rem;
+      color: #282936;
+      font-weight: 700;
+      line-height: 1.6;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    button:hover .circle {
+      width: 100%;
+    }
+
+    button:hover .circle .icon.arrow {
+      background: #fff;
+      transform: translate(1rem, 0);
+    }
+
+    button:hover .button-text {
+      color: #fff;
+    }
+  }
+  .match{
+    position: absolute;
+    padding: 24px 20px;
+    right: 10%;
+    top: 18%;
+    width: 25%;
+    height: 50%;
+    border-radius: 30px;
+    background: #e0e0e0;
+    box-shadow: 15px 15px 30px #bebebe, -15px -15px 30px #ffffff;
+  }
+}
+</style>

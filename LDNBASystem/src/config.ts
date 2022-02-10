@@ -15,3 +15,5 @@ export const jayZhouList = [
     '骑士精神'
     ]
 export const jayZhouPath = "http://blog-andy-liu.oss-cn-beijing.aliyuncs.com/jayZhou/jayZhou"
+// 球队赛程
+export const matchApi = "https://china.nba.cn/stats2/season/schedule.json?countryCode=CN&days=7&locale=zh_CN&tz=%2B8"

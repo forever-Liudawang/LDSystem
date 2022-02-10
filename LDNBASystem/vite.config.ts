@@ -23,7 +23,7 @@ export default ({ command, mode }: ConfigEnv):UserConfigExport=>{
     ],
     resolve:{
       alias:[
-        {find:"@src",replacement:resolve("src")},
+        {find:"@src",replacement:resolve("./src")},
         {find:"@com",replacement:resolve("src/components")}
       ],
       extensions:['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json']

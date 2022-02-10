@@ -10,14 +10,17 @@
   },
   "dependencies": {
     "@antv/g2": "^4.1.41",
+    "@vue/cli-plugin-unit-jest": "^4.5.15",
     "aplayer": "^1.10.1",
     "axios": "^0.24.0",
     "better-scroll": "^2.4.2",
     "element-plus": "^1.3.0-beta.9",
     "esbuild-windows-64": "^0.13.15",
     "lib-flexible": "^0.3.2",
+    "moment": "^2.29.1",
     "postcss-pxtorem": "^6.0.0",
     "sass": "^1.43.4",
+    "vconsole": "^3.11.2",
     "vite-plugin-vconsole": "^1.1.0",
     "vue": "^3.2.16",
     "vue-router": "^4.0.12"
@@ -30,7 +33,7 @@
     "eslint-plugin-vue": "^8.0.3",
     "lint-staged": "^12.0.2",
     "prettier": "^2.4.1",
-    "typescript": "^4.3.5",
+    "typescript": "^4.5.2",
     "vite": "^2.6.4",
     "vite-plugin-style-import": "^1.3.0",
     "vue-tsc": "^0.3.0"

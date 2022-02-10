@@ -1,6 +1,10 @@
 //全局变量配置
 $theme-color:#ff4c21;
 $headerHeight:100px;
+html,body {
+    margin: 0;
+    padding: 0;
+}
 .d-flex{
     display: flex;
 }

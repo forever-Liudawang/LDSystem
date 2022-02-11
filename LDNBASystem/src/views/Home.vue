@@ -10,7 +10,6 @@ onMounted(async () =>{
     const list = resp.payload.dates || []
     matchList.value = list;
   }
-  console.log(resp,"resp==")
 })
 </script>
 
@@ -20,7 +19,6 @@ onMounted(async () =>{
       <div class="title">unstopable</div>
       <video controls="controls"  src="/src/assets/bg.mp4" poster="/src/assets/bg.jpg" style="width: 100%;margin-top: 20px;border-radius: 2px;" autoplay loop></video>
     </div>
-    
     <div class="btn">
       <button class="learn-more">
         <span class="circle" aria-hidden="true">
@@ -30,10 +28,9 @@ onMounted(async () =>{
       </button>
     </div>
     <div class="match">
-      <span>赛程</span>
-      <MatchList/>
+      <span class="title">赛程</span>
+      <MatchList :matchList="matchList"/>
     </div>
-    <!-- <img style="width: 100%; height: 100%" src="/src/assets/bg.jpg" alt="" /> -->
   </div>
 </template>
 
@@ -42,16 +39,19 @@ onMounted(async () =>{
   position: relative;
   background-color: #ececec;
   display: flex;
-  justify-content: ce;
+  justify-content: center;
+  background-image: url("../assets/bg.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
   .card {
     position: absolute;
     left: 10%;
-    top: 18%;
-    width: 25%;
-    height: 50%;
+    top: 10%;
+    width: 28%;
+    height: 60%;
     border-radius: 30px;
     background: #e0e0e0;
-    box-shadow: 15px 15px 30px #bebebe, -15px -15px 30px #ffffff;
+    box-shadow: 5px 5px 10px #bebebe, -2px -2px 5px #ffffff;
     .title {
       border-radius: 30px;
       padding: 40px 0;
@@ -158,16 +158,34 @@ onMounted(async () =>{
       color: #fff;
     }
   }
+  .sign{
+    position: absolute;
+    right: 18%;
+    top: 10%;
+    z-index: 1;
+    font-size: 50px;
+    transform: translate3d(0px, 0px, 1px);
+    visibility: inherit;
+    opacity: 1;
+    font-weight: bold;
+    /* font-family: "plantc", "Source Han Serif", serif; */
+    color:#000;
+     text-shadow: -2px -4px white, 4px 2px #bebebe;
+  }
   .match{
+    .title{
+      font-size: 20px;
+      font-weight: bold;
+    }
     position: absolute;
     padding: 24px 20px;
     right: 10%;
-    top: 18%;
+    bottom: 10%;
     width: 25%;
     height: 50%;
     border-radius: 30px;
-    background: #e0e0e0;
-    box-shadow: 15px 15px 30px #bebebe, -15px -15px 30px #ffffff;
+    background: #fff;
+    box-shadow: 5px 5px 10px #bebebe, -2px -2px 5px #ffffff;
   }
 }
 </style>

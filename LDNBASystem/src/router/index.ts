@@ -10,6 +10,14 @@ const routes:RouteRecordRaw[] = [
         },
         // component: ()=>import("../components/HelloWorld.vue")
     },
+    {
+        path: "/chart",
+        name: "chart",
+        component: ():Promise<typeof import("*.vue")> => import('@src/views/Chart.vue'),
+        meta: {
+            keepAlive: false //设置页面是否需要使用缓存
+        },
+    }
 ]
 const history = createWebHashHistory()
 const router = createRouter({

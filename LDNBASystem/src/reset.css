@@ -9,3 +9,7 @@ html,body {
 .h-full{
     height: 100%;
 }
+a{
+    outline: none;
+    text-decoration: none;
+}

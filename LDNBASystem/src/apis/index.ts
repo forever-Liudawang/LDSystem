@@ -1,7 +1,7 @@
 import request from "../utils/request"
 import {IHttpResponse} from "@src/utils/types"
 import axios,{ AxiosPromise } from "axios"
-import {matchApi} from "@src/config"
+import {matchApi,athleteApi} from "@src/config"
 // const params = {
 //     conference: "All", western eastern  === 西部 东部 
 //     country: "All",
@@ -23,15 +23,9 @@ import {matchApi} from "@src/config"
  * @param data 
  * @returns 
  */
-export const getRecommendArticle = async (data:object={}):Promise<IHttpResponse<any[]>>=>{
+export const getAthleteData = async () =>{
     return await request({
-        url:'/article/getRecommendArticle',
-        method: "get"
-    })
-}
-export const test = async () =>{
-    return await axios({
-        url:"https://china.nba.cn/stats2/league/playerstats.json",
+        url:athleteApi,
         method:"GET",
         params:{
             conference: "All",

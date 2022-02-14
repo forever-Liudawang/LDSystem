@@ -49,7 +49,6 @@ export const getAthleteData = async (params:IParams = {statType: 0}) =>{
             country: "All",
             individual: "All",
             locale: "zh_CN",
-            pageIndex: 0,
             position: "All",
             qualified: false,
             season: "",
@@ -58,7 +57,10 @@ export const getAthleteData = async (params:IParams = {statType: 0}) =>{
             statType: params.statType,
             team: "warriors",
             total: "perGame",
-            pageSize: 20
+            paging:{
+                pageIndex: 0,
+                pageSize: 20
+            }
         }
     })
 }

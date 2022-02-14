@@ -6,17 +6,17 @@ import Checks from '@src/components/Checks.vue'
 const currentDate = ref(new Date())
 const currentStat = ref({ prop: 'points', label: '得分', status: true })
 const map = new Map()
-map.set("points","pointsPg")
-map.set("rebounds","rebsPg")
-map.set("assists","assistsPg")
-map.set("blocks","blocksPg")
-map.set("steals","stealsPg")
-map.set("fouls","foulsPg")
-map.set("turnovers","turnoversPg")
-map.set("mins","minsPg")
-map.set("efficiency","efficiency")
-map.set("tppct","tppct")
-map.set("ftpct","ftpct")
+map.set('points', 'pointsPg')
+map.set('rebounds', 'rebsPg')
+map.set('assists', 'assistsPg')
+map.set('blocks', 'blocksPg')
+map.set('steals', 'stealsPg')
+map.set('fouls', 'foulsPg')
+map.set('turnovers', 'turnoversPg')
+map.set('mins', 'minsPg')
+map.set('efficiency', 'efficiency')
+map.set('tppct', 'tppct')
+map.set('ftpct', 'ftpct')
 const list = ref([
   { prop: 'points', label: '得分', status: false },
   { prop: 'rebounds', label: '篮板', status: false },
@@ -43,8 +43,7 @@ const handleChange = (e: any, prop: string) => {
   list.value = val
   const stat = val.filter((item) => item.status)
   currentStat.value = stat[0]
-  console.log('currentStat.value :>> ', currentStat.value);
-  initEcharts({ statType: currentStat.value.prop?(currentStat.value.prop as any):0 })
+  initEcharts({ statType: currentStat.value ? (currentStat.value.prop as any) : 0 })
 }
 async function initEcharts(params: IParams = { statType: 0 }) {
   const resp = await getAthleteData(params)
@@ -58,18 +57,30 @@ async function initEcharts(params: IParams = { statType: 0 }) {
     const data: any[] = resp.payload.players || []
     for (let i = 0; i < data.length; i++) {
       xData.push(data[i].playerProfile.displayName)
-      yData.push(data[i].statAverage[map.get(currentStat.value.prop)])
+      yData.push(
+        {
+        value:data[i].statAverage[map.get(currentStat.value ? currentStat.value.prop : 'points')],
+        data:data[i],
+        label:{backgroundColor:{image:`https://res.nba.cn/media/img/players/head/260x190/${data[i].playerProfile.playerId}.png`,width:"100px",height:"100px"}}}
+        )
     }
     option = {
       xAxis: {
         type: 'category',
-        data: xData
+        data: xData,
+        name:"姓名"
       },
       yAxis: {
-        type: 'value'
+        type: 'value',
+        name: "得分",
+        
       },
-      tooltip:{
+      tooltip: {
         show: true,
+        trigger: 'axis',
+        axisPointer: {
+          type: 'shadow'
+        }
       },
       series: [
         {
@@ -78,7 +89,32 @@ async function initEcharts(params: IParams = { statType: 0 }) {
           showBackground: true,
           backgroundStyle: {
             color: 'rgba(180, 180, 180, 0.2)'
-          }
+          },
+          barCategoryGap:'50%',
+          itemStyle: {
+            borderRadius: 4
+          },
+          // label: {
+          //   show: true, // 开启显示
+          //   rotate: 0, // 旋转70度
+          //   position: 'top', // 在上方显示
+          //   distance: 25, // 距离图形元素的距离。当 position 为字符描述值（如 'top'、'insideRight'）时候有效。
+          //   verticalAlign: 'middle',
+          //   formatter: (params)=>{
+          //     console.log('params', params)
+          //     return "";
+          //   }
+          //   // formatter: ['{b|}'].join('\n'),
+          //   // rich: {
+          //   //   b: {
+          //   //     backgroundColor: {
+          //   //       image: 'https://res.nba.cn/media/img/players/head/260x190/201939.png'
+          //   //     },
+          //   //     height: 42,
+          //   //     width: 42
+          //   //   },
+          //   // }
+          // }
         }
       ]
     }
@@ -96,7 +132,7 @@ onMounted(async () => {
       <Checks :list="list" :handleChange="handleChange" />
     </div>
     <div class="card">
-      <div id="mountNode" style="width: 100%; height: 100%"></div>
+      <div id="mountNode" style="height: 100%; width: 100%"></div>
     </div>
   </div>
 </template>

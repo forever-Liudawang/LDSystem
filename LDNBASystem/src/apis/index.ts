@@ -23,7 +23,24 @@ import {matchApi,athleteApi} from "@src/config"
  * @param data 
  * @returns 
  */
-export const getAthleteData = async () =>{
+ export enum statType {
+    "points",
+    "rebounds",
+    "assists",
+    "blocks",
+    "steals",
+    "fouls",
+    "turnovers",
+    "mins",
+    "efficiency",
+    "tppct",
+    "ftpct",
+}
+export interface IParams {
+    statType:statType | 0
+}
+
+export const getAthleteData = async (params:IParams = {statType: 0}) =>{
     return await request({
         url:athleteApi,
         method:"GET",
@@ -38,9 +55,10 @@ export const getAthleteData = async () =>{
             season: "",
             seasonType: 2,
             split: "All Team",
-            statType: "points",
+            statType: params.statType,
             team: "warriors",
             total: "perGame",
+            pageSize: 20
         }
     })
 }

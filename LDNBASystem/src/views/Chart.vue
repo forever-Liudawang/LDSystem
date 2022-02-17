@@ -4,7 +4,7 @@ import { getAthleteData, IParams, statType } from '@src/apis/index'
 import * as echarts from 'echarts'
 import Checks from '@src/components/Checks.vue'
 const currentDate = ref(new Date())
-const currentStat = ref({ prop: 'points', label: '得分', status: true })
+const currentStat = ref<any>({ prop: 'points', label: '得分', status: true })
 const map = new Map()
 map.set('points', 'pointsPg')
 map.set('rebounds', 'rebsPg')
@@ -53,6 +53,7 @@ async function initEcharts(params: IParams = { statType: 0 }) {
   const chartDom = document.getElementById('mountNode')!
   const myChart = echarts.init(chartDom)
   let option: EChartsOption
+  console.log('currentStat.label', currentStat.label)
   if (resp && resp.payload) {
     const data: any[] = resp.payload.players || []
     for (let i = 0; i < data.length; i++) {
@@ -61,8 +62,19 @@ async function initEcharts(params: IParams = { statType: 0 }) {
         {
         value:data[i].statAverage[map.get(currentStat.value ? currentStat.value.prop : 'points')],
         data:data[i],
-        label:{backgroundColor:{image:`https://res.nba.cn/media/img/players/head/260x190/${data[i].playerProfile.playerId}.png`,width:"100px",height:"100px"}}}
-        )
+        label:{
+          formatter: [
+              '{a|}',
+          ].join('\n'),
+          rich:{
+            a:{
+              backgroundColor: {
+                image: `https://res.nba.cn/media/img/players/head/260x190/${data[i].playerProfile.playerId}.png`
+            },
+            height: 36
+            }
+          }
+        }})
     }
     option = {
       xAxis: {
@@ -72,8 +84,7 @@ async function initEcharts(params: IParams = { statType: 0 }) {
       },
       yAxis: {
         type: 'value',
-        name: "得分",
-        
+        name: currentStat.value.label,
       },
       tooltip: {
         show: true,
@@ -94,27 +105,27 @@ async function initEcharts(params: IParams = { statType: 0 }) {
           itemStyle: {
             borderRadius: 4
           },
-          // label: {
-          //   show: true, // 开启显示
-          //   rotate: 0, // 旋转70度
-          //   position: 'top', // 在上方显示
-          //   distance: 25, // 距离图形元素的距离。当 position 为字符描述值（如 'top'、'insideRight'）时候有效。
-          //   verticalAlign: 'middle',
-          //   formatter: (params)=>{
-          //     console.log('params', params)
-          //     return "";
-          //   }
-          //   // formatter: ['{b|}'].join('\n'),
-          //   // rich: {
-          //   //   b: {
-          //   //     backgroundColor: {
-          //   //       image: 'https://res.nba.cn/media/img/players/head/260x190/201939.png'
-          //   //     },
-          //   //     height: 42,
-          //   //     width: 42
-          //   //   },
-          //   // }
-          // }
+          label: {
+            show: true, // 开启显示
+            rotate: 0, // 旋转70度
+            position: 'top', // 在上方显示
+            distance: 25, // 距离图形元素的距离。当 position 为字符描述值（如 'top'、'insideRight'）时候有效。
+            verticalAlign: 'middle',
+            // formatter: (params)=>{
+            //   console.log('params', params)
+            //   return "";
+            // }
+            // formatter: ['{b|}'].join('\n'),
+            // rich: {
+            //   b: {
+            //     backgroundColor: {
+            //       image: 'https://res.nba.cn/media/img/players/head/260x190/201939.png'
+            //     },
+            //     height: 42,
+            //     width: 42
+            //   },
+            // }
+          }
         }
       ]
     }

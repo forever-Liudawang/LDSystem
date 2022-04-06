@@ -68,7 +68,7 @@
                     <span class="play-btn play-comment" @click="jumpComment"><i class="iconfont icon-comment"></i> 评论</span>
                 </div>
                 <div class="song-lyric">
-                    <Lyrics :sId="sId" local="page"></Lyrics>
+                    <Lyrics :sId="sId" :currentTime="currentTime"></Lyrics>
                 </div>
                 <div class="song-comments" ref=comment>
                     <Comments :type="type" :id="sId"></Comments>
@@ -79,7 +79,7 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations, mapActions } from 'vuex'
+import { mapGetters, mapMutations, mapActions, mapState } from 'vuex'
 import { formatSongInfo } from '@utils/song'
 import Lyrics from '@components/common/lyrics.vue'
 import Comments from '@components/common/comments.vue'
@@ -110,6 +110,7 @@ export default {
     // 监听属性 类似于data概念
     computed: {
         ...mapGetters(['isLogin', 'playList', 'playIndex', 'isPlayed']),
+        ...mapState(['currentTime']),
         isCurSong () {
             return this.isPlayed && this.curSongInfo && this.curSongInfo.id === this.sId
         },
@@ -471,6 +472,7 @@ export default {
 
 .song-lyric {
     margin: 30px 0 10px;
+    height: 300px;
     overflow-y: auto;
 }
 

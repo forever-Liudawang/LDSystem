@@ -158,7 +158,8 @@ export default {
         ...mapMutations({
             setPlayStatus: 'SET_PLAYSTATUS',
             setPlayIndex: 'SET_PLAYINDEX',
-            setPlayList: 'SET_PLAYLIST'
+            setPlayList: 'SET_PLAYLIST',
+            setCurrentTime: 'setCurrentTime'
         }),
         // 音频播放/暂停/上一首/下一首事件
         audioHandler (type) {
@@ -175,6 +176,7 @@ export default {
                 return
             }
             this.currentTime = e.target.currentTime
+            this.setCurrentTime(e.target.currentTime)
         },
         // 解决刷新页面时候，音频准备就绪
         canplaySong (e) {

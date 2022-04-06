@@ -95,6 +95,7 @@ export default {
           method: 'get'
         }).then(res => {
           if (res && res.data) {
+            // console.log('res.data', res.data.replace(/\r/g, ''))
             this.formartLyric({ lyric: res.data.replace(/\r/g, '') })
           }
         })

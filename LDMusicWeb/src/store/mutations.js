@@ -46,6 +46,9 @@ const mutations = {
     },
     setJayChouList (state, val = []) {
       state.jayChouList = val
+    },
+    setCurrentTime (state, val = 0) {
+      state.currentTime = val
     }
 }
 export default mutations

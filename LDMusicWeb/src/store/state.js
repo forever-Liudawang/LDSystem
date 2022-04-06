@@ -9,5 +9,6 @@ export default {
     currentUserInfo: null,
     jayChouPlayStatus: false,
     jayChouPlayIndex: 0,
-    jayChouList: []
+    jayChouList: [],
+    currentTime: 0
 }

@@ -53,7 +53,6 @@ async function initEcharts(params: IParams = { statType: 0 }) {
   const chartDom = document.getElementById('mountNode')!
   const myChart = echarts.init(chartDom)
   let option: EChartsOption
-  console.log('currentStat.label', currentStat.label)
   if (resp && resp.payload) {
     const data: any[] = resp.payload.players || []
     for (let i = 0; i < data.length; i++) {
@@ -84,7 +83,7 @@ async function initEcharts(params: IParams = { statType: 0 }) {
       },
       yAxis: {
         type: 'value',
-        name: currentStat.value.label,
+        name: currentStat.value?currentStat.value.label:"" ,
       },
       tooltip: {
         show: true,
@@ -111,26 +110,15 @@ async function initEcharts(params: IParams = { statType: 0 }) {
             position: 'top', // 在上方显示
             distance: 25, // 距离图形元素的距离。当 position 为字符描述值（如 'top'、'insideRight'）时候有效。
             verticalAlign: 'middle',
-            // formatter: (params)=>{
-            //   console.log('params', params)
-            //   return "";
-            // }
-            // formatter: ['{b|}'].join('\n'),
-            // rich: {
-            //   b: {
-            //     backgroundColor: {
-            //       image: 'https://res.nba.cn/media/img/players/head/260x190/201939.png'
-            //     },
-            //     height: 42,
-            //     width: 42
-            //   },
-            // }
           }
         }
       ]
     }
     option && myChart.setOption(option)
   }
+  myChart.on('click',params=>{
+    console.log('params', params)
+  })
 }
 onMounted(async () => {
   initEcharts()

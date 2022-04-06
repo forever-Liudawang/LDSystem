@@ -228,6 +228,13 @@ export default {
                 this.init()
             },
             deep: true
+        },
+        curSongInfo: {
+                handler () {
+                  console.log('refresh===>>>>>')
+                  this.sId = this.curSongInfo.id
+                  this.init()
+                }
         }
     }
 }

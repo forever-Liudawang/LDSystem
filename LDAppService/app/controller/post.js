@@ -10,12 +10,12 @@ class PostController extends BaseController {
     const { ctx,logger,config} = this;
     const stream = await ctx.getFileStream()
     const filename = new Date().getTime() + path.extname(stream.filename).toLocaleLowerCase();
-    const target = path.join(this.config.baseDir, 'app/public', filename);
+    const target = path.join(this.config.baseDir, 'app/public/imgs', filename);
     const writeStream = fs.createWriteStream(target);
     const baseURl = config.$baseURL
     try {
         stream.pipe(writeStream)
-        ctx.body = this.success(baseURl + '/static/' + filename);
+        ctx.body = this.success(baseURl + '/imgs/' + filename);
     } catch (err) {
         //如果出现错误，关闭管道
         await sendToWormhole(stream);

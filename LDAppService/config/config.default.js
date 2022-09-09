@@ -2,6 +2,8 @@
 
 'use strict';
 const musicApi = require('./musicApi');
+const path =require('path')
+const fs = require('fs')
 /**
  * @param {Egg.EggAppInfo} appInfo app info
  */
@@ -23,7 +25,7 @@ module.exports = appInfo => {
     origin: '*',
   };
   // config.$baseURL = 'http://192.168.1.90:7001';
-  config.$baseURL = 'http://localhost:7005';
+  config.$baseURL = 'http://localhost:7002';
   config.musicApi = musicApi;
   // add your middleware config here
   config.middleware = ['handError'];
@@ -32,7 +34,7 @@ module.exports = appInfo => {
   // };
   config.static = {
     dir:[
-      {prefix: '/static',dir:path.join(appInfo.baseDir,"app/public")},
+      {prefix: '/static',dir:path.join(appInfo.baseDir,"app/public/h5/static")},
       {prefix: '/imgs',dir:path.join(appInfo.baseDir,"app/public/imgs")}
     ]
   };
@@ -43,9 +45,13 @@ module.exports = appInfo => {
     client: {
       // url: 'mongodb://localhost:27017/LDream',
       // url: 'mongodb://localhost:27017/HUPU',
-      url:'mongodb://110.42.186.20:9399/HUPU',
+      url:'mongodb://110.42.186.20:9399/LDBlog',
       options: {
         useNewUrlParser: true,
+        user: "admin",
+        pass: "19980719liuliu"
+        // useUnifiedTopology
+        // useUnifiedTopology:true
       },
     },
   };

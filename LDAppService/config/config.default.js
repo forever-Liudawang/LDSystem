@@ -34,7 +34,7 @@ module.exports = appInfo => {
     client: {
       // url: 'mongodb://localhost:27017/LDream',
       // url: 'mongodb://localhost:27017/HUPU',
-      url:'mongodb://110.42.186.20:9399/LDBlog',
+      url:'mongodb://110.42.186.20:9399/HUPU',
       options: {
         useNewUrlParser: true,
       },

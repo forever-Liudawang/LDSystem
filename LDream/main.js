@@ -14,5 +14,4 @@ const app = new Vue({
 	store,
     ...App
 })
-console.log(app,"app===>>>")
 app.$mount()

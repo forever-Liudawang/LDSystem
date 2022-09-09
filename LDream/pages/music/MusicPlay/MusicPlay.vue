@@ -103,6 +103,10 @@
 					this.duration = this.innerAudioContext.duration
 				})
 				this.innerAudioContext.onTimeUpdate(res=>{
+					if(!this.playing){
+						this.innerAudioContext.pause()
+						return
+					}
 					const percent = isNaN(this.innerAudioContext.currentTime / this.duration) ? 0 : this.innerAudioContext.currentTime / this.duration;
 					this.changePercent(percent)
 				})

@@ -256,12 +256,12 @@
 			"selectedIconPath":"static/musicS.png",
 			"text": "音乐"
 		},
-		{
-			"pagePath": "pages/video/index/index",
-			"iconPath":"static/video.png",
-			"selectedIconPath":"static/videoS.png",
-			"text": "视频"
-		},
+		// {
+		// 	"pagePath": "pages/video/index/index",
+		// 	"iconPath":"static/video.png",
+		// 	"selectedIconPath":"static/videoS.png",
+		// 	"text": "视频"
+		// },
 		{
 			"pagePath": "pages/center/index/index",
 			"iconPath":"static/center.png",

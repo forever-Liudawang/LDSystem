@@ -4,11 +4,14 @@
  * @param {Egg.Application} app - egg application
  */
 module.exports = app => {
-  const { router, controller } = app;
+  const {
+    router,
+    controller
+  } = app;
   router.get('/', controller.home.index);
   router.post('/uploadImg', controller.home.uploadImg);
 
-  
+
   //article
   router.post('/article/createArtice', controller.article.createArtice);
   router.get('/article/getArticleById', controller.article.getArticleById);
@@ -23,7 +26,7 @@ module.exports = app => {
   router.post('/article/switchRecommendArticle', controller.article.switchRecommendArticle);
   router.post('/article/saveDraft', controller.article.saveDraft);
   router.get('/article/getDraft', controller.article.getDraft);
-  
+
 
   //user
   router.post('/user/login', controller.user.login);
@@ -39,5 +42,8 @@ module.exports = app => {
   router.post('/email/insert', controller.email.insert);
   router.get('/email/getList', controller.email.getList);
 
-  
+  router.get('/form/getFormData', controller.dynamicTable.getFormData)
+  router.post('/test/add', controller.test.add)
+  router.get('/test/getList', controller.test.getList)
+  router.get('/test/getMenu', controller.test.getMenu)
 };

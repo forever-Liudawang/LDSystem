@@ -27,9 +27,18 @@ module.exports = appInfo => {
   config.musicApi = musicApi;
   // add your middleware config here
   config.middleware = ['handError'];
+  // config.static = {
+  //   prefix: '/static',
+  // };
   config.static = {
-    prefix: '/static',
+    dir:[
+      {prefix: '/static',dir:path.join(appInfo.baseDir,"app/public")},
+      {prefix: '/imgs',dir:path.join(appInfo.baseDir,"app/public/imgs")}
+    ]
   };
+  config.siteFile = {
+    "/hupu": fs.readFileSync(path.join(appInfo.baseDir,'app/public/h5/index.html')),
+  }
   config.mongoose = {
     client: {
       // url: 'mongodb://localhost:27017/LDream',

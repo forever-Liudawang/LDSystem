@@ -42,6 +42,12 @@ module.exports = app => {
   router.post('/email/insert', controller.email.insert);
   router.get('/email/getList', controller.email.getList);
 
+  //在线demo服务
+  router.post('/onlineDemo/add', controller.onlineDemo.add);
+  router.get('/onlineDemo/getList', controller.onlineDemo.getList);
+  router.post('/onlineDemo/update', controller.onlineDemo.update);
+  router.post('/onlineDemo/delete', controller.onlineDemo.delete);
+
   router.get('/form/getFormData', controller.dynamicTable.getFormData)
   router.post('/test/add', controller.test.add)
   router.get('/test/getList', controller.test.getList)

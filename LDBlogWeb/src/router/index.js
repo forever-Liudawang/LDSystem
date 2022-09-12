@@ -12,6 +12,7 @@ import Layout from '@/layout'
  * all roles can be accessed
  */
 export const constantRoutes = [
+
   {
     path: '/login',
     component: () => import('@/views/login/index'),
@@ -53,6 +54,17 @@ export const constantRoutes = [
     }]
   },
   {
+    path: '/demoC',
+    component: Layout,
+    redirect: '/createDemo',
+    children: [{
+      path: 'createDemo',
+      name: 'createDemo',
+      component: () => import('@/views/createDemo/index'),
+      meta: { title: 'demo列表', icon: 'createArticle' }
+    }]
+  },
+  {
     path: '/articleL',
     component: Layout,
     redirect: '/articleList',
@@ -80,6 +92,11 @@ export const constantRoutes = [
       component: () => import('@/views/feedBack/index'),
       meta: { title: '反馈信息', icon: 'articleList' }
     }]
+  },
+  {
+    path:'/sys',
+    component: () => import('@/views/systems/index'),
+    hidden: true
   },
   {
     path: 'external-link',

@@ -122,7 +122,7 @@
 						console.log(res);
 						const imgPath = res.tempFilePaths[0]
 						uni.uploadFile({
-							url: BaseURL + "/post/uploadFile",
+							url: BaseURL + "/post/uploadImg",
 							filePath: imgPath,
 							name: "file",
 							success: (res) => {
@@ -184,8 +184,12 @@
 								title:"发布成功",
 								icon:"none"
 							})
+							setTimeout(()=>{
+								uni.navigateBack({
+									delta: 1
+								})
+							},1500)
 						})
-						console.log(resp)
 					}
 				})
 			},

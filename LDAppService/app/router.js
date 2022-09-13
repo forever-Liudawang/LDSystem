@@ -17,6 +17,7 @@ module.exports = app => {
   router.get('/user/getUserById', controller.user.getUserById);
   
   router.post('/post/uploadFile', controller.post.uploadFile);
+  router.post('/post/uploadImg', controller.post.uploadImg);
   router.post('/post/insert', controller.post.insert);
   router.get('/post/getPost', controller.post.getList);
   router.post('/post/light', controller.post.light);

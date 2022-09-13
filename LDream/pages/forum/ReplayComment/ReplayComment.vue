@@ -102,7 +102,7 @@
 				    success: (res)=>{
 						const imgPath = res.tempFilePaths[0]
 						uni.uploadFile({
-							url: BaseURL + "/post/uploadFile",
+							url: BaseURL + "/post/uploadImg",
 							filePath: imgPath,
 							name: "file",
 							success: (res) => {

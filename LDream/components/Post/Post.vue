@@ -13,11 +13,11 @@
 		</view>
 		<view v-if="imgs.length>0" :class="['imgs','mt-2','d-flex',{'justify-between':surplusImg>=3}]" >
 			<u-image :class="{'ml-2':index>=1}"  @click.native.stop="handlePreviewImg(index)" v-for="(item,index) in imgs" :src="item" width="32%" height="200upx" ></u-image>
-			<view v-if="surplusImg>=3" class="imgMask" @tap.stop="handlePreviewImg(2)">
+			<view v-if="surplusImg>3" class="imgMask" @tap.stop="handlePreviewImg(2)">
 				<text class="num">+{{surplusImg-3}}</text>
 			</view>
 		</view>
-		<view class="comment w-full p-2 mt-2" >
+		<!-- <view class="comment w-full p-2 mt-2" >
 			<view class="d-flex justify-between">
 				<u-image src="/static/hotComment.png" width="60upx" mode="widthFix"></u-image>
 				<view class="d-flex align-center">
@@ -29,7 +29,7 @@
 				<text class="nickname">斯蒂芬库里</text>: &nbsp;
 				<text class="commentContent">斯蒂芬库里斯蒂芬库里斯蒂芬库里斯蒂芬库里斯蒂芬库里</text>
 			</view>
-		</view>
+		</view> -->
 		<view class=" util d-flex justify-around mt-2" @tap.stop="stop" @click="handleTo()">
 			<view class="d-flex align-center" @click="handleShare">
 				<u-image class="mr-1" src="/static/share.png" width="40upx" mode="widthFix"></u-image>

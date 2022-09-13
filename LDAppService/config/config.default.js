@@ -34,12 +34,12 @@ module.exports = appInfo => {
   // };
   config.static = {
     dir:[
-      {prefix: '/static',dir:path.join(appInfo.baseDir,"app/public/h5/static")},
+      {prefix: '/static',dir:path.join(appInfo.baseDir,"app/public/hupu/static")},
       {prefix: '/imgs',dir:path.join(appInfo.baseDir,"app/public/imgs")}
     ]
   };
   config.siteFile = {
-    "/hupu": fs.readFileSync(path.join(appInfo.baseDir,'app/public/h5/index.html')),
+    "/hupu": fs.readFileSync(path.join(appInfo.baseDir,'app/public/hupu/index.html')),
   }
   config.mongoose = {
     client: {

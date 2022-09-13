@@ -34,7 +34,7 @@ module.exports = appInfo => {
   // };
   config.static = {
     dir:[
-      {prefix: '/static',dir:path.join(appInfo.baseDir,"app/public/hupu/static")},
+      {prefix: '/hupu/static',dir:path.join(appInfo.baseDir,"app/public/hupu/static")},
       {prefix: '/imgs',dir:path.join(appInfo.baseDir,"app/public/imgs")}
     ]
   };

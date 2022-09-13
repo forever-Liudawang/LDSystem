@@ -1,6 +1,6 @@
 // const BaseURL = "http://192.168.1.90:7001"
 // const BaseURL = "http://andy.lmytest.top/appService"
-const BaseURL = "http://127.0.0.1/appService"
+const BaseURL = "http://andy.lmytest.top/appService"
 // const BaseURL = "http://123.56.115.178"
 
 const request = (options)=>{

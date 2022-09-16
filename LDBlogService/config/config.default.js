@@ -41,6 +41,7 @@ module.exports = appInfo => {
     "/Ldmusic": fs.readFileSync(path.join(appInfo.baseDir,'app/public/music/index.html')),
     "/app": fs.readFileSync(path.join(appInfo.baseDir,'app/public/app/index.html')),
     "/ldui": fs.readFileSync(path.join(appInfo.baseDir,'app/public/ldui/index.html')),
+    "/hupu": fs.readFileSync(path.join(appInfo.baseDir,'app/public/hupu/index.html')),
   }
   config.multipart = {
 

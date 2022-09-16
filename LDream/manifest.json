@@ -75,7 +75,7 @@
         "title" : "LDream",
         "domain" : "",
         "router" : {
-            "base" : "/hupu/static"
+            "base" : "/static/hupu"
         }
     }
 }

@@ -1,6 +1,7 @@
 /* eslint valid-jsdoc: "off" */
 
 const fs = require("fs")
+const musicApi = require('./musicApi');
 const path = require("path")
 'use strict';
 /**
@@ -25,6 +26,7 @@ module.exports = appInfo => {
   };
   // config.$baseURL = 'http://192.168.1.90:7001';
   config.$baseURL = 'http://localhost:7001';
+  config.musicApi = musicApi;
   // add your middleware config here
   config.middleware = [ 'handError' ];
   config.static = {
@@ -56,6 +58,13 @@ module.exports = appInfo => {
       },
     },
   };
+  config.cluster = {
+    listen: {
+      path: '',
+      port: 8001,
+      hostname: '127.0.0.1', // 0.0.0.0
+    }
+  }
   // config.cluster = {
   //   listen: {
   //     path: '',

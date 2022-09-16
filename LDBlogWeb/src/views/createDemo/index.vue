@@ -11,12 +11,14 @@
               size="mini"
               type="danger"
               @click="handleDelete(scope.$index, scope.row)"
+              v-permission="{role:'admin',type:'btn'}"
               >删除</el-button
             >
             <el-button
               size="mini"
               type="primary"
               @click="handleEdit(scope.$index, scope.row)"
+              v-permission="{role:'admin',type:'btn'}"
               >编辑</el-button
             >
           </template>
@@ -58,12 +60,8 @@
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-button type="primary" @click="submitForm('demoModel')"
-              >提交</el-button
-            >
-            <el-button type="primary" @click="resetForm('demoModel')"
-              >重置</el-button
-            >
+            <el-button type="primary" @click="submitForm('demoModel')" v-permission="{role:'admin',type:'btn'}">提交</el-button>
+            <el-button type="primary" @click="resetForm('demoModel')" v-permission="{role:'admin',type:'btn'}">重置</el-button>
           </el-col>
         </el-row>
       </el-form>

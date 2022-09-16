@@ -36,7 +36,7 @@
           </el-col>
           <el-col :span="12">
             <div style="display:flex;align-items: flex-start">
-              <el-form-item label="文章图片" prop="coverImg" style="width:60%">
+              <el-form-item label="文章图片" prop="coverImg" style="width:60%" v-permission="{role:'admin',type:'btn'}">
                 <el-upload
                   class="avatar-uploader"
                   :action="uploadImgUrl"
@@ -49,9 +49,9 @@
                 </el-upload>
               </el-form-item>
               <div class="btns">
-                <el-button style="height:40px" type="primary" @click="submitForm('articleModel')">发布文章</el-button>
-                <el-button style="height:40px;margin:2px 0" type="primary" @click="resetForm('articleModel')">重置文章</el-button>
-                <el-button style="height:40px;margin-left:0" type="primary" @click="saveDraft('articleModel')">保存草稿</el-button>
+                <el-button style="height:40px" type="primary" @click="submitForm('articleModel')" v-permission="{role:'admin',type:'btn'}">发布文章</el-button>
+                <el-button style="height:40px;margin:2px 0" type="primary" @click="resetForm('articleModel')" v-permission="{role:'admin',type:'btn'}">重置文章</el-button>
+                <el-button style="height:40px;margin-left:0" type="primary" @click="saveDraft('articleModel')" v-permission="{role:'admin',type:'btn'}">保存草稿</el-button>
               </div>
             </div>
           </el-col>

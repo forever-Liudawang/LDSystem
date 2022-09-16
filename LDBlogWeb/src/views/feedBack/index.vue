@@ -27,7 +27,7 @@
         <el-table-column prop="replayStatus" label="回复状态" width="160">
           <template slot-scope="scope">
             <el-button v-if="scope.row.replayStatus" type="success" size="mini">已回复</el-button>
-            <el-button v-else type="warning" size="mini">未回复</el-button>
+            <el-button v-else type="warning" size="mini" >未回复</el-button>
           </template>
         </el-table-column>
         <el-table-column label="操作" width="160">
@@ -36,6 +36,7 @@
               type="primary"
               size="mini"
               @click="handleReplay(scope.$index, scope.row)"
+              v-permission="{role:'admin',type:'btn'}"
             >回复</el-button>
           </template>
         </el-table-column>

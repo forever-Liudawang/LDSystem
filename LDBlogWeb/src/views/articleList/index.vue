@@ -50,11 +50,13 @@
             <el-button
               size="mini"
               @click="handleEdit(scope.$index, scope.row)"
+              v-permission="{role:'admin',type:'btn'}"
             >编辑</el-button>
             <el-button
               size="mini"
               type="danger"
               @click="handleDelete(scope.$index, scope.row)"
+              v-permission="{role:'admin',type:'btn'}"
             >删除</el-button>
           </template>
         </el-table-column>

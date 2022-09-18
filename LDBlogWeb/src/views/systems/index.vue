@@ -35,6 +35,9 @@ export default {
       const resp = await this.$http({
         url: "/onlineDemo/getList",
         method: "get",
+        params: {
+          pageSize: 10,
+        },
       });
       if (resp && resp.success) {
         this.tableData = resp.data;
